@@ -12,7 +12,7 @@ Let's look at each one.
 
 ### 1. Bootstrap
 In this phase you're thinking what jobs will you run, their structure and the data that they will bring in. 
-If you look in the bootstrap folder, it contains the bootstrap_manifest.json, this is the only thing you need to concern yourself with. There is another file bootstrap.py, this takes this manifest and orchestrates the bootstrap. It maybe instructive to take a look at it, in particular the run function. This gives you an idea of the **workflow**.
+If you look in the bootstrap folder, it contains the bootstrap_manifest.json, this is the only thing you need to concern yourself with. There is another file bootstrap.py, this takes the manifest and orchestrates the bootstrap. It maybe instructive to take a look at it, in particular the **run** function. This gives you an idea of the **workflow**.
 
 ```
 def run(config_file, end_point, function_url, partner_id):
@@ -38,7 +38,7 @@ Now, if you open the bootstrap_manifest.json. You'll find 4 elements
 * add_data_models
 * add_job_types
 
-The way to think about extended types, is having an API exposed to CRUD enums. It allows the APIs to do type checking. Data with only defined types can be entered in the system. This goes a long way in preventing accidental typos, other inaccuracies etc. to enter the system.
+The way to think about extended types, is having an API exposed to CRUD enums into the system. It allows some level of type checking while ingesting data. Data with only defined types can be entered in the system. This goes a long way in preventing accidental typos, other inaccuracies etc. to enter the system.
 
 ##### add_extended_measure_types
 This is where you look at what's already defined and what else you need. Once, you have finalized on the data that you need, you need to figure out which **measures** do not exist in the system. Here the sample is for weather partner NOAA. These are the missing measures under ExtendedTypes>key=WeatherMeasureType
