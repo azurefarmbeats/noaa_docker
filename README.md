@@ -130,7 +130,7 @@ This is where you add the required (one or more) data models to the system. Sinc
 ```
 
 #### add_job_types
-Finally, you add your **job** definition(s) as job types. For example, you want to add a get_weather_data job, which gets weather data for a given location (lat, long) for a given date range. All of these you will see in the pipeline parameters. In the background this creates a [Azure Data Factory](https://azure.microsoft.com/en-in/resources/videos/azure-data-factory-overview/) pipeline with the provided parameters. You don't need to worry about the other pipeline details like resourceGroupName, dataFactoryName, pipelineName. Since the pipeline will be created for you when you set the boolean isPartnerJobType to true, these values will be overwritten once the pipeline is provisioned.
+Finally, you add your **job** definition(s) as job types. For example, you want to add a get_weather_data job, which gets weather data for a given location (lat, long) for a given date range. All of these you will see in the pipeline parameters. In the background, this creates a [Azure Data Factory](https://azure.microsoft.com/en-in/resources/videos/azure-data-factory-overview/) pipeline with the provided parameters. You don't need to worry about the other pipeline details like resourceGroupName, dataFactoryName, pipelineName. Since the pipeline will be created for you when you set the boolean isPartnerJobType to true, these values will be overwritten once the pipeline is provisioned.
 ```
 "add_job_types":[
         {
@@ -138,9 +138,9 @@ Finally, you add your **job** definition(s) as job types. For example, you want 
             "description": "Get weather data (NOAA ISD) - Azure open datasets",
             "isPartnerJobType": true,
             "pipelineDetails": {
-              "resourceGroupName": "abc",
-              "dataFactoryName": "abc",
-              "pipelineName": "abc",
+              "resourceGroupName": "anything",
+              "dataFactoryName": "anything",
+              "pipelineName": "anything",
               "parameters": [
                 {
                   "name": "latitude",
