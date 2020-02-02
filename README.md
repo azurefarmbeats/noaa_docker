@@ -40,7 +40,7 @@ Now, if you open the bootstrap_manifest.json. You'll find 4 elements
 
 The way to think about extended types, is having an API exposed to CRUD enums into the system. It allows some level of type checking while ingesting data. Data with only defined types can be entered in the system. This goes a long way in preventing accidental typos, other inaccuracies etc. to enter the system.
 
-##### add_extended_measure_types
+#### add_extended_measure_types
 This is where you look at what's already defined and what else you need. Once, you have finalized on the data that you need, you need to figure out which **measures** do not exist in the system. Here the sample is for weather partner NOAA. These are the missing measures under ExtendedTypes>key=WeatherMeasureType
 ```
  "add_extended_measure_types":[
@@ -55,7 +55,7 @@ This is where you look at what's already defined and what else you need. Once, y
     ]
 ```
 
-##### add_extended_measure_units
+#### add_extended_measure_units
 Similar to the measures, you need to ensure that the required **units** for these measures exist in the system. Here the sample is for weather parther NOAA. These are the missing units under ExtendedTypes>key=WeatherMeasureUnit
 ```
   "add_extended_measure_units":[
@@ -64,7 +64,7 @@ Similar to the measures, you need to ensure that the required **units** for thes
     ]
 ```
 
-##### add_data_models
+#### add_data_models
 This is where you add the required (one or more) data models to the system. Since, this is an example for a weather partner (NOAA). What's added is a list of WeatherStationModels. Each weather station model as expected holds a list of weatherStationMeasures. This is the schema for your data. 
 
 ```
@@ -129,7 +129,7 @@ This is where you add the required (one or more) data models to the system. Sinc
     ]
 ```
 
-##### add_job_types
+#### add_job_types
 Finally, you add your **job** definition(s) as job types. For example, you want to add a get_weather_data job, which gets weather data for a given location (lat, long) for a given date range. All of these you will see in the pipeline parameters. In the background this creates a [Azure Data Factory](https://azure.microsoft.com/en-in/resources/videos/azure-data-factory-overview/) pipeline with the provided parameters. You don't need to worry about the other pipeline details like resourceGroupName, dataFactoryName, pipelineName. Since the pipeline will be created for you when you set the boolean isPartnerJobType to true, these values will be overwritten once the pipeline is provisioned.
 ```
 "add_job_types":[
