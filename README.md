@@ -209,3 +209,6 @@ In the jobs folder, you'll see the actual job code. Again, it may be instructive
 
 ```
 This is where you write the code that will pull data from your source and push it to farmbeats. In case of NOAA, we are pulling the data from [Azure open datasets - NOAA ISD](https://azure.microsoft.com/en-in/services/open-datasets/catalog/noaa-integrated-surface-data/). Doing the processing required; we need to filter out the data based on provided location of interest (latitude, longitude) and then pushing this data to an [EventHub](https://docs.microsoft.com/en-us/azure/event-hubs/) in farmbeats.
+
+### 3. Deployment
+Finally comes deployment. Now, you have updated the bootstrap_manifest and implemented your jobs. You need to make the whole thing available to customers. This you do by containerizing the code. To that end, you have to implement your own docker file [documentation](https://docs.docker.com/develop/develop-images/dockerfile_best-practices/), this will enable you to build the docker image, which you can upload to a docker container registry of your choice. Ofcourse, we recommend you do so in dockerhub. Feel free to look at the dockerfile provided for the sample. It's build on top of an ubuntu base image, installs python, the required dependencies and copies the code.
