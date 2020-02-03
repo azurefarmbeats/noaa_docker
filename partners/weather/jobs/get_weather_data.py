@@ -4,7 +4,9 @@ from absl import flags
 from datetime import datetime
 from dateutil import parser
 import math
-import numpy as np
+import asyncio
+from azure.eventhub.aio import EventHubProducerClient
+from azure.eventhub import EventData
 
 # Local imports
 from datahub_lib.framework.fb_api import FarmbeatsApi
@@ -20,16 +22,17 @@ flags.DEFINE_string("end_date", None, "End date")
 flags.DEFINE_string("latitude", None, "Latitude")
 flags.DEFINE_string("longitude", None, "Longitude")
 flags.DEFINE_string("weather_station_id", None, "User either provides lat long/weather station id")
-flags.DEFINE_string("event_hub_connection_string", None, "The job outputs NOAA ISD data for the given date range to event hub")
+flags.DEFINE_string("eventhub_connection_string", None, "The job outputs NOAA ISD data for the given date range to event hub")
 flags.DEFINE_string("end_point",  None, "farmbeats api endpoint")
 flags.DEFINE_string("function_url", None, "function_url")
+flags.DEFINE_string("eventhub_name", None, "Name of the eventhub to push data to")
 
 # Shorthand for referring to flags
 FLAGS = flags.FLAGS
 
 class GetWeatherDataJob:
     '''
-    Object to fetch ISD weather data from Azure open datasets (NOAA ISD)
+    Class to fetch ISD weather data from Azure open datasets (NOAA ISD)
     '''
 
     # class constants
@@ -58,7 +61,29 @@ class GetWeatherDataJob:
         filtered_weather_data = weather_data_df[(weather_data_df['latitude'] == nearest_lat) & (weather_data_df['longitude'] == nearest_lon)]
 
         # push the data to eventhub
+        self.__push_weather_data_to_farmbeats(filtered_weather_data)
 
+
+    async def __send_to_eventhub(self, weather_data):
+        '''
+        Sends weather data to eventhub
+        '''
+        # Create a producer client to send messages to the event hub.
+        producer = EventHubProducerClient.from_connection_string(conn_str=FLAGS.eventhub_connection_string, 
+                                                                 eventhub_name=FLAGS.eventhub_name)
+        async with producer:
+            event_data_batch = await producer.create_batch()
+            # Add events to the batch
+            event_data_batch.add(EventData('json string'))
+            await producer.send_batch(event_data_batch)
+
+
+    def __push_weather_data_to_farmbeats(self, weather_data):
+        '''
+        Pushes weather data to farmbeats - ingests data
+        '''
+        loop = asyncio.get_event_loop()
+        loop.run_until_complete(self.__send_to_eventhub(weather_data))
 
     
     def __haversine_distance(self, origin, destination):
@@ -105,9 +130,6 @@ class GetWeatherDataJob:
         return (closest_lat, closest_lon)      
 
 
-
-    
-
 def main(argv):
     job = GetWeatherDataJob()
     # TODO - if there is weather station id provided, get lat long from there OR, get from the flags.
@@ -116,7 +138,3 @@ def main(argv):
 
 if __name__ == '__main__':
     app.run(main)
-   
-
-    
-
