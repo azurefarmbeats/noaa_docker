@@ -30,9 +30,9 @@ class Bootstrap:
         self.partner_id = partner_id
         # TODO: This needs to be initialized with function_url NOT aad creds
         fb_config = BaseConfig(end_point=end_point, 
-                        tenant_id="72f988bf-86f1-41af-91ab-2d7cd011db47",
-                        app_id="bb53f7d2-2a01-4558-a99b-9687721e05f7", 
-                        app_secret="GVb4:C.8/AU46[yGz6L:[zhxK4C=F[z-")
+                        tenant_id="",
+                        app_id="", 
+                        app_secret="")
         self.fb_api = FarmbeatsApi(config=fb_config)
         with open(config_file, "r") as conf:
             file_content = conf.read()
