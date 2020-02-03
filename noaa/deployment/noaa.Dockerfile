@@ -20,8 +20,8 @@ RUN cd $(dirname $(which python)) \
 
 
 # Copy the code
-RUN mkdir -p /usr/local/farmbeats/partners
-COPY partners /usr/local/farmbeats/partners
+RUN mkdir -p /usr/local/farmbeats/noaa
+COPY noaa /usr/local/farmbeats/noaa
 RUN mkdir -p /usr/local/farmbeats/datahub_lib
 COPY datahub_lib /usr/local/farmbeats/datahub_lib
 
