@@ -205,7 +205,7 @@ In the jobs folder, you'll see the actual job code. Again, it may be instructive
         filtered_weather_data = weather_data_df[(weather_data_df['latitude'] == nearest_lat) & (weather_data_df['longitude'] == nearest_lon)]
 
         # push the data to eventhub
-        self.__push_weather_data_to_farmbeats(filtered_weather_data, FLAGS.event_hub_connection_string)
+        self.__push_weather_data_to_farmbeats(filtered_weather_data)
 
 ```
 This is where you write the code that will pull data from your source and push it to farmbeats. In case of NOAA, we are pulling the data from [Azure open datasets - NOAA ISD](https://azure.microsoft.com/en-in/services/open-datasets/catalog/noaa-integrated-surface-data/). Doing the processing required; we need to filter out the data based on provided location of interest (latitude, longitude) and then pushing this data to an [EventHub](https://docs.microsoft.com/en-us/azure/event-hubs/) in farmbeats.
