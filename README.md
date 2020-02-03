@@ -1,4 +1,4 @@
-# partner_docker
+# noaa_docker
 
 This repo holds the partner docker code for NOAA. This allows AzureFarmbeats customers to get NOAA weather data in their farmbeats' installations.
 
