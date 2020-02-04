@@ -4,7 +4,7 @@ This repo holds the partner docker code for NOAA. This allows AzureFarmbeats cus
 
 ## How to use this sample and build your own docker
 
-If you're a partner. If you look in the noaa folder, you'll find three directories. These are the three things you need to think about. 
+If you're a partner. If you look in the partners folder, you'll find three directories. These are the three things you need to think about. 
 1. Bootstrap
 2. Jobs
 3. Deployment
