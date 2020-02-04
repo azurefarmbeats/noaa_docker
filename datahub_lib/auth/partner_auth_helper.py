@@ -3,6 +3,7 @@ import os
 import adal
 import time
 from datetime import datetime 
+import requests
 
 from datahub_lib.framework.logger import Logger
 from datahub_lib.auth.authentication_helper import AuthenticationHelper
@@ -15,7 +16,7 @@ class PartnerAuthHelper(AuthenticationHelper):
     '''
     def __init__(self, function_url:str):
         AuthenticationHelper.__init__(self)
-        self.function_code = function_url
+        self.function_url = function_url
 
 
     def get_access_token(self):
@@ -23,6 +24,10 @@ class PartnerAuthHelper(AuthenticationHelper):
         Generates the access token and returns it.
         :rtype: dict
         '''
-        # TODO: call azure function to get the access token.
-        pass
+        retry_count = 0
+        while (retry_count < 3):
+            res = requests.get(url=self.function_url)
+            if (res.status_code == 200):
+                return res.text
+        LOG.error("Couldn't get valid access token!")
 

@@ -7,11 +7,11 @@ import math
 import asyncio
 from azure.eventhub.aio import EventHubProducerClient
 from azure.eventhub import EventData
+from azureml.opendatasets import NoaaIsdWeather
 
 # Local imports
 from datahub_lib.framework.fb_api import FarmbeatsApi
 from datahub_lib.conf.baseconfig import BaseConfig
-from azureml.opendatasets import NoaaIsdWeather
 
 
 # Define flags used by this module. Mandatory flags first
@@ -63,18 +63,31 @@ class GetWeatherDataJob:
         # push the data to eventhub
         self.__push_weather_data_to_farmbeats(filtered_weather_data)
 
+    
+    def __process_weather_data_for_tsi(self, weather_data):
+        '''
+        Converts the weather data from Pandas data frame to that expected by TSI
+        '''
+        msgs = []
+        for row in weather_data.iterrows():
+            print(row)
+        return msgs
+
 
     async def __send_to_eventhub(self, weather_data):
         '''
         Sends weather data to eventhub
         '''
         # Create a producer client to send messages to the event hub.
-        producer = EventHubProducerClient.from_connection_string(conn_str=FLAGS.eventhub_connection_string, 
-                                                                 eventhub_name=FLAGS.eventhub_name)
+        producer = EventHubProducerClient.from_connection_string(conn_str="Endpoint=sb://eventhubnamespace-hpcnl.servicebus.windows.net/;SharedAccessKeyName=tsiroutes-tsi-eventhub;SharedAccessKey=w85JnnjyJCkEXvAq+zKdpVVw8tVNfDFfWZPos+VYXB4=;EntityPath=tsi-eventhub", 
+                                                                 eventhub_name="tsi-eventhub")
         async with producer:
             event_data_batch = await producer.create_batch()
+            # process the weather data and create the msgs 
+            msgs = self.__process_weather_data_for_tsi(weather_data)
             # Add events to the batch
-            event_data_batch.add(EventData('json string'))
+            for msg in msgs:
+                event_data_batch.add(EventData(msg))
             await producer.send_batch(event_data_batch)
 
 
@@ -138,3 +151,7 @@ def main(argv):
 
 if __name__ == '__main__':
     app.run(main)
+   
+
+    
+

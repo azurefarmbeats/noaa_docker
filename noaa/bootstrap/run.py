@@ -18,22 +18,16 @@ class Bootstrap:
 
     ADD_MEASURE_TYPES = "add_extended_measure_types"
     ADD_MEASURE_UNITS = "add_extended_measure_units"
-    ADD_WEATHER_STATION_MODELS = "add_weather_station_models"
+    ADD_WEATHER_STATION_MODELS = "add_data_models"
     ADD_JOB_TYPES = "add_job_types"
 
 
-    def __init__(self, config_file, end_point, function_url, partner_id):
+    def __init__(self, config_file, end_point, function_url):
         '''
         Initialize the bootstrap object - this has the required methods 
         to parse the manifest and onboard the partner on to farmbeats
         '''
-        self.partner_id = partner_id
-        # TODO: This needs to be initialized with function_url NOT aad creds
-        fb_config = BaseConfig(end_point=end_point, 
-                        tenant_id="",
-                        app_id="", 
-                        app_secret="")
-        self.fb_api = FarmbeatsApi(config=fb_config)
+        self.fb_api = FarmbeatsApi(endpoint=end_point, function_url=function_url)
         with open(config_file, "r") as conf:
             file_content = conf.read()
             self.bootstrap_manifest = json.loads(file_content)
@@ -88,8 +82,6 @@ class Bootstrap:
         Upserts the weather station models mentioned in the bootstrap_manifest
         '''
         # get the existing weather station models
-        # TODO - uncomment this; it's the right way to go.
-        # existing_weather_station_models = self.fb_api.get_weather_station_model_api().weather_station_model_get_all(partner_id=self.partner_id).to_dict()
         existing_weather_station_models = self.fb_api.get_weather_station_model_api().weather_station_model_get_all().to_dict()
 
         # get the weather station models to upsert
@@ -115,7 +107,7 @@ class Bootstrap:
         Upserts the partner job types mentioned in the bootstrap_manifest
         '''
         # get the existing job types for this partner.
-        existing_partner_job_types = self.fb_api.get_job_type_api().job_type_get_all(partner_id=self.partner_id).to_dict()
+        existing_partner_job_types = self.fb_api.get_job_type_api().job_type_get_all().to_dict()
 
         # get the job types to upsert
         partner_job_types = self.bootstrap_manifest[Bootstrap.ADD_JOB_TYPES]
@@ -135,9 +127,9 @@ class Bootstrap:
                 self.fb_api.get_job_type_api().job_type_create(input=job_type)
 
 
-def run(config_file, end_point, function_url, partner_id):
+def run(config_file, end_point, function_url):
     # create the bootstrap object - that will bootstrap the partner
-    bootstrap = Bootstrap(config_file=config_file, end_point=end_point, function_url=function_url, partner_id=partner_id)
+    bootstrap = Bootstrap(config_file=config_file, end_point=end_point, function_url=function_url)
     
     # add new extended measure types
     bootstrap.add_new_extended_measure_types()
@@ -155,6 +147,6 @@ def run(config_file, end_point, function_url, partner_id):
 if __name__ == '__main__':
     dir_path = os.path.dirname(os.path.realpath(__file__))
     file_path = os.path.join(dir_path, "bootstrap_manifest.json")
-    run(config_file=file_path, end_point=sys.argv[1], function_url=sys.argv[2], partner_id=sys.argv[3]) 
+    run(config_file=file_path, end_point=sys.argv[1], function_url=sys.argv[2]) 
     
     

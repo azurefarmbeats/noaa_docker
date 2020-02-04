@@ -39,23 +39,28 @@ class FarmbeatsApi:
     '''
     def __init__(self, config:BaseConfig=None, endpoint:str=None, function_url:str=None):
         self.configuration = Configuration()
+        self.partner_mode = False
         if config:
             # initialize the configuration
             self.configuration.host = config.api_endpoint
             self.auth_helper = FarmbeatsAuthHelper(api_endpoint = config.app_identifier_uri,
                 tenant_id = config.tenant_id, app_id = config.app_id,
                 app_client_secret = config.app_client_secret)
-        else: # initialize with endpoint or function_url
+        else: # initialize with endpoint and function_url
             if endpoint is None or function_url is None: 
                 raise ValueError("endpoint and function_url must be provided.")
             self.configuration.host = endpoint
             self.function_url = function_url
             self.auth_helper = PartnerAuthHelper(function_url)
+            self.partner_mode = True
     
 
     def __authenticate(self):
         self.configuration.api_key_prefix[Constants.AUTHORIZATION] = Constants.BEARER
-        self.configuration.api_key[Constants.AUTHORIZATION] = self.auth_helper.get_access_token()[Constants.ACCESS_TOKEN]
+        if (self.partner_mode):
+            self.configuration.api_key[Constants.AUTHORIZATION] = self.auth_helper.get_access_token()
+        else:
+            self.configuration.api_key[Constants.AUTHORIZATION] = self.auth_helper.get_access_token()[Constants.ACCESS_TOKEN]
         
 
     def get_alert_api(self):

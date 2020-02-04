@@ -13,7 +13,7 @@
         "Hectopascals",
         "Hours"
     ],
-    "add_weather_station_models":[
+    "add_data_models":[
         {
             "name": "noaa_isd",
             "description": "NOAA integrated surface database - weather data",

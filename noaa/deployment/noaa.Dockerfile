@@ -12,6 +12,7 @@ RUN python3.5 -m pip install pip --upgrade
 # Install dependency packages
 RUN pip3 install absl-py==0.7.1
 RUN pip3 install azureml-opendatasets==1.0.81
+RUN pip3 install azure-eventhub==5.0.0
 
 # Make some symlinksgit 
 RUN cd $(dirname $(which python)) \
@@ -20,11 +21,14 @@ RUN cd $(dirname $(which python)) \
 
 
 # Copy the code
-RUN mkdir -p /usr/local/farmbeats/partners
-COPY partners /usr/local/farmbeats/partners
+RUN mkdir -p /usr/local/farmbeats/noaa
+COPY noaa /usr/local/farmbeats/noaa
 RUN mkdir -p /usr/local/farmbeats/datahub_lib
 COPY datahub_lib /usr/local/farmbeats/datahub_lib
 
+# Add farmbeats to pythonpath
+ENV PYTHONPATH "${PYTHONPATH}:/usr/local/farmbeats"
+
 # Set the working directory
-WORKDIR /usr/local/farmbeats/partners
+WORKDIR /usr/local/farmbeats
 
