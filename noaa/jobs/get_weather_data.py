@@ -5,6 +5,7 @@ from datetime import datetime
 from dateutil import parser
 import math
 import asyncio
+import json
 from azure.eventhub.aio import EventHubProducerClient
 from azure.eventhub import EventData
 from azureml.opendatasets import NoaaIsdWeather
@@ -21,10 +22,9 @@ flags.DEFINE_string("start_date", None, "Start date")
 flags.DEFINE_string("end_date", None, "End date")
 flags.DEFINE_string("latitude", None, "Latitude")
 flags.DEFINE_string("longitude", None, "Longitude")
-flags.DEFINE_string("weather_station_id", None, "User either provides lat long/weather station id")
 flags.DEFINE_string("eventhub_connection_string", None, "The job outputs NOAA ISD data for the given date range to event hub")
 flags.DEFINE_string("end_point",  None, "farmbeats api endpoint")
-flags.DEFINE_string("function_url", None, "function_url")
+flags.DEFINE_string("get_access_token_url", None, "Azure function url to get the access token")
 flags.DEFINE_string("eventhub_name", None, "Name of the eventhub to push data to")
 
 # Shorthand for referring to flags
@@ -38,10 +38,11 @@ class GetWeatherDataJob:
     # class constants
     INT_MAX = 1e17
     INVALID_LAT_LON = 500
+    WEATHER_STATION_MODEL_NAME = "noaa_isd"
 
     
     def __init__(self):
-        pass
+        self.fb_api = FarmbeatsApi(endpoint=FLAGS.end_point, function_url=FLAGS.get_access_token_url)
 
 
     def get_weather_data(self, start_date, end_date, lat, lon):
@@ -64,39 +65,93 @@ class GetWeatherDataJob:
         self.__push_weather_data_to_farmbeats(filtered_weather_data)
 
     
-    def __process_weather_data_for_tsi(self, weather_data):
+    def __process_weather_data_for_tsi(self, weather_station_id, weather_data):
         '''
         Converts the weather data from Pandas data frame to that expected by TSI
         '''
         msgs = []
+        dummy_msg = json.loads('''{
+                                    "weatherstations": [
+                                        {
+                                        "id": "761d398a-26c7-4725-93cf-3a21c8de102c",
+                                        "weatherdata": [
+                                            {
+                                            "timestamp": "2020-01-29T12:27:10.8073883Z",
+                                            "forecastedtimestamp": "2020-01-28T12:27:10.8077528Z",
+                                            "temperature": 36.5
+                                            }
+                                        ]
+                                        }
+                                    ]
+                                }'''
+                            )
         for row in weather_data.iterrows():
-            print(row)
+            dummy_msg["weatherstations"][0]["id"] = weather_station_id
+            msgs.append(json.dumps(dummy_msg))
         return msgs
 
 
-    async def __send_to_eventhub(self, weather_data):
+    async def __send_to_eventhub(self, weather_station_id, weather_data):
         '''
         Sends weather data to eventhub
         '''
         # Create a producer client to send messages to the event hub.
-        producer = EventHubProducerClient.from_connection_string(conn_str="", 
-                                                                 eventhub_name="")
+        producer = EventHubProducerClient.from_connection_string(conn_str=FLAGS.eventhub_connection_string, 
+                                                                 eventhub_name="tsi-eventhub")
         async with producer:
             event_data_batch = await producer.create_batch()
             # process the weather data and create the msgs 
-            msgs = self.__process_weather_data_for_tsi(weather_data)
+            msgs = self.__process_weather_data_for_tsi(weather_station_id, weather_data)
             # Add events to the batch
             for msg in msgs:
                 event_data_batch.add(EventData(msg))
             await producer.send_batch(event_data_batch)
 
 
+    def __get_weather_station_model_id(self, name):
+        '''
+        returns the weather station model id, given the name
+        '''
+        wsms = self.fb_api.get_weather_station_model_api().weather_station_model_get_all(names=[name]).to_dict()
+        if (wsms):
+            return wsms["items"][0]["id"]
+        else:
+            # RAISE ERROR
+            return "not_found"
+
+
+    def __get_weather_station_id(self):
+        '''
+        checks if a weather station already exists for the location, 
+        if yes -> returns it's id.
+        Else, creates and returns the id.
+        '''
+        weather_stations = self.fb_api.get_weather_station_api().weather_station_get_all().to_dict()
+        for ws in weather_stations["items"]:
+            lat = ws["location"]["latitude"]
+            lon = ws["location"]["longitude"]
+            if (lat == FLAGS.latitude and lon == FLAGS.longitude):
+                # Found! - weather station for the given location already exists
+                return ws["id"]
+        
+        # doesn't exist - create weather station
+        weather_station_payload = {}
+        weather_station_payload["name"] = "NOAA_job_generated_ws_[" + FLAGS.latitude + "," + FLAGS.longitude + "]" 
+        weather_station_payload["weatherStationModelId"] = self.__get_weather_station_model_id(name=GetWeatherDataJob.WEATHER_STATION_MODEL_NAME)
+        weather_station_payload["location"] = { "latitude": FLAGS.latitude, "longitude": FLAGS.longitude}
+        if (FLAGS.farm_id):
+            weather_station_payload["farmid"] = FLAGS.farm_id
+        res = self.fb_api.get_weather_station_api().weather_station_create(input=weather_station_payload).to_dict()
+        return res["id"]
+        
+      
     def __push_weather_data_to_farmbeats(self, weather_data):
         '''
         Pushes weather data to farmbeats - ingests data
         '''
+        weather_station_id = self.__get_weather_station_id()
         loop = asyncio.get_event_loop()
-        loop.run_until_complete(self.__send_to_eventhub(weather_data))
+        loop.run_until_complete(self.__send_to_eventhub(weather_station_id, weather_data))
 
     
     def __haversine_distance(self, origin, destination):
@@ -145,8 +200,8 @@ class GetWeatherDataJob:
 
 def main(argv):
     job = GetWeatherDataJob()
-    # TODO - if there is weather station id provided, get lat long from there OR, get from the flags.
-    job.get_weather_data(start_date = FLAGS.start_date, end_date = FLAGS.end_date, lat=47.75, lon=96.85)
+    # get weather data
+    job.get_weather_data(start_date = FLAGS.start_date, end_date = FLAGS.end_date, lat=float(FLAGS.latitude), lon=float(FLAGS.longitude))
 
 
 if __name__ == '__main__':

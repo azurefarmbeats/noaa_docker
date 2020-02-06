@@ -78,9 +78,9 @@
             "description": "Get weather data (NOAA ISD) - Azure open datasets",
             "isPartnerJobType": true,
             "pipelineDetails": {
-              "resourceGroupName": "abc",
-              "dataFactoryName": "abc",
-              "pipelineName": "abc",
+              "resourceGroupName": "will_be_overwritten",
+              "dataFactoryName": "will_be_overwritten",
+              "pipelineName": "will_be_overwritten",
               "parameters": [
                 {
                   "name": "latitude",
@@ -93,12 +93,6 @@
                     "type": "String",
                     "isRequired": false,
                     "description": "Longitude for the point for which we want to fetch weather data"
-                },
-                {
-                  "name": "weather_station_id",
-                  "type": "String",
-                  "isRequired": false,
-                  "description": "weather station id (location) to get the data for - either [lat,long] or weather station id should be provided. Weather station is given preference if both are provided"
                 },
                 {
                     "name": "from",
