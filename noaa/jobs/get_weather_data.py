@@ -18,8 +18,8 @@ from datahub_lib.conf.baseconfig import BaseConfig
 # Define flags used by this module. Mandatory flags first
 # NOTE: Add 'allow_override=True' if same flags are created in multiple modules with dependency
 flags.DEFINE_string("farm_id", None, "This is optional and just for association")
-flags.DEFINE_string("start_date", None, "Start date")
-flags.DEFINE_string("end_date", None, "End date")
+flags.DEFINE_string("from", None, "Start date")
+flags.DEFINE_string("to", None, "End date")
 flags.DEFINE_string("latitude", None, "Latitude")
 flags.DEFINE_string("longitude", None, "Longitude")
 flags.DEFINE_string("eventhub_connection_string", None, "The job outputs NOAA ISD data for the given date range to event hub")
