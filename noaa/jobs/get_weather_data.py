@@ -114,7 +114,7 @@ class GetWeatherDataJob:
         '''
         # Create a producer client to send messages to the event hub.
         producer = EventHubProducerClient.from_connection_string(conn_str=FLAGS.eventhub_connection_string, 
-                                                                 eventhub_name="tsi-eventhub")
+                                                                 eventhub_name=FLAGS.eventhub_name)
         async with producer:
             event_data_batch = await producer.create_batch()
             # process the weather data and create the msgs 
