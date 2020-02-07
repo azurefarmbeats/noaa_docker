@@ -72,12 +72,15 @@ class GetWeatherDataJob:
         '''
         output = {}
         # get the timestamp
-        print(type(row["datetime"]))
-        row_datetime = datetime.fromtimestamp(row["datetime"])
-        output["timestamp"] = row_datetime.isoformat()
-
-
-        pass
+        output["timestamp"] = row["datetime"].isoformat()
+        output["Elevation"] = row["elevation"]
+        output["windAngle"] = row["windAngle"]
+        output["AmbientTemperature"] = row["temperature"]
+        output["SeaLvlPressure"] = row["seaLvlPressure"]
+        output["PrecipTime"] = row["precipTime"]
+        output["PrecipDepth"] = row["precipDepth"]
+        output["SnowDepth"] = row["snowDepth"]
+        print(output)
 
 
     def __process_weather_data_for_tsi(self, weather_station_id, weather_data):
@@ -96,7 +99,9 @@ class GetWeatherDataJob:
                         )
         msg["weatherstations"][0]["id"] = weather_station_id        
         row_data = msg["weatherstations"][0]["weatherdata"]
-        for row in weather_data.iterrows():
+        # iterrows gives (index, row) tuples rather than just rows.
+        # so, throwing away the index and just getting the row.
+        for _,row in weather_data.iterrows():
             row_data.append(self.__get_eventhub_format(row))
         msg["weatherstations"][0]["weatherdata"] = row_data
         msgs.append(json.dumps(msg))
