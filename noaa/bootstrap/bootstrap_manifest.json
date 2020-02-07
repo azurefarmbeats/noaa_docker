@@ -95,13 +95,13 @@
                     "description": "Longitude for the point for which we want to fetch weather data"
                 },
                 {
-                    "name": "from",
+                    "name": "start_date",
                     "type": "String",
                     "isRequired": true,
                     "description": "Date from which (inclusive) weather data will be downloaded for the farm. Format is YYYY-MM-DD. Example: 2019-09-28"
                 },
                 {
-                    "name": "to",
+                    "name": "end_date",
                     "type": "String",
                     "isRequired": true,
                     "description": "Date to which (inclusive) weather data will be downloaded for the farm. Format is YYYY-MM-DD. Example: 2019-09-28"
@@ -113,6 +113,9 @@
                     "description": "System generated unique Farm Id. Please refer to Farm APIs for more information."
                 }
               ]
+            },
+            "properties":{
+              "programRunCommand": "python3 noaa/jobs/get_weather_data.py"
             }
         }
     ]

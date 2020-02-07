@@ -9,6 +9,7 @@ import json
 from azure.eventhub.aio import EventHubProducerClient
 from azure.eventhub import EventData
 from azureml.opendatasets import NoaaIsdWeather
+from datetime import datetime
 
 # Local imports
 from datahub_lib.framework.fb_api import FarmbeatsApi
@@ -18,8 +19,8 @@ from datahub_lib.conf.baseconfig import BaseConfig
 # Define flags used by this module. Mandatory flags first
 # NOTE: Add 'allow_override=True' if same flags are created in multiple modules with dependency
 flags.DEFINE_string("farm_id", None, "This is optional and just for association")
-flags.DEFINE_string("from", None, "Start date")
-flags.DEFINE_string("to", None, "End date")
+flags.DEFINE_string("start_date", None, "Start date")
+flags.DEFINE_string("end_date", None, "End date")
 flags.DEFINE_string("latitude", None, "Latitude")
 flags.DEFINE_string("longitude", None, "Longitude")
 flags.DEFINE_string("eventhub_connection_string", None, "The job outputs NOAA ISD data for the given date range to event hub")
@@ -65,29 +66,40 @@ class GetWeatherDataJob:
         self.__push_weather_data_to_farmbeats(filtered_weather_data)
 
     
+    def __get_eventhub_format(self, row):
+        '''
+        Convert the data to a format that can be pushed to eventhub, which can be subsequently read by TSI
+        '''
+        output = {}
+        # get the timestamp
+        print(type(row["datetime"]))
+        row_datetime = datetime.fromtimestamp(row["datetime"])
+        output["timestamp"] = row_datetime.isoformat()
+
+
+        pass
+
+
     def __process_weather_data_for_tsi(self, weather_station_id, weather_data):
         '''
         Converts the weather data from Pandas data frame to that expected by TSI
         '''
         msgs = []
-        dummy_msg = json.loads('''{
+        msg = json.loads('''{
                                     "weatherstations": [
                                         {
-                                        "id": "761d398a-26c7-4725-93cf-3a21c8de102c",
-                                        "weatherdata": [
-                                            {
-                                            "timestamp": "2020-01-29T12:27:10.8073883Z",
-                                            "forecastedtimestamp": "2020-01-28T12:27:10.8077528Z",
-                                            "temperature": 36.5
-                                            }
-                                        ]
+                                        "id": "",
+                                        "weatherdata": []
                                         }
                                     ]
                                 }'''
-                            )
+                        )
+        msg["weatherstations"][0]["id"] = weather_station_id        
+        row_data = msg["weatherstations"][0]["weatherdata"]
         for row in weather_data.iterrows():
-            dummy_msg["weatherstations"][0]["id"] = weather_station_id
-            msgs.append(json.dumps(dummy_msg))
+            row_data.append(self.__get_eventhub_format(row))
+        msg["weatherstations"][0]["weatherdata"] = row_data
+        msgs.append(json.dumps(msg))
         return msgs
 
 
@@ -201,7 +213,7 @@ class GetWeatherDataJob:
 def main(argv):
     job = GetWeatherDataJob()
     # get weather data
-    job.get_weather_data(start_date = FLAGS.start_date, end_date = FLAGS.end_date, lat=float(FLAGS.latitude), lon=float(FLAGS.longitude))
+    job.get_weather_data(start_date=FLAGS.start_date, end_date=FLAGS.end_date, lat=float(FLAGS.latitude), lon=float(FLAGS.longitude))
 
 
 if __name__ == '__main__':
