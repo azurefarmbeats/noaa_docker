@@ -9,6 +9,9 @@ import json
 # local imports
 from datahub_lib.framework.fb_api import FarmbeatsApi
 from datahub_lib.conf.baseconfig import BaseConfig
+from datahub_lib.framework.logger import Logger
+
+LOG = Logger.get_logger()
 
 class Bootstrap:
 
@@ -128,20 +131,31 @@ class Bootstrap:
 
 
 def run(config_file, end_point, function_url):
-    # create the bootstrap object - that will bootstrap the partner
-    bootstrap = Bootstrap(config_file=config_file, end_point=end_point, function_url=function_url)
     
+    # create the bootstrap object - that will bootstrap the partner
+    LOG.info("Creating bootstrap object")
+    bootstrap = Bootstrap(config_file=config_file, end_point=end_point, function_url=function_url)
+    LOG.info("Successfully created bootstrap object")
+
     # add new extended measure types
+    LOG.info("Adding the new measure types")
     bootstrap.add_new_extended_measure_types()
+    LOG.info("Successfully added the new measure types")
 
     # add new measure units
+    LOG.info("Adding the new measure units")
     bootstrap.add_new_extended_measure_units()
+    LOG.info("Successfully added the new measure units")
 
     # upsert the weather station models
+    LOG.info("Upserting new weather station models")
     bootstrap.upsert_weather_station_models()
+    LOG.info("Successfully upserted the weather station models")
 
     # upsert the job types
+    LOG.info("Upserting the job types")
     bootstrap.upsert_job_types()
+    LOG.info("Successfully upserted the job types")
 
 
 if __name__ == '__main__':

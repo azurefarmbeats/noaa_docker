@@ -1,13 +1,13 @@
 {
     "add_extended_measure_types":[
-        "Elevation",
+        "elevation",
         "WindAngle",
-        "SeaLvlPressure",
-        "PresentWeatherIndicator",
-        "PastWeatherIndicator",
-        "PrecipTime",
-        "PrecipDepth",
-        "SnowDepth"
+        "seaLvlPressure",
+        "presentWeatherIndicator",
+        "pastWeatherIndicator",
+        "precipTime",
+        "precipDepth",
+        "snowDepth"
     ],
     "add_extended_measure_units":[
         "Hectopascals",

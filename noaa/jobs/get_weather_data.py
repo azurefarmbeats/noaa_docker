@@ -73,13 +73,13 @@ class GetWeatherDataJob:
         output = {}
         # get the timestamp
         output["timestamp"] = row["datetime"].isoformat()
-        output["Elevation"] = row["elevation"]
+        output["elevation"] = row["elevation"]
         output["windAngle"] = row["windAngle"]
-        output["AmbientTemperature"] = row["temperature"]
-        output["SeaLvlPressure"] = row["seaLvlPressure"]
-        output["PrecipTime"] = row["precipTime"]
-        output["PrecipDepth"] = row["precipDepth"]
-        output["SnowDepth"] = row["snowDepth"]
+        output["ambientTemperature"] = row["temperature"]
+        output["seaLvlPressure"] = row["seaLvlPressure"]
+        output["precipTime"] = row["precipTime"]
+        output["precipDepth"] = row["precipDepth"]
+        output["snowDepth"] = row["snowDepth"]
         print(output)
 
 
