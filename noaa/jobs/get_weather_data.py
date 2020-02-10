@@ -10,6 +10,7 @@ from azure.eventhub.aio import EventHubProducerClient
 from azure.eventhub import EventData
 from azureml.opendatasets import NoaaIsdWeather
 from datetime import datetime
+from datahub_lib.framework.logger import Logger
 
 # Local imports
 from datahub_lib.framework.fb_api import FarmbeatsApi
@@ -31,6 +32,8 @@ flags.DEFINE_string("eventhub_name", None, "Name of the eventhub to push data to
 # Shorthand for referring to flags
 FLAGS = flags.FLAGS
 
+LOG = Logger.get_logger()
+
 class GetWeatherDataJob:
     '''
     Class to fetch ISD weather data from Azure open datasets (NOAA ISD)
@@ -51,20 +54,28 @@ class GetWeatherDataJob:
         Gets the closest proximity weather data available for the given date range, 
         '''
         # get data for given date range.
+        LOG.info("Getting data for dates " + start_date + " to " + end_date)
         weather_data = self.__get_weather_data_for_date_range(start_date, end_date)
+        LOG.info("Successfully got data for dates " + start_date + " to " + end_date)
 
         # get the data into a pandas data frame, so we can filter and process
         weather_data_df = weather_data.to_pandas_dataframe()
 
         # out of the lat longs available get the nearest points
+        LOG.info("Finding the nearest latitude and longitude from the available data")
         (nearest_lat, nearest_lon) = self.__find_nearest_lat_longs_in_data(weather_data_df, lat, lon)
+        LOG.info("nearest lat, lon: [" + str(nearest_lat) + "," + str(nearest_lon) + "]")
 
         # filter the data to this lat and lon
+        LOG.info("Filtering the data to nearest lat, lon")
         filtered_weather_data = weather_data_df[(weather_data_df['latitude'] == nearest_lat) & (weather_data_df['longitude'] == nearest_lon)]
+        LOG.info(filtered_weather_data)
 
         # push the data to eventhub
+        LOG.info("Pushing data to eventhub")
         self.__push_weather_data_to_farmbeats(filtered_weather_data)
-
+        LOG.info("Successfully pushed data")
+    
     
     def __get_eventhub_format(self, row):
         '''
