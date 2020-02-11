@@ -1,13 +1,13 @@
 {
     "add_extended_measure_types":[
-        "elevation",
+        "Elevation",
         "WindAngle",
-        "seaLvlPressure",
-        "presentWeatherIndicator",
-        "pastWeatherIndicator",
-        "precipTime",
-        "precipDepth",
-        "snowDepth"
+        "SeaLvlPressure",
+        "PresentWeatherIndicator",
+        "PastWeatherIndicator",
+        "PrecipTime",
+        "PrecipDepth",
+        "SnowDepth"
     ],
     "add_extended_measure_units":[
         "Hectopascals",
@@ -19,49 +19,49 @@
             "description": "NOAA integrated surface database - weather data",
             "weatherStationMeasures": [
               {
-                "name": "elevation",
+                "name": "Elevation",
                 "dataType": "Double",
                 "type": "Elevation",
                 "unit": "NoUnit",
                 "description": "The elevation of a GEOPHYSICAL-POINT-OBSERVATION relative to Mean Sea Level (MSL)."
               },
               {
-                "name": "windAngle",
+                "name": "WindAngle",
                 "dataType": "Double",
                 "type": "WindAngle",
                 "unit": "Degree",
                 "description": "The angle, measured in a clockwise direction, between true north and the direction from which the wind is blowing. MIN: 001 MAX: 360 UNITS: Angular Degrees"
               },
               {
-                "name": "temperature",
+                "name": "Temperature",
                 "dataType": "Double",
                 "type": "AmbientTemperature",
                 "unit": "Celsius",
                 "description": "The temperature of the air. MIN: -0932 MAX: +0618 UNITS: Degrees Celsius"
               },
               {
-                "name": "seaLvlPressure",
+                "name": "SeaLvlPressure",
                 "dataType": "Double",
                 "type": "SeaLvlPressure",
                 "unit": "Hectopascals",
                 "description": "The air pressure relative to Mean Sea Level (MSL). MIN: 08600 MAX: 10900 UNITS: Hectopascals"
               },
               {
-                "name": "precipTime",
+                "name": "PrecipTime",
                 "dataType": "Double",
                 "type": "PrecipTime",
                 "unit": "Hours",
                 "description": "The quantity of time over which the LIQUID-PRECIPITATION was measured. Units: Hours. MIN: 00; MAX: 98; 99 = Missing."
               },
               {
-                "name": "precipDepth",
+                "name": "PrecipDepth",
                 "dataType": "Double",
                 "type": "PrecipDepth",
                 "unit": "MilliMeter",
                 "description": "The depth of LIQUID-PRECIPITATION that is measured at the time of an observation. Units: millimeters. MIN: 0000; MAX: 9998; 9999 = Missing."
               },
               {
-                "name": "snowDepth",
+                "name": "SnowDepth",
                 "dataType": "Double",
                 "type": "SnowDepth",
                 "unit": "CentiMeter",
