@@ -84,14 +84,14 @@ class GetWeatherDataJob:
         output = {}
         # get the timestamp
         output["timestamp"] = row["datetime"].isoformat()
-        output["elevation"] = row["elevation"]
-        output["windAngle"] = row["windAngle"]
-        output["ambientTemperature"] = row["temperature"]
-        output["seaLvlPressure"] = row["seaLvlPressure"]
-        output["precipTime"] = row["precipTime"]
-        output["precipDepth"] = row["precipDepth"]
-        output["snowDepth"] = row["snowDepth"]
-        print(output)
+        output["Elevation"] = row["elevation"]
+        output["WindAngle"] = row["windAngle"]
+        output["AmbientTemperature"] = row["temperature"]
+        output["SeaLvlPressure"] = row["seaLvlPressure"]
+        output["PrecipTime"] = row["precipTime"]
+        output["PrecipDepth"] = row["precipDepth"]
+        output["SnowDepth"] = row["snowDepth"]
+        return output
 
 
     def __process_weather_data_for_tsi(self, weather_station_id, weather_data):
