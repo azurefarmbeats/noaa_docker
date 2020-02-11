@@ -100,9 +100,8 @@ class Bootstrap:
                         wsm_id = wsm["id"]
                         self.fb_api.get_weather_station_model_api().weather_station_model_update(id=wsm_id, input=weather_station_model)
                         return
-            else:
-                # else insert 
-                self.fb_api.get_weather_station_model_api().weather_station_model_create(input=weather_station_model)
+        # else insert 
+        self.fb_api.get_weather_station_model_api().weather_station_model_create(input=weather_station_model)
 
 
     def upsert_job_types(self):
@@ -125,9 +124,8 @@ class Bootstrap:
                         job_type_id = existing_job_type["id"]
                         self.fb_api.get_job_type_api().job_type_update(id=job_type_id, input=job_type)
                         return
-            else:
-                # else insert
-                self.fb_api.get_job_type_api().job_type_create(input=job_type)
+        # else insert
+        self.fb_api.get_job_type_api().job_type_create(input=job_type)
 
 
 def run(config_file, end_point, function_url):
