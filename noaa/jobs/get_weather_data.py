@@ -15,6 +15,7 @@ from datahub_lib.framework.logger import Logger
 # Local imports
 from datahub_lib.framework.fb_api import FarmbeatsApi
 from datahub_lib.conf.baseconfig import BaseConfig
+from datahub_lib.framework.job_status_writer import JobStatusWriter
 
 
 # Define flags used by this module.
@@ -58,29 +59,48 @@ class GetWeatherDataJob:
         '''
         Gets the closest proximity weather data available for the given date range, 
         '''
-        # get data for given date range.
-        LOG.info("Getting data for dates " + start_date + " to " + end_date)
-        weather_data = self.__get_weather_data_for_date_range(start_date, end_date)
-        LOG.info("Successfully got data for dates " + start_date + " to " + end_date)
+        try:
+            # get data for given date range.
+            LOG.info("Getting data for dates " + start_date + " to " + end_date)
+            weather_data = self.__get_weather_data_for_date_range(start_date, end_date)
+            LOG.info("Successfully got data for dates " + start_date + " to " + end_date)
 
-        # get the data into a pandas data frame, so we can filter and process
-        weather_data_df = weather_data.to_pandas_dataframe()
+            # get the data into a pandas data frame, so we can filter and process
+            weather_data_df = weather_data.to_pandas_dataframe()
 
-        # out of the lat longs available get the nearest points
-        LOG.info("Finding the nearest latitude and longitude from the available data")
-        (nearest_lat, nearest_lon) = self.__find_nearest_lat_longs_in_data(weather_data_df, lat, lon)
-        LOG.info("nearest lat, lon: [" + str(nearest_lat) + "," + str(nearest_lon) + "]")
+            # out of the lat longs available get the nearest points
+            LOG.info("Finding the nearest latitude and longitude from the available data")
+            (nearest_lat, nearest_lon) = self.__find_nearest_lat_longs_in_data(weather_data_df, lat, lon)
+            LOG.info("nearest lat, lon: [" + str(nearest_lat) + "," + str(nearest_lon) + "]")
 
-        # filter the data to this lat and lon
-        LOG.info("Filtering the data to nearest lat, lon")
-        filtered_weather_data = weather_data_df[(weather_data_df['latitude'] == nearest_lat) & (weather_data_df['longitude'] == nearest_lon)]
-        LOG.info(filtered_weather_data)
+            # filter the data to this lat and lon
+            LOG.info("Filtering the data to nearest lat, lon")
+            filtered_weather_data = weather_data_df[(weather_data_df['latitude'] == nearest_lat) & (weather_data_df['longitude'] == nearest_lon)]
+            LOG.info(filtered_weather_data)
 
-        # push the data to eventhub
-        LOG.info("Pushing data to eventhub")
-        self.__push_weather_data_to_farmbeats(filtered_weather_data)
-        LOG.info("Successfully pushed data")
-    
+            # push the data to eventhub
+            LOG.info("Pushing data to eventhub")
+            self.__push_weather_data_to_farmbeats(filtered_weather_data)
+            LOG.info("Successfully pushed data")
+
+            # Update the status for the job
+            if FLAGS.job_status_url:
+                msg = "Weather data pushed for start_date: {} to end_date: {}, for nearest_lat: {}, nearest_lon: {}; provided lat:{}, lon{}".format(
+                    FLAGS.start_date, FLAGS.end_date, nearest_lat, nearest_lon, FLAGS.latitude, FLAGS.longitude)
+                writer = JobStatusWriter(FLAGS.job_status_url)
+                output_writer = writer.get_output_writer()
+                output_writer.set_prop("msg", msg)
+                writer.set_success(True)
+                writer.flush()
+
+        except Exception as err:
+            # Update the status in failure
+            if FLAGS.job_status_url:
+                writer = JobStatusWriter(FLAGS.job_status_url)
+                writer.set_error('001', str(err), False)
+                writer.set_success(False)
+                writer.flush()
+                
     
     def __get_eventhub_format(self, row):
         '''
