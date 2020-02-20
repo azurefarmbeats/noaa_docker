@@ -4,6 +4,7 @@ import adal
 import time
 from datetime import datetime 
 import requests
+import json
 
 from datahub_lib.framework.logger import Logger
 from datahub_lib.auth.authentication_helper import AuthenticationHelper
@@ -11,6 +12,9 @@ from datahub_lib.auth.authentication_helper import AuthenticationHelper
 LOG = Logger.get_logger()
 
 class PartnerAuthHelper(AuthenticationHelper):
+
+    ACTIVITY_JSON_FILE_PATH = "/mnt/working_dir/activity.json"
+    
     '''
     class that gets and manages the partner access token 
     '''
@@ -31,3 +35,13 @@ class PartnerAuthHelper(AuthenticationHelper):
                 return res.text
         LOG.error("Couldn't get valid access token!")
 
+
+    def get_partner_credentials(self):
+        '''
+        Returns the partner credentials dict.
+        :rtype: dict
+        '''
+        with open(PartnerAuthHelper.ACTIVITY_JSON_FILE_PATH, 'r') as f:
+            customProperties = json.load(f)
+            partnerCreds = customProperties["typeProperties"]["extendedProperties"]["partnerCredentials"]["value"]
+            return json.loads(partnerCreds)
