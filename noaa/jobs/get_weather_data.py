@@ -158,7 +158,7 @@ class GetWeatherDataJob:
         for ws in weather_stations["items"]:
             lat = ws["location"]["latitude"]
             lon = ws["location"]["longitude"]
-            if (lat == FLAGS.latitude and lon == FLAGS.longitude):
+            if (lat == float(FLAGS.latitude)and lon == float(FLAGS.longitude)):
                 # Found! - weather station for the given location already exists
                 return ws["id"]
         
