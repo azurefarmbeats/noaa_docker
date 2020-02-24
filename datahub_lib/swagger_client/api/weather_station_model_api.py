@@ -319,7 +319,6 @@ class WeatherStationModelApi(object):
 
         :param async_req bool
         :param list[str] names: Gets or sets list of names of weather station models.
-        :param list[str] farm_ids: Gets or sets list of farm id's.
         :param list[str] ids: Gets ids of the resource.
         :param str partner_id: Gets or sets id of the partner.
         :param datetime min_created_at: Gets or sets minimum creation date of resource (inclusive).
@@ -349,7 +348,6 @@ class WeatherStationModelApi(object):
 
         :param async_req bool
         :param list[str] names: Gets or sets list of names of weather station models.
-        :param list[str] farm_ids: Gets or sets list of farm id's.
         :param list[str] ids: Gets ids of the resource.
         :param str partner_id: Gets or sets id of the partner.
         :param datetime min_created_at: Gets or sets minimum creation date of resource (inclusive).
@@ -362,7 +360,7 @@ class WeatherStationModelApi(object):
                  returns the request thread.
         """
 
-        all_params = ['names', 'farm_ids', 'ids', 'partner_id', 'min_created_at', 'max_created_at', 'min_last_modified_at', 'max_last_modified_at', 'max_items']  # noqa: E501
+        all_params = ['names', 'ids', 'partner_id', 'min_created_at', 'max_created_at', 'min_last_modified_at', 'max_last_modified_at', 'max_items']  # noqa: E501
         all_params.append('async_req')
         all_params.append('_return_http_data_only')
         all_params.append('_preload_content')
@@ -390,9 +388,6 @@ class WeatherStationModelApi(object):
         if 'names' in params:
             query_params.append(('names', params['names']))  # noqa: E501
             collection_formats['names'] = 'multi'  # noqa: E501
-        if 'farm_ids' in params:
-            query_params.append(('farmIds', params['farm_ids']))  # noqa: E501
-            collection_formats['farmIds'] = 'multi'  # noqa: E501
         if 'ids' in params:
             query_params.append(('ids', params['ids']))  # noqa: E501
             collection_formats['ids'] = 'multi'  # noqa: E501

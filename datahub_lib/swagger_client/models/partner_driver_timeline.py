@@ -70,6 +70,12 @@ class PartnerDriverTimeline(object):
         :param checkpoint: The checkpoint of this PartnerDriverTimeline.  # noqa: E501
         :type: str
         """
+        allowed_values = ["InitStarted", "UpdationStarted", "RoleAssignmentCompleted", "RoleAssignmentFailed", "BatchPoolCreated", "BatchPoolCreationFailed", "BootstrapCompleted", "BootstrapFailed", "PipelinesCreated", "PipelinesCreationFailed", "Provisioned", "DeletionStarted", "RoleAssignmentDeleted", "RoleAssignmentDeletionFailed", "BatchPoolDeleted", "BatchPoolDeletionFailed", "BootstrapJobDeleted", "BootstrapJobDeletionFailed", "PipelinesDeleted", "PipelinesDeletionFailed"]  # noqa: E501
+        if checkpoint not in allowed_values:
+            raise ValueError(
+                "Invalid value for `checkpoint` ({0}), must be one of {1}"  # noqa: E501
+                .format(checkpoint, allowed_values)
+            )
 
         self._checkpoint = checkpoint
 

@@ -32,31 +32,29 @@ class AzureBatchDetails(object):
     """
     swagger_types = {
         'batch_vmsku': 'str',
-        'batch_node_agent_skuid': 'str'
+        'node_agent_skuid': 'str'
     }
 
     attribute_map = {
         'batch_vmsku': 'batchVMSKU',
-        'batch_node_agent_skuid': 'batchNodeAgentSKUID'
+        'node_agent_skuid': 'nodeAgentSKUID'
     }
 
-    def __init__(self, batch_vmsku=None, batch_node_agent_skuid=None):  # noqa: E501
+    def __init__(self, batch_vmsku=None, node_agent_skuid=None):  # noqa: E501
         """AzureBatchDetails - a model defined in Swagger"""  # noqa: E501
 
         self._batch_vmsku = None
-        self._batch_node_agent_skuid = None
+        self._node_agent_skuid = None
         self.discriminator = None
 
-        if batch_vmsku is not None:
-            self.batch_vmsku = batch_vmsku
-        if batch_node_agent_skuid is not None:
-            self.batch_node_agent_skuid = batch_node_agent_skuid
+        self.batch_vmsku = batch_vmsku
+        self.node_agent_skuid = node_agent_skuid
 
     @property
     def batch_vmsku(self):
         """Gets the batch_vmsku of this AzureBatchDetails.  # noqa: E501
 
-        Gets or sets Azure batch VM SKU.  Visit https://docs.microsoft.com/en-us/azure/virtual-machines/windows/sizes?toc=%2fazure%2fvirtual-machines%2fwindows%2ftoc.json for all windows virtual machines and  https://docs.microsoft.com/en-us/azure/virtual-machines/linux/sizes?toc=%2fazure%2fvirtual-machines%2flinux%2ftoc.json for all Linux virtual machines available.  # noqa: E501
+        Gets or sets Azure Batch VM SKU.  Visit https://docs.microsoft.com/en-us/azure/virtual-machines/linux/sizes?toc=%2fazure%2fvirtual-machines%2flinux%2ftoc.json for all Linux virtual machines available.  # noqa: E501
 
         :return: The batch_vmsku of this AzureBatchDetails.  # noqa: E501
         :rtype: str
@@ -67,36 +65,40 @@ class AzureBatchDetails(object):
     def batch_vmsku(self, batch_vmsku):
         """Sets the batch_vmsku of this AzureBatchDetails.
 
-        Gets or sets Azure batch VM SKU.  Visit https://docs.microsoft.com/en-us/azure/virtual-machines/windows/sizes?toc=%2fazure%2fvirtual-machines%2fwindows%2ftoc.json for all windows virtual machines and  https://docs.microsoft.com/en-us/azure/virtual-machines/linux/sizes?toc=%2fazure%2fvirtual-machines%2flinux%2ftoc.json for all Linux virtual machines available.  # noqa: E501
+        Gets or sets Azure Batch VM SKU.  Visit https://docs.microsoft.com/en-us/azure/virtual-machines/linux/sizes?toc=%2fazure%2fvirtual-machines%2flinux%2ftoc.json for all Linux virtual machines available.  # noqa: E501
 
         :param batch_vmsku: The batch_vmsku of this AzureBatchDetails.  # noqa: E501
         :type: str
         """
+        if batch_vmsku is None:
+            raise ValueError("Invalid value for `batch_vmsku`, must not be `None`")  # noqa: E501
 
         self._batch_vmsku = batch_vmsku
 
     @property
-    def batch_node_agent_skuid(self):
-        """Gets the batch_node_agent_skuid of this AzureBatchDetails.  # noqa: E501
+    def node_agent_skuid(self):
+        """Gets the node_agent_skuid of this AzureBatchDetails.  # noqa: E501
 
         Gets or sets Azure Batch Node Agent SKU ID.  Currently only \"batch.node.ubuntu 16.04\" batch node agent is supported.  # noqa: E501
 
-        :return: The batch_node_agent_skuid of this AzureBatchDetails.  # noqa: E501
+        :return: The node_agent_skuid of this AzureBatchDetails.  # noqa: E501
         :rtype: str
         """
-        return self._batch_node_agent_skuid
+        return self._node_agent_skuid
 
-    @batch_node_agent_skuid.setter
-    def batch_node_agent_skuid(self, batch_node_agent_skuid):
-        """Sets the batch_node_agent_skuid of this AzureBatchDetails.
+    @node_agent_skuid.setter
+    def node_agent_skuid(self, node_agent_skuid):
+        """Sets the node_agent_skuid of this AzureBatchDetails.
 
         Gets or sets Azure Batch Node Agent SKU ID.  Currently only \"batch.node.ubuntu 16.04\" batch node agent is supported.  # noqa: E501
 
-        :param batch_node_agent_skuid: The batch_node_agent_skuid of this AzureBatchDetails.  # noqa: E501
+        :param node_agent_skuid: The node_agent_skuid of this AzureBatchDetails.  # noqa: E501
         :type: str
         """
+        if node_agent_skuid is None:
+            raise ValueError("Invalid value for `node_agent_skuid`, must not be `None`")  # noqa: E501
 
-        self._batch_node_agent_skuid = batch_node_agent_skuid
+        self._node_agent_skuid = node_agent_skuid
 
     def to_dict(self):
         """Returns the model properties as a dict"""

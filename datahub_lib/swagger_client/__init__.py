@@ -45,6 +45,7 @@ from datahub_lib.swagger_client.models.alert_response_list_response import Alert
 from datahub_lib.swagger_client.models.azure_batch_details import AzureBatchDetails
 from datahub_lib.swagger_client.models.condition import Condition
 from datahub_lib.swagger_client.models.create_scene_file_response import CreateSceneFileResponse
+from datahub_lib.swagger_client.models.credentials import Credentials
 from datahub_lib.swagger_client.models.date_time_range import DateTimeRange
 from datahub_lib.swagger_client.models.debug_information import DebugInformation
 from datahub_lib.swagger_client.models.device_model_request import DeviceModelRequest

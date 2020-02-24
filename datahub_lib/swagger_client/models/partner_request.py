@@ -35,6 +35,7 @@ class PartnerRequest(object):
         'tenant_id': 'str',
         'docker_details': 'DockerDetails',
         'partner_type': 'str',
+        'partner_credentials': 'dict(str, str)',
         'name': 'str',
         'description': 'str',
         'properties': 'dict(str, object)'
@@ -45,18 +46,20 @@ class PartnerRequest(object):
         'tenant_id': 'tenantId',
         'docker_details': 'dockerDetails',
         'partner_type': 'partnerType',
+        'partner_credentials': 'partnerCredentials',
         'name': 'name',
         'description': 'description',
         'properties': 'properties'
     }
 
-    def __init__(self, object_id=None, tenant_id=None, docker_details=None, partner_type=None, name=None, description=None, properties=None):  # noqa: E501
+    def __init__(self, object_id=None, tenant_id=None, docker_details=None, partner_type=None, partner_credentials=None, name=None, description=None, properties=None):  # noqa: E501
         """PartnerRequest - a model defined in Swagger"""  # noqa: E501
 
         self._object_id = None
         self._tenant_id = None
         self._docker_details = None
         self._partner_type = None
+        self._partner_credentials = None
         self._name = None
         self._description = None
         self._properties = None
@@ -68,8 +71,9 @@ class PartnerRequest(object):
             self.tenant_id = tenant_id
         if docker_details is not None:
             self.docker_details = docker_details
-        if partner_type is not None:
-            self.partner_type = partner_type
+        self.partner_type = partner_type
+        if partner_credentials is not None:
+            self.partner_credentials = partner_credentials
         self.name = name
         if description is not None:
             self.description = description
@@ -173,6 +177,8 @@ class PartnerRequest(object):
         :param partner_type: The partner_type of this PartnerRequest.  # noqa: E501
         :type: str
         """
+        if partner_type is None:
+            raise ValueError("Invalid value for `partner_type`, must not be `None`")  # noqa: E501
         allowed_values = ["Imagery", "Sensor", "Weather"]  # noqa: E501
         if partner_type not in allowed_values:
             raise ValueError(
@@ -181,6 +187,29 @@ class PartnerRequest(object):
             )
 
         self._partner_type = partner_type
+
+    @property
+    def partner_credentials(self):
+        """Gets the partner_credentials of this PartnerRequest.  # noqa: E501
+
+        Gets or sets credentials for calling partner API referred in docker.  # noqa: E501
+
+        :return: The partner_credentials of this PartnerRequest.  # noqa: E501
+        :rtype: dict(str, str)
+        """
+        return self._partner_credentials
+
+    @partner_credentials.setter
+    def partner_credentials(self, partner_credentials):
+        """Sets the partner_credentials of this PartnerRequest.
+
+        Gets or sets credentials for calling partner API referred in docker.  # noqa: E501
+
+        :param partner_credentials: The partner_credentials of this PartnerRequest.  # noqa: E501
+        :type: dict(str, str)
+        """
+
+        self._partner_credentials = partner_credentials
 
     @property
     def name(self):

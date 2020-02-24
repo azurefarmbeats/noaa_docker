@@ -31,9 +31,6 @@ class JobTypeRequest(object):
                             and the value is json key in definition.
     """
     swagger_types = {
-        'is_partner_job_type': 'bool',
-        'status': 'str',
-        'error_message': 'str',
         'pipeline_details': 'PipelineDetails',
         'name': 'str',
         'description': 'str',
@@ -41,33 +38,21 @@ class JobTypeRequest(object):
     }
 
     attribute_map = {
-        'is_partner_job_type': 'isPartnerJobType',
-        'status': 'status',
-        'error_message': 'errorMessage',
         'pipeline_details': 'pipelineDetails',
         'name': 'name',
         'description': 'description',
         'properties': 'properties'
     }
 
-    def __init__(self, is_partner_job_type=None, status=None, error_message=None, pipeline_details=None, name=None, description=None, properties=None):  # noqa: E501
+    def __init__(self, pipeline_details=None, name=None, description=None, properties=None):  # noqa: E501
         """JobTypeRequest - a model defined in Swagger"""  # noqa: E501
 
-        self._is_partner_job_type = None
-        self._status = None
-        self._error_message = None
         self._pipeline_details = None
         self._name = None
         self._description = None
         self._properties = None
         self.discriminator = None
 
-        if is_partner_job_type is not None:
-            self.is_partner_job_type = is_partner_job_type
-        if status is not None:
-            self.status = status
-        if error_message is not None:
-            self.error_message = error_message
         if pipeline_details is not None:
             self.pipeline_details = pipeline_details
         self.name = name
@@ -75,81 +60,6 @@ class JobTypeRequest(object):
             self.description = description
         if properties is not None:
             self.properties = properties
-
-    @property
-    def is_partner_job_type(self):
-        """Gets the is_partner_job_type of this JobTypeRequest.  # noqa: E501
-
-        Gets or sets a value indicating whether it's a partner JobType or not.  # noqa: E501
-
-        :return: The is_partner_job_type of this JobTypeRequest.  # noqa: E501
-        :rtype: bool
-        """
-        return self._is_partner_job_type
-
-    @is_partner_job_type.setter
-    def is_partner_job_type(self, is_partner_job_type):
-        """Sets the is_partner_job_type of this JobTypeRequest.
-
-        Gets or sets a value indicating whether it's a partner JobType or not.  # noqa: E501
-
-        :param is_partner_job_type: The is_partner_job_type of this JobTypeRequest.  # noqa: E501
-        :type: bool
-        """
-
-        self._is_partner_job_type = is_partner_job_type
-
-    @property
-    def status(self):
-        """Gets the status of this JobTypeRequest.  # noqa: E501
-
-        Gets or sets status of JobType.  This status represents whether or not corresponding ADF pipeline has been successfully created.  # noqa: E501
-
-        :return: The status of this JobTypeRequest.  # noqa: E501
-        :rtype: str
-        """
-        return self._status
-
-    @status.setter
-    def status(self, status):
-        """Sets the status of this JobTypeRequest.
-
-        Gets or sets status of JobType.  This status represents whether or not corresponding ADF pipeline has been successfully created.  # noqa: E501
-
-        :param status: The status of this JobTypeRequest.  # noqa: E501
-        :type: str
-        """
-        allowed_values = ["Waiting", "Provisioning", "Failed", "PendingRetry", "Ready"]  # noqa: E501
-        if status not in allowed_values:
-            raise ValueError(
-                "Invalid value for `status` ({0}), must be one of {1}"  # noqa: E501
-                .format(status, allowed_values)
-            )
-
-        self._status = status
-
-    @property
-    def error_message(self):
-        """Gets the error_message of this JobTypeRequest.  # noqa: E501
-
-        Gets or sets error message.  Helps in debugging for the Partner JobTypes.  # noqa: E501
-
-        :return: The error_message of this JobTypeRequest.  # noqa: E501
-        :rtype: str
-        """
-        return self._error_message
-
-    @error_message.setter
-    def error_message(self, error_message):
-        """Sets the error_message of this JobTypeRequest.
-
-        Gets or sets error message.  Helps in debugging for the Partner JobTypes.  # noqa: E501
-
-        :param error_message: The error_message of this JobTypeRequest.  # noqa: E501
-        :type: str
-        """
-
-        self._error_message = error_message
 
     @property
     def pipeline_details(self):

@@ -322,6 +322,7 @@ class JobTypeApi(object):
 
         :param async_req bool
         :param list[str] names: Gets or sets list of names of job types which is specified while creating a job type.
+        :param list[str] status: Gets or sets status of Job Type.
         :param list[str] ids: Gets ids of the resource.
         :param str partner_id: Gets or sets id of the partner.
         :param datetime min_created_at: Gets or sets minimum creation date of resource (inclusive).
@@ -350,6 +351,7 @@ class JobTypeApi(object):
 
         :param async_req bool
         :param list[str] names: Gets or sets list of names of job types which is specified while creating a job type.
+        :param list[str] status: Gets or sets status of Job Type.
         :param list[str] ids: Gets ids of the resource.
         :param str partner_id: Gets or sets id of the partner.
         :param datetime min_created_at: Gets or sets minimum creation date of resource (inclusive).
@@ -362,7 +364,7 @@ class JobTypeApi(object):
                  returns the request thread.
         """
 
-        all_params = ['names', 'ids', 'partner_id', 'min_created_at', 'max_created_at', 'min_last_modified_at', 'max_last_modified_at', 'max_items']  # noqa: E501
+        all_params = ['names', 'status', 'ids', 'partner_id', 'min_created_at', 'max_created_at', 'min_last_modified_at', 'max_last_modified_at', 'max_items']  # noqa: E501
         all_params.append('async_req')
         all_params.append('_return_http_data_only')
         all_params.append('_preload_content')
@@ -390,6 +392,9 @@ class JobTypeApi(object):
         if 'names' in params:
             query_params.append(('names', params['names']))  # noqa: E501
             collection_formats['names'] = 'multi'  # noqa: E501
+        if 'status' in params:
+            query_params.append(('status', params['status']))  # noqa: E501
+            collection_formats['status'] = 'multi'  # noqa: E501
         if 'ids' in params:
             query_params.append(('ids', params['ids']))  # noqa: E501
             collection_formats['ids'] = 'multi'  # noqa: E501

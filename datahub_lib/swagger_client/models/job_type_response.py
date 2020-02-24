@@ -32,11 +32,11 @@ class JobTypeResponse(object):
     """
     swagger_types = {
         'id': 'str',
-        'created_at': 'datetime',
-        'last_modified_at': 'datetime',
         'is_partner_job_type': 'bool',
         'status': 'str',
         'error_message': 'str',
+        'created_at': 'datetime',
+        'last_modified_at': 'datetime',
         'pipeline_details': 'PipelineDetails',
         'name': 'str',
         'description': 'str',
@@ -45,26 +45,26 @@ class JobTypeResponse(object):
 
     attribute_map = {
         'id': 'id',
-        'created_at': 'createdAt',
-        'last_modified_at': 'lastModifiedAt',
         'is_partner_job_type': 'isPartnerJobType',
         'status': 'status',
         'error_message': 'errorMessage',
+        'created_at': 'createdAt',
+        'last_modified_at': 'lastModifiedAt',
         'pipeline_details': 'pipelineDetails',
         'name': 'name',
         'description': 'description',
         'properties': 'properties'
     }
 
-    def __init__(self, id=None, created_at=None, last_modified_at=None, is_partner_job_type=None, status=None, error_message=None, pipeline_details=None, name=None, description=None, properties=None):  # noqa: E501
+    def __init__(self, id=None, is_partner_job_type=None, status=None, error_message=None, created_at=None, last_modified_at=None, pipeline_details=None, name=None, description=None, properties=None):  # noqa: E501
         """JobTypeResponse - a model defined in Swagger"""  # noqa: E501
 
         self._id = None
-        self._created_at = None
-        self._last_modified_at = None
         self._is_partner_job_type = None
         self._status = None
         self._error_message = None
+        self._created_at = None
+        self._last_modified_at = None
         self._pipeline_details = None
         self._name = None
         self._description = None
@@ -73,16 +73,16 @@ class JobTypeResponse(object):
 
         if id is not None:
             self.id = id
-        if created_at is not None:
-            self.created_at = created_at
-        if last_modified_at is not None:
-            self.last_modified_at = last_modified_at
         if is_partner_job_type is not None:
             self.is_partner_job_type = is_partner_job_type
         if status is not None:
             self.status = status
         if error_message is not None:
             self.error_message = error_message
+        if created_at is not None:
+            self.created_at = created_at
+        if last_modified_at is not None:
+            self.last_modified_at = last_modified_at
         if pipeline_details is not None:
             self.pipeline_details = pipeline_details
         self.name = name
@@ -113,52 +113,6 @@ class JobTypeResponse(object):
         """
 
         self._id = id
-
-    @property
-    def created_at(self):
-        """Gets the created_at of this JobTypeResponse.  # noqa: E501
-
-        Gets or sets created date.  # noqa: E501
-
-        :return: The created_at of this JobTypeResponse.  # noqa: E501
-        :rtype: datetime
-        """
-        return self._created_at
-
-    @created_at.setter
-    def created_at(self, created_at):
-        """Sets the created_at of this JobTypeResponse.
-
-        Gets or sets created date.  # noqa: E501
-
-        :param created_at: The created_at of this JobTypeResponse.  # noqa: E501
-        :type: datetime
-        """
-
-        self._created_at = created_at
-
-    @property
-    def last_modified_at(self):
-        """Gets the last_modified_at of this JobTypeResponse.  # noqa: E501
-
-        Gets or sets last modified date.  # noqa: E501
-
-        :return: The last_modified_at of this JobTypeResponse.  # noqa: E501
-        :rtype: datetime
-        """
-        return self._last_modified_at
-
-    @last_modified_at.setter
-    def last_modified_at(self, last_modified_at):
-        """Sets the last_modified_at of this JobTypeResponse.
-
-        Gets or sets last modified date.  # noqa: E501
-
-        :param last_modified_at: The last_modified_at of this JobTypeResponse.  # noqa: E501
-        :type: datetime
-        """
-
-        self._last_modified_at = last_modified_at
 
     @property
     def is_partner_job_type(self):
@@ -234,6 +188,52 @@ class JobTypeResponse(object):
         """
 
         self._error_message = error_message
+
+    @property
+    def created_at(self):
+        """Gets the created_at of this JobTypeResponse.  # noqa: E501
+
+        Gets or sets created date.  # noqa: E501
+
+        :return: The created_at of this JobTypeResponse.  # noqa: E501
+        :rtype: datetime
+        """
+        return self._created_at
+
+    @created_at.setter
+    def created_at(self, created_at):
+        """Sets the created_at of this JobTypeResponse.
+
+        Gets or sets created date.  # noqa: E501
+
+        :param created_at: The created_at of this JobTypeResponse.  # noqa: E501
+        :type: datetime
+        """
+
+        self._created_at = created_at
+
+    @property
+    def last_modified_at(self):
+        """Gets the last_modified_at of this JobTypeResponse.  # noqa: E501
+
+        Gets or sets last modified date.  # noqa: E501
+
+        :return: The last_modified_at of this JobTypeResponse.  # noqa: E501
+        :rtype: datetime
+        """
+        return self._last_modified_at
+
+    @last_modified_at.setter
+    def last_modified_at(self, last_modified_at):
+        """Sets the last_modified_at of this JobTypeResponse.
+
+        Gets or sets last modified date.  # noqa: E501
+
+        :param last_modified_at: The last_modified_at of this JobTypeResponse.  # noqa: E501
+        :type: datetime
+        """
+
+        self._last_modified_at = last_modified_at
 
     @property
     def pipeline_details(self):
