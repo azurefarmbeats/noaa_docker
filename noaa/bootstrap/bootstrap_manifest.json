@@ -78,9 +78,6 @@
             "description": "Get weather data (NOAA ISD) - Azure open datasets",
             "isPartnerJobType": true,
             "pipelineDetails": {
-              "resourceGroupName": "will_be_overwritten",
-              "dataFactoryName": "will_be_overwritten",
-              "pipelineName": "will_be_overwritten",
               "parameters": [
                 {
                   "name": "latitude",
