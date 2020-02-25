@@ -86,8 +86,6 @@ class PipelineDetails(object):
             raise ValueError("Invalid value for `resource_group_name`, length must be less than or equal to `90`")  # noqa: E501
         if resource_group_name is not None and len(resource_group_name) < 1:
             raise ValueError("Invalid value for `resource_group_name`, length must be greater than or equal to `1`")  # noqa: E501
-        if resource_group_name is not None and not re.search(r'^[-\\w\\._\\(\\)]+$', resource_group_name):  # noqa: E501
-            raise ValueError(r"Invalid value for `resource_group_name`, must be a follow pattern or equal to `/^[-\\w\\._\\(\\)]+$/`")  # noqa: E501
 
         self._resource_group_name = resource_group_name
 
