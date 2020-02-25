@@ -32,7 +32,6 @@ class JobTypeResponse(object):
     """
     swagger_types = {
         'id': 'str',
-        'is_partner_job_type': 'bool',
         'status': 'str',
         'error_message': 'str',
         'created_at': 'datetime',
@@ -45,7 +44,6 @@ class JobTypeResponse(object):
 
     attribute_map = {
         'id': 'id',
-        'is_partner_job_type': 'isPartnerJobType',
         'status': 'status',
         'error_message': 'errorMessage',
         'created_at': 'createdAt',
@@ -56,11 +54,10 @@ class JobTypeResponse(object):
         'properties': 'properties'
     }
 
-    def __init__(self, id=None, is_partner_job_type=None, status=None, error_message=None, created_at=None, last_modified_at=None, pipeline_details=None, name=None, description=None, properties=None):  # noqa: E501
+    def __init__(self, id=None, status=None, error_message=None, created_at=None, last_modified_at=None, pipeline_details=None, name=None, description=None, properties=None):  # noqa: E501
         """JobTypeResponse - a model defined in Swagger"""  # noqa: E501
 
         self._id = None
-        self._is_partner_job_type = None
         self._status = None
         self._error_message = None
         self._created_at = None
@@ -73,8 +70,6 @@ class JobTypeResponse(object):
 
         if id is not None:
             self.id = id
-        if is_partner_job_type is not None:
-            self.is_partner_job_type = is_partner_job_type
         if status is not None:
             self.status = status
         if error_message is not None:
@@ -115,29 +110,6 @@ class JobTypeResponse(object):
         self._id = id
 
     @property
-    def is_partner_job_type(self):
-        """Gets the is_partner_job_type of this JobTypeResponse.  # noqa: E501
-
-        Gets or sets a value indicating whether it's a partner JobType or not.  # noqa: E501
-
-        :return: The is_partner_job_type of this JobTypeResponse.  # noqa: E501
-        :rtype: bool
-        """
-        return self._is_partner_job_type
-
-    @is_partner_job_type.setter
-    def is_partner_job_type(self, is_partner_job_type):
-        """Sets the is_partner_job_type of this JobTypeResponse.
-
-        Gets or sets a value indicating whether it's a partner JobType or not.  # noqa: E501
-
-        :param is_partner_job_type: The is_partner_job_type of this JobTypeResponse.  # noqa: E501
-        :type: bool
-        """
-
-        self._is_partner_job_type = is_partner_job_type
-
-    @property
     def status(self):
         """Gets the status of this JobTypeResponse.  # noqa: E501
 
@@ -157,7 +129,7 @@ class JobTypeResponse(object):
         :param status: The status of this JobTypeResponse.  # noqa: E501
         :type: str
         """
-        allowed_values = ["Waiting", "Provisioning", "Failed", "PendingRetry", "Ready"]  # noqa: E501
+        allowed_values = ["Waiting", "Provisioning", "Failed", "PendingRetry", "Ready", "Obsolete"]  # noqa: E501
         if status not in allowed_values:
             raise ValueError(
                 "Invalid value for `status` ({0}), must be one of {1}"  # noqa: E501
