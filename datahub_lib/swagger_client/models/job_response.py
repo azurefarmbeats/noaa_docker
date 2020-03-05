@@ -41,7 +41,6 @@ class JobResponse(object):
         'debug_info': 'DebugInformation',
         'info': 'JobInfo',
         'type_id': 'str',
-        'farm_ids': 'list[str]',
         'arguments': 'dict(str, object)',
         'parent_job_id': 'str',
         'name': 'str',
@@ -60,7 +59,6 @@ class JobResponse(object):
         'debug_info': 'debugInfo',
         'info': 'info',
         'type_id': 'typeId',
-        'farm_ids': 'farmIds',
         'arguments': 'arguments',
         'parent_job_id': 'parentJobId',
         'name': 'name',
@@ -68,7 +66,7 @@ class JobResponse(object):
         'properties': 'properties'
     }
 
-    def __init__(self, id=None, created_at=None, last_modified_at=None, stop_requested=None, current_state=None, error=None, status=None, debug_info=None, info=None, type_id=None, farm_ids=None, arguments=None, parent_job_id=None, name=None, description=None, properties=None):  # noqa: E501
+    def __init__(self, id=None, created_at=None, last_modified_at=None, stop_requested=None, current_state=None, error=None, status=None, debug_info=None, info=None, type_id=None, arguments=None, parent_job_id=None, name=None, description=None, properties=None):  # noqa: E501
         """JobResponse - a model defined in Swagger"""  # noqa: E501
 
         self._id = None
@@ -81,7 +79,6 @@ class JobResponse(object):
         self._debug_info = None
         self._info = None
         self._type_id = None
-        self._farm_ids = None
         self._arguments = None
         self._parent_job_id = None
         self._name = None
@@ -108,7 +105,6 @@ class JobResponse(object):
         if info is not None:
             self.info = info
         self.type_id = type_id
-        self.farm_ids = farm_ids
         if arguments is not None:
             self.arguments = arguments
         if parent_job_id is not None:
@@ -360,31 +356,6 @@ class JobResponse(object):
             raise ValueError("Invalid value for `type_id`, length must be greater than or equal to `3`")  # noqa: E501
 
         self._type_id = type_id
-
-    @property
-    def farm_ids(self):
-        """Gets the farm_ids of this JobResponse.  # noqa: E501
-
-        Gets or sets farm Ids for which this job is going to run.  <remarks>  Currently, only one farm id is supported.  </remarks>  # noqa: E501
-
-        :return: The farm_ids of this JobResponse.  # noqa: E501
-        :rtype: list[str]
-        """
-        return self._farm_ids
-
-    @farm_ids.setter
-    def farm_ids(self, farm_ids):
-        """Sets the farm_ids of this JobResponse.
-
-        Gets or sets farm Ids for which this job is going to run.  <remarks>  Currently, only one farm id is supported.  </remarks>  # noqa: E501
-
-        :param farm_ids: The farm_ids of this JobResponse.  # noqa: E501
-        :type: list[str]
-        """
-        if farm_ids is None:
-            raise ValueError("Invalid value for `farm_ids`, must not be `None`")  # noqa: E501
-
-        self._farm_ids = farm_ids
 
     @property
     def arguments(self):

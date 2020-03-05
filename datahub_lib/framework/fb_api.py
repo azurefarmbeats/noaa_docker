@@ -22,8 +22,8 @@ from datahub_lib.swagger_client.api.scene_file_api import SceneFileApi
 from datahub_lib.swagger_client.api.sensor_api import SensorApi
 from datahub_lib.swagger_client.api.sensor_model_api import SensorModelApi
 from datahub_lib.swagger_client.api.telemetry_api import TelemetryApi
-from datahub_lib.swagger_client.api.weather_station_api import WeatherStationApi
-from datahub_lib.swagger_client.api.weather_station_model_api import WeatherStationModelApi
+from datahub_lib.swagger_client.api.weather_data_model_api import WeatherDataModelApi
+from datahub_lib.swagger_client.api.weather_data_location_api import WeatherDataLocationApi
 
 from datahub_lib.auth.fb_auth_helper import FarmbeatsAuthHelper
 from datahub_lib.auth.partner_auth_helper import PartnerAuthHelper
@@ -137,12 +137,12 @@ class FarmbeatsApi:
         return TelemetryApi(ApiClient(self.configuration))
 
 
-    def get_weather_station_api(self):
+    def get_weather_data_location_api(self):
         self.__authenticate()
-        return WeatherStationApi(ApiClient(self.configuration))
+        return WeatherDataLocationApi(ApiClient(self.configuration))
 
     
-    def get_weather_station_model_api(self):
+    def get_weather_data_model_api(self):
         self.__authenticate()
-        return WeatherStationModelApi(ApiClient(self.configuration))
+        return WeatherDataModelApi(ApiClient(self.configuration))
 

@@ -21,7 +21,7 @@ class Bootstrap:
 
     ADD_MEASURE_TYPES = "add_extended_measure_types"
     ADD_MEASURE_UNITS = "add_extended_measure_units"
-    ADD_WEATHER_STATION_MODELS = "add_data_models"
+    ADD_WEATHER_DATA_MODELS = "add_data_models"
     ADD_JOB_TYPES = "add_job_types"
 
 
@@ -80,28 +80,28 @@ class Bootstrap:
         self.fb_api.get_extended_type_api().extended_type_update(id=unit_id, input=inp)
 
 
-    def upsert_weather_station_models(self):
+    def upsert_weather_data_models(self):
         '''
-        Upserts the weather station models mentioned in the bootstrap_manifest
+        Upserts the weather data models mentioned in the bootstrap_manifest
         '''
-        # get the existing weather station models
-        existing_weather_station_models = self.fb_api.get_weather_station_model_api().weather_station_model_get_all().to_dict()
-
-        # get the weather station models to upsert
-        partner_wsm_list = self.bootstrap_manifest[Bootstrap.ADD_WEATHER_STATION_MODELS]
+        # get the existing weather data models
+        existing_weather_data_models = self.fb_api.get_weather_data_model_api().weather_data_model_get_all().to_dict()
+        
+        # get the weather data models to upsert
+        partner_wsm_list = self.bootstrap_manifest[Bootstrap.ADD_WEATHER_DATA_MODELS]
         
         # for every weather station model in the manifest
-        for weather_station_model in partner_wsm_list:
-            existing_wsms = existing_weather_station_models["items"]
+        for weather_data_model in partner_wsm_list:
+            existing_wsms = existing_weather_data_models["items"]
             if (len(existing_wsms) > 0):
                 # if a matching name is found for the partner - update
                 for wsm in existing_wsms:
-                    if (wsm["name"] == weather_station_model["name"]):
+                    if (wsm["name"] == weather_data_model["name"]):
                         wsm_id = wsm["id"]
-                        self.fb_api.get_weather_station_model_api().weather_station_model_update(id=wsm_id, input=weather_station_model)
+                        self.fb_api.get_weather_data_model_api().weather_data_model_update(id=wsm_id, input=weather_data_model)
                         return
         # else insert 
-        self.fb_api.get_weather_station_model_api().weather_station_model_create(input=weather_station_model)
+        self.fb_api.get_weather_data_model_api().weather_data_model_create(input=weather_data_model)
 
 
     def upsert_job_types(self):
@@ -143,12 +143,12 @@ def run(config_file, end_point, function_url):
     # add new measure units
     LOG.info("Adding the new measure units")
     bootstrap.add_new_extended_measure_units()
-    LOG.info("Successfully added the new measure units")
+    LOG.info("Successfully added the new measure units") 
 
-    # upsert the weather station models
-    LOG.info("Upserting new weather station models")
-    bootstrap.upsert_weather_station_models()
-    LOG.info("Successfully upserted the weather station models")
+    # upsert the weather data models
+    LOG.info("Upserting new weather data models")
+    bootstrap.upsert_weather_data_models()
+    LOG.info("Successfully upserted the weather data models")
 
     # upsert the job types
     LOG.info("Upserting the job types")

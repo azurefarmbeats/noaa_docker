@@ -322,13 +322,15 @@ class RoleAssignmentApi(object):
         :param list[str] object_ids: Gets or sets list of object ids.
         :param list[str] object_id_types: Gets or sets list of object id types.
         :param list[str] tenant_ids: Gets or sets list of tenant ids.
-        :param list[str] ids: Gets ids of the resource.
+        :param list[str] ids: Gets or sets ids of the resource.
         :param str partner_id: Gets or sets id of the partner.
         :param datetime min_created_at: Gets or sets minimum creation date of resource (inclusive).
         :param datetime max_created_at: Gets or sets maximum creation date of resource (inclusive).
         :param datetime min_last_modified_at: Gets or sets minimum last modified date of resource (inclusive).
         :param datetime max_last_modified_at: Gets or sets maximum last modified date of resource (inclusive).
+        :param str property_filter: Gets or sets property filter query.eg. \"x.y.z eq 'somestringvalue' and p.q gt 5 and a eq false\".  Only AND operation is supported.  Supported Operators: EQ,NE,LE,LT,GT,GE,CONTAINS,NCONTAINS.
         :param int max_items: Gets or sets maximum number of items needed (inclusive).  Maximum items = 5000.
+        :param str x_ms_continuation: Gets or sets continuation token.
         :return: RoleAssignmentResponseListResponse
                  If the method is called asynchronously,
                  returns the request thread.
@@ -354,19 +356,21 @@ class RoleAssignmentApi(object):
         :param list[str] object_ids: Gets or sets list of object ids.
         :param list[str] object_id_types: Gets or sets list of object id types.
         :param list[str] tenant_ids: Gets or sets list of tenant ids.
-        :param list[str] ids: Gets ids of the resource.
+        :param list[str] ids: Gets or sets ids of the resource.
         :param str partner_id: Gets or sets id of the partner.
         :param datetime min_created_at: Gets or sets minimum creation date of resource (inclusive).
         :param datetime max_created_at: Gets or sets maximum creation date of resource (inclusive).
         :param datetime min_last_modified_at: Gets or sets minimum last modified date of resource (inclusive).
         :param datetime max_last_modified_at: Gets or sets maximum last modified date of resource (inclusive).
+        :param str property_filter: Gets or sets property filter query.eg. \"x.y.z eq 'somestringvalue' and p.q gt 5 and a eq false\".  Only AND operation is supported.  Supported Operators: EQ,NE,LE,LT,GT,GE,CONTAINS,NCONTAINS.
         :param int max_items: Gets or sets maximum number of items needed (inclusive).  Maximum items = 5000.
+        :param str x_ms_continuation: Gets or sets continuation token.
         :return: RoleAssignmentResponseListResponse
                  If the method is called asynchronously,
                  returns the request thread.
         """
 
-        all_params = ['role_definition_ids', 'object_ids', 'object_id_types', 'tenant_ids', 'ids', 'partner_id', 'min_created_at', 'max_created_at', 'min_last_modified_at', 'max_last_modified_at', 'max_items']  # noqa: E501
+        all_params = ['role_definition_ids', 'object_ids', 'object_id_types', 'tenant_ids', 'ids', 'partner_id', 'min_created_at', 'max_created_at', 'min_last_modified_at', 'max_last_modified_at', 'property_filter', 'max_items', 'x_ms_continuation']  # noqa: E501
         all_params.append('async_req')
         all_params.append('_return_http_data_only')
         all_params.append('_preload_content')
@@ -416,10 +420,14 @@ class RoleAssignmentApi(object):
             query_params.append(('minLastModifiedAt', params['min_last_modified_at']))  # noqa: E501
         if 'max_last_modified_at' in params:
             query_params.append(('maxLastModifiedAt', params['max_last_modified_at']))  # noqa: E501
+        if 'property_filter' in params:
+            query_params.append(('propertyFilter', params['property_filter']))  # noqa: E501
         if 'max_items' in params:
             query_params.append(('maxItems', params['max_items']))  # noqa: E501
 
         header_params = {}
+        if 'x_ms_continuation' in params:
+            header_params['x-ms-continuation'] = params['x_ms_continuation']  # noqa: E501
 
         form_params = []
         local_var_files = {}

@@ -38,11 +38,16 @@ class IGeoJSONObject(object):
         'type': 'type'
     }
 
+    discriminator_value_class_map = {
+        'Polygon': 'Polygon',
+        'MultiPolygon': 'MultiPolygon'
+    }
+
     def __init__(self, type=None):  # noqa: E501
         """IGeoJSONObject - a model defined in Swagger"""  # noqa: E501
 
         self._type = None
-        self.discriminator = None
+        self.discriminator = 'type'
 
         self.type = type
 
@@ -50,7 +55,6 @@ class IGeoJSONObject(object):
     def type(self):
         """Gets the type of this IGeoJSONObject.  # noqa: E501
 
-        Gets the type of the GeoJSON Object.  # noqa: E501
 
         :return: The type of this IGeoJSONObject.  # noqa: E501
         :rtype: str
@@ -61,14 +65,13 @@ class IGeoJSONObject(object):
     def type(self, type):
         """Sets the type of this IGeoJSONObject.
 
-        Gets the type of the GeoJSON Object.  # noqa: E501
 
         :param type: The type of this IGeoJSONObject.  # noqa: E501
         :type: str
         """
         if type is None:
             raise ValueError("Invalid value for `type`, must not be `None`")  # noqa: E501
-        allowed_values = ["Polygon"]  # noqa: E501
+        allowed_values = ["Polygon", "MultiPolygon"]  # noqa: E501
         if type not in allowed_values:
             raise ValueError(
                 "Invalid value for `type` ({0}), must be one of {1}"  # noqa: E501
@@ -76,6 +79,11 @@ class IGeoJSONObject(object):
             )
 
         self._type = type
+
+    def get_real_child_model(self, data):
+        """Returns the real base class specified by the discriminator"""
+        discriminator_value = data[self.discriminator].lower()
+        return self.discriminator_value_class_map.get(discriminator_value)
 
     def to_dict(self):
         """Returns the model properties as a dict"""

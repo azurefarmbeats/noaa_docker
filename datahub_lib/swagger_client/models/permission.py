@@ -133,7 +133,7 @@ class Permission(object):
         """
         if resource_types is None:
             raise ValueError("Invalid value for `resource_types`, must not be `None`")  # noqa: E501
-        allowed_values = ["All", "Device", "DeviceModel", "Rule", "Sensor", "SensorModel", "WeatherStation", "WeatherStationModel", "Job", "JobType", "Scene", "SceneFile", "Farm", "RoleAssignment", "RoleDefinition", "Alert", "ExtendedType", "Telemetry", "Partner"]  # noqa: E501
+        allowed_values = ["All", "Device", "DeviceModel", "Rule", "Sensor", "SensorModel", "WeatherDataLocation", "WeatherDataModel", "Job", "JobType", "Scene", "SceneFile", "Farm", "RoleAssignment", "RoleDefinition", "Alert", "ExtendedType", "Telemetry", "Partner"]  # noqa: E501
         if not set(resource_types).issubset(set(allowed_values)):
             raise ValueError(
                 "Invalid values for `resource_types` [{0}], must be a subset of [{1}]"  # noqa: E501

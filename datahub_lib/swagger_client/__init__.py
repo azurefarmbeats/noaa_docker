@@ -32,8 +32,8 @@ from datahub_lib.swagger_client.api.scene_file_api import SceneFileApi
 from datahub_lib.swagger_client.api.sensor_api import SensorApi
 from datahub_lib.swagger_client.api.sensor_model_api import SensorModelApi
 from datahub_lib.swagger_client.api.telemetry_api import TelemetryApi
-from datahub_lib.swagger_client.api.weather_station_api import WeatherStationApi
-from datahub_lib.swagger_client.api.weather_station_model_api import WeatherStationModelApi
+from datahub_lib.swagger_client.api.weather_data_location_api import WeatherDataLocationApi
+from datahub_lib.swagger_client.api.weather_data_model_api import WeatherDataModelApi
 
 # import ApiClient
 from datahub_lib.swagger_client.api_client import ApiClient
@@ -65,7 +65,6 @@ from datahub_lib.swagger_client.models.farm_response_list_response import FarmRe
 from datahub_lib.swagger_client.models.get_scene_file_response import GetSceneFileResponse
 from datahub_lib.swagger_client.models.get_scene_file_response_list_response import GetSceneFileResponseListResponse
 from datahub_lib.swagger_client.models.i_action import IAction
-from datahub_lib.swagger_client.models.icrs_object import ICRSObject
 from datahub_lib.swagger_client.models.i_geo_json_object import IGeoJSONObject
 from datahub_lib.swagger_client.models.job_error import JobError
 from datahub_lib.swagger_client.models.job_info import JobInfo
@@ -77,6 +76,7 @@ from datahub_lib.swagger_client.models.job_type_request import JobTypeRequest
 from datahub_lib.swagger_client.models.job_type_response import JobTypeResponse
 from datahub_lib.swagger_client.models.job_type_response_list_response import JobTypeResponseListResponse
 from datahub_lib.swagger_client.models.location import Location
+from datahub_lib.swagger_client.models.multi_polygon import MultiPolygon
 from datahub_lib.swagger_client.models.parameter import Parameter
 from datahub_lib.swagger_client.models.partner_driver_timeline import PartnerDriverTimeline
 from datahub_lib.swagger_client.models.partner_error import PartnerError
@@ -112,10 +112,10 @@ from datahub_lib.swagger_client.models.sensor_response import SensorResponse
 from datahub_lib.swagger_client.models.sensor_response_list_response import SensorResponseListResponse
 from datahub_lib.swagger_client.models.telemetry_query_filter import TelemetryQueryFilter
 from datahub_lib.swagger_client.models.tsx import Tsx
+from datahub_lib.swagger_client.models.weather_data_location_request import WeatherDataLocationRequest
+from datahub_lib.swagger_client.models.weather_data_location_response import WeatherDataLocationResponse
+from datahub_lib.swagger_client.models.weather_data_location_response_list_response import WeatherDataLocationResponseListResponse
+from datahub_lib.swagger_client.models.weather_data_model_request import WeatherDataModelRequest
+from datahub_lib.swagger_client.models.weather_data_model_response import WeatherDataModelResponse
+from datahub_lib.swagger_client.models.weather_data_model_response_list_response import WeatherDataModelResponseListResponse
 from datahub_lib.swagger_client.models.weather_measure import WeatherMeasure
-from datahub_lib.swagger_client.models.weather_station_model_request import WeatherStationModelRequest
-from datahub_lib.swagger_client.models.weather_station_model_response import WeatherStationModelResponse
-from datahub_lib.swagger_client.models.weather_station_model_response_list_response import WeatherStationModelResponseListResponse
-from datahub_lib.swagger_client.models.weather_station_request import WeatherStationRequest
-from datahub_lib.swagger_client.models.weather_station_response import WeatherStationResponse
-from datahub_lib.swagger_client.models.weather_station_response_list_response import WeatherStationResponseListResponse

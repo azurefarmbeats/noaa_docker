@@ -54,7 +54,6 @@ class Polygon(object):
     def type(self):
         """Gets the type of this Polygon.  # noqa: E501
 
-        Gets or sets type of the GeoJSON Object.  Currently, only Polygon is supported.  # noqa: E501
 
         :return: The type of this Polygon.  # noqa: E501
         :rtype: str
@@ -65,14 +64,13 @@ class Polygon(object):
     def type(self, type):
         """Sets the type of this Polygon.
 
-        Gets or sets type of the GeoJSON Object.  Currently, only Polygon is supported.  # noqa: E501
 
         :param type: The type of this Polygon.  # noqa: E501
         :type: str
         """
         if type is None:
             raise ValueError("Invalid value for `type`, must not be `None`")  # noqa: E501
-        allowed_values = ["Polygon"]  # noqa: E501
+        allowed_values = ["Polygon", "MultiPolygon"]  # noqa: E501
         if type not in allowed_values:
             raise ValueError(
                 "Invalid value for `type` ({0}), must be one of {1}"  # noqa: E501
@@ -85,7 +83,6 @@ class Polygon(object):
     def coordinates(self):
         """Gets the coordinates of this Polygon.  # noqa: E501
 
-        Gets or sets type of the GeoJSON Object.  It must be an array of linear ring coordinate arrays.  For Polygons with more than one of these rings, the first MUST be the exterior ring,  and any others MUST be interior rings.  # noqa: E501
 
         :return: The coordinates of this Polygon.  # noqa: E501
         :rtype: list[list[list[float]]]
@@ -96,7 +93,6 @@ class Polygon(object):
     def coordinates(self, coordinates):
         """Sets the coordinates of this Polygon.
 
-        Gets or sets type of the GeoJSON Object.  It must be an array of linear ring coordinate arrays.  For Polygons with more than one of these rings, the first MUST be the exterior ring,  and any others MUST be interior rings.  # noqa: E501
 
         :param coordinates: The coordinates of this Polygon.  # noqa: E501
         :type: list[list[list[float]]]

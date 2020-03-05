@@ -75,7 +75,7 @@ class PartnerStatus(object):
         :param partner_state: The partner_state of this PartnerStatus.  # noqa: E501
         :type: str
         """
-        allowed_values = ["Active", "Waiting", "Initializing", "PendingRetry", "Failed", "Updating", "Deleting"]  # noqa: E501
+        allowed_values = ["Active", "Waiting", "Initializing", "PendingRetry", "Failed", "Updating", "PendingDelete", "Deleting"]  # noqa: E501
         if partner_state not in allowed_values:
             raise ValueError(
                 "Invalid value for `partner_state` ({0}), must be one of {1}"  # noqa: E501

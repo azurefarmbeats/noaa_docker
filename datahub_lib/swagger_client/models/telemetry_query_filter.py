@@ -32,6 +32,7 @@ class TelemetryQueryFilter(object):
     """
     swagger_types = {
         'sensor_id': 'str',
+        'weather_data_location_id': 'str',
         'search_span': 'DateTimeRange',
         'filter': 'Tsx',
         'projected_properties': 'list[dict(str, str)]'
@@ -39,21 +40,26 @@ class TelemetryQueryFilter(object):
 
     attribute_map = {
         'sensor_id': 'sensorId',
+        'weather_data_location_id': 'weatherDataLocationId',
         'search_span': 'searchSpan',
         'filter': 'filter',
         'projected_properties': 'projectedProperties'
     }
 
-    def __init__(self, sensor_id=None, search_span=None, filter=None, projected_properties=None):  # noqa: E501
+    def __init__(self, sensor_id=None, weather_data_location_id=None, search_span=None, filter=None, projected_properties=None):  # noqa: E501
         """TelemetryQueryFilter - a model defined in Swagger"""  # noqa: E501
 
         self._sensor_id = None
+        self._weather_data_location_id = None
         self._search_span = None
         self._filter = None
         self._projected_properties = None
         self.discriminator = None
 
-        self.sensor_id = sensor_id
+        if sensor_id is not None:
+            self.sensor_id = sensor_id
+        if weather_data_location_id is not None:
+            self.weather_data_location_id = weather_data_location_id
         self.search_span = search_span
         if filter is not None:
             self.filter = filter
@@ -78,10 +84,29 @@ class TelemetryQueryFilter(object):
         :param sensor_id: The sensor_id of this TelemetryQueryFilter.  # noqa: E501
         :type: str
         """
-        if sensor_id is None:
-            raise ValueError("Invalid value for `sensor_id`, must not be `None`")  # noqa: E501
 
         self._sensor_id = sensor_id
+
+    @property
+    def weather_data_location_id(self):
+        """Gets the weather_data_location_id of this TelemetryQueryFilter.  # noqa: E501
+
+
+        :return: The weather_data_location_id of this TelemetryQueryFilter.  # noqa: E501
+        :rtype: str
+        """
+        return self._weather_data_location_id
+
+    @weather_data_location_id.setter
+    def weather_data_location_id(self, weather_data_location_id):
+        """Sets the weather_data_location_id of this TelemetryQueryFilter.
+
+
+        :param weather_data_location_id: The weather_data_location_id of this TelemetryQueryFilter.  # noqa: E501
+        :type: str
+        """
+
+        self._weather_data_location_id = weather_data_location_id
 
     @property
     def search_span(self):

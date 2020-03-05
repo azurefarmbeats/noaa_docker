@@ -32,22 +32,27 @@ class AzureBatchDetails(object):
     """
     swagger_types = {
         'batch_vmsku': 'str',
+        'dedicated_computer_nodes': 'int',
         'node_agent_skuid': 'str'
     }
 
     attribute_map = {
         'batch_vmsku': 'batchVMSKU',
+        'dedicated_computer_nodes': 'dedicatedComputerNodes',
         'node_agent_skuid': 'nodeAgentSKUID'
     }
 
-    def __init__(self, batch_vmsku=None, node_agent_skuid=None):  # noqa: E501
+    def __init__(self, batch_vmsku=None, dedicated_computer_nodes=1, node_agent_skuid=None):  # noqa: E501
         """AzureBatchDetails - a model defined in Swagger"""  # noqa: E501
 
         self._batch_vmsku = None
+        self._dedicated_computer_nodes = None
         self._node_agent_skuid = None
         self.discriminator = None
 
         self.batch_vmsku = batch_vmsku
+        if dedicated_computer_nodes is not None:
+            self.dedicated_computer_nodes = dedicated_computer_nodes
         self.node_agent_skuid = node_agent_skuid
 
     @property
@@ -74,6 +79,29 @@ class AzureBatchDetails(object):
             raise ValueError("Invalid value for `batch_vmsku`, must not be `None`")  # noqa: E501
 
         self._batch_vmsku = batch_vmsku
+
+    @property
+    def dedicated_computer_nodes(self):
+        """Gets the dedicated_computer_nodes of this AzureBatchDetails.  # noqa: E501
+
+        Gets or sets dedicated computer nodes for batch pool.  Default value is 1.  # noqa: E501
+
+        :return: The dedicated_computer_nodes of this AzureBatchDetails.  # noqa: E501
+        :rtype: int
+        """
+        return self._dedicated_computer_nodes
+
+    @dedicated_computer_nodes.setter
+    def dedicated_computer_nodes(self, dedicated_computer_nodes):
+        """Sets the dedicated_computer_nodes of this AzureBatchDetails.
+
+        Gets or sets dedicated computer nodes for batch pool.  Default value is 1.  # noqa: E501
+
+        :param dedicated_computer_nodes: The dedicated_computer_nodes of this AzureBatchDetails.  # noqa: E501
+        :type: int
+        """
+
+        self._dedicated_computer_nodes = dedicated_computer_nodes
 
     @property
     def node_agent_skuid(self):

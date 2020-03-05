@@ -203,7 +203,7 @@ class SensorMeasure(object):
         :param aggregation_type: The aggregation_type of this SensorMeasure.  # noqa: E501
         :type: str
         """
-        allowed_values = ["None", "Average", "Maximum", "Minimum", "StandardDeviation"]  # noqa: E501
+        allowed_values = ["None", "Average", "Maximum", "Minimum", "StandardDeviation", "Sum", "Total"]  # noqa: E501
         if aggregation_type not in allowed_values:
             raise ValueError(
                 "Invalid value for `aggregation_type` ({0}), must be one of {1}"  # noqa: E501

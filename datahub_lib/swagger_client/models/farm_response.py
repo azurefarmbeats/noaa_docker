@@ -34,7 +34,7 @@ class FarmResponse(object):
         'id': 'str',
         'created_at': 'datetime',
         'last_modified_at': 'datetime',
-        'geometry': 'Polygon',
+        'geometry': 'IGeoJSONObject',
         'name': 'str',
         'description': 'str',
         'properties': 'dict(str, object)'
@@ -152,7 +152,7 @@ class FarmResponse(object):
         Gets or sets geometry of the farm specified as GeoJson.  # noqa: E501
 
         :return: The geometry of this FarmResponse.  # noqa: E501
-        :rtype: Polygon
+        :rtype: IGeoJSONObject
         """
         return self._geometry
 
@@ -163,7 +163,7 @@ class FarmResponse(object):
         Gets or sets geometry of the farm specified as GeoJson.  # noqa: E501
 
         :param geometry: The geometry of this FarmResponse.  # noqa: E501
-        :type: Polygon
+        :type: IGeoJSONObject
         """
 
         self._geometry = geometry

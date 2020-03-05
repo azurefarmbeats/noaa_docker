@@ -31,7 +31,7 @@ class FarmRequest(object):
                             and the value is json key in definition.
     """
     swagger_types = {
-        'geometry': 'Polygon',
+        'geometry': 'IGeoJSONObject',
         'name': 'str',
         'description': 'str',
         'properties': 'dict(str, object)'
@@ -68,7 +68,7 @@ class FarmRequest(object):
         Gets or sets geometry of the farm specified as GeoJson.  # noqa: E501
 
         :return: The geometry of this FarmRequest.  # noqa: E501
-        :rtype: Polygon
+        :rtype: IGeoJSONObject
         """
         return self._geometry
 
@@ -79,7 +79,7 @@ class FarmRequest(object):
         Gets or sets geometry of the farm specified as GeoJson.  # noqa: E501
 
         :param geometry: The geometry of this FarmRequest.  # noqa: E501
-        :type: Polygon
+        :type: IGeoJSONObject
         """
 
         self._geometry = geometry
