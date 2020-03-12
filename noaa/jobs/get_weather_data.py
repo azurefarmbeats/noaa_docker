@@ -3,7 +3,7 @@ from absl import app
 from absl import flags
 from datetime import datetime
 from dateutil import parser
-import math
+l̥
 import asyncio
 import json
 from azure.eventhub.aio import EventHubProducerClient
@@ -16,6 +16,7 @@ from datahub_lib.framework.logger import Logger
 from datahub_lib.framework.fb_api import FarmbeatsApi
 from datahub_lib.conf.baseconfig import BaseConfig
 from datahub_lib.framework.job_status_writer import JobStatusWriter
+from noaa.jobs.utils import UtilFunctions
 
 
 # Define flags used by this module.
@@ -45,32 +46,30 @@ class GetWeatherDataJob:
     Class to fetch ISD weather data from Azure open datasets (NOAA ISD)
     '''
 
-    # class constants
-    INT_MAX = 1e17
-    INVALID_LAT_LON = 500
-    WEATHER_STATION_MODEL_NAME = "noaa_isd"
+    #class constants
+    WEATHER_DATA_MODEL_NAME = "noaa_isd"
 
     
     def __init__(self):
-        self.fb_api = FarmbeatsApi(endpoint=FLAGS.end_point, function_url=FLAGS.get_access_token_url)
+        self.fb_api = FarmbeatsApi(endpoint=FLAGS.end_point)
 
 
-    def get_weather_data(self, start_date, end_date, lat, lon):
+    def __get_weather_data_for_day(self, day, lat, lon):
         '''
-        Gets the closest proximity weather data available for the given date range, 
+        Gets weather data for a given day and pushes it to eventhub
         '''
         try:
             # get data for given date range.
-            LOG.info("Getting data for dates " + start_date + " to " + end_date)
-            weather_data = self.__get_weather_data_for_date_range(start_date, end_date)
-            LOG.info("Successfully got data for dates " + start_date + " to " + end_date)
+            LOG.info("Getting data for " + day.strptime())
+            weather_data = NoaaIsdWeather(day, day)
+            LOG.info("Successfully got data for " + day.strptrime())
 
             # get the data into a pandas data frame, so we can filter and process
             weather_data_df = weather_data.to_pandas_dataframe()
 
             # out of the lat longs available get the nearest points
             LOG.info("Finding the nearest latitude and longitude from the available data")
-            (nearest_lat, nearest_lon) = self.__find_nearest_lat_longs_in_data(weather_data_df, lat, lon)
+            (nearest_lat, nearest_lon) = UtilFunctions.find_nearest_lat_longs_in_data(weather_data_df, lat, lon)
             LOG.info("nearest lat, lon: [" + str(nearest_lat) + "," + str(nearest_lon) + "]")
 
             # filter the data to this lat and lon
@@ -100,6 +99,17 @@ class GetWeatherDataJob:
                 writer.set_error('001', str(err), False)
                 writer.set_success(False)
                 writer.flush()
+
+
+    def get_weather_data(self, start_date, end_date, lat, lon):
+        '''
+        Gets the closest proximity weather data available for the given date range, 
+        '''
+        start_date = parser.parse(FLAGS.start_date)
+        end_date = parser.parse(FLAGS.end_date)
+        for day in UtilFunctions.daterange(start_date, end_date):
+            self.__get_weather_data_for_day(day, lat, lon)
+        
                 
     
     def __get_eventhub_format(self, row):
@@ -119,13 +129,13 @@ class GetWeatherDataJob:
         return output
 
 
-    def __process_weather_data_for_tsi(self, weather_station_id, weather_data):
+    def __process_weather_data_for_tsi(self, weather_data_location_id, weather_data):
         '''
         Converts the weather data from Pandas data frame to that expected by TSI
         '''
         msgs = []
         msg = json.loads('''{
-                                    "weatherstations": [
+                                    "weatherdatalocations": [
                                         {
                                         "id": "",
                                         "weatherdata": []
@@ -133,18 +143,18 @@ class GetWeatherDataJob:
                                     ]
                                 }'''
                         )
-        msg["weatherstations"][0]["id"] = weather_station_id        
-        row_data = msg["weatherstations"][0]["weatherdata"]
+        msg["weatherdatalocations"][0]["id"] = weather_data_location_id        
+        row_data = msg["weatherdatalocations"][0]["weatherdata"]
         # iterrows gives (index, row) tuples rather than just rows.
         # so, throwing away the index and just getting the row.
         for _,row in weather_data.iterrows():
             row_data.append(self.__get_eventhub_format(row))
-        msg["weatherstations"][0]["weatherdata"] = row_data
+        msg["weatherdatalocations"][0]["weatherdata"] = row_data
         msgs.append(json.dumps(msg))
         return msgs
 
 
-    async def __send_to_eventhub(self, weather_station_id, weather_data):
+    async def __send_to_eventhub(self, weather_data_location_id, weather_data):
         '''
         Sends weather data to eventhub
         '''
@@ -154,18 +164,18 @@ class GetWeatherDataJob:
         async with producer:
             event_data_batch = await producer.create_batch()
             # process the weather data and create the msgs 
-            msgs = self.__process_weather_data_for_tsi(weather_station_id, weather_data)
+            msgs = self.__process_weather_data_for_tsi(weather_data_location_id, weather_data)
             # Add events to the batch
             for msg in msgs:
                 event_data_batch.add(EventData(msg))
             await producer.send_batch(event_data_batch)
 
 
-    def __get_weather_station_model_id(self, name):
+    def __get_weather_data_model_id(self, name):
         '''
-        returns the weather station model id, given the name
+        returns the weather data model id, given the name
         '''
-        wsms = self.fb_api.get_weather_station_model_api().weather_station_model_get_all(names=[name]).to_dict()
+        wsms = self.fb_api.get_weather_data_model_api().weather_data_model_get_all(names=[name]).to_dict()
         if (wsms):
             return wsms["items"][0]["id"]
         else:
@@ -173,28 +183,28 @@ class GetWeatherDataJob:
             return "not_found"
 
 
-    def __get_weather_station_id(self):
+    def __get_weather_data_location_id(self):
         '''
-        checks if a weather station already exists for the location, 
+        checks if a weather data location already exists for the location, 
         if yes -> returns it's id.
         Else, creates and returns the id.
         '''
-        weather_stations = self.fb_api.get_weather_station_api().weather_station_get_all().to_dict()
-        for ws in weather_stations["items"]:
-            lat = ws["location"]["latitude"]
-            lon = ws["location"]["longitude"]
+        weather_data_locations = self.fb_api.get_weather_data_location_api().weather_data_location_get_all().to_dict()
+        for loc in weather_data_locations["items"]:
+            lat = loc["location"]["latitude"]
+            lon = loc["location"]["longitude"]
             if (lat == float(FLAGS.latitude)and lon == float(FLAGS.longitude)):
-                # Found! - weather station for the given location already exists
-                return ws["id"]
+                # Found! - weather data location for the given location already exists
+                return loc["id"]
         
-        # doesn't exist - create weather station
-        weather_station_payload = {}
-        weather_station_payload["name"] = "NOAA_job_generated_ws_[" + FLAGS.latitude + "," + FLAGS.longitude + "]" 
-        weather_station_payload["weatherStationModelId"] = self.__get_weather_station_model_id(name=GetWeatherDataJob.WEATHER_STATION_MODEL_NAME)
-        weather_station_payload["location"] = { "latitude": FLAGS.latitude, "longitude": FLAGS.longitude}
+        # doesn't exist - create weather data_location
+        weather_data_location_payload = {}
+        weather_data_location_payload["name"] = "NOAA_job_generated_location_[" + FLAGS.latitude + "," + FLAGS.longitude + "]" 
+        weather_data_location_payload["weatherDataModelId"] = self.__get_weather_data_model_id(name=GetWeatherDataJob.WEATHER_DATA_MODEL_NAME)
+        weather_data_location_payload["location"] = { "latitude": FLAGS.latitude, "longitude": FLAGS.longitude}
         if (FLAGS.farm_id):
-            weather_station_payload["farmid"] = FLAGS.farm_id
-        res = self.fb_api.get_weather_station_api().weather_station_create(input=weather_station_payload).to_dict()
+            weather_data_location_payload["farmid"] = FLAGS.farm_id
+        res = self.fb_api.get_weather_data_location_api().weather_data_location_create(input=weather_data_location_payload).to_dict()
         return res["id"]
         
       
@@ -202,55 +212,11 @@ class GetWeatherDataJob:
         '''
         Pushes weather data to farmbeats - ingests data
         '''
-        weather_station_id = self.__get_weather_station_id()
+        weather_data_location_id = self.__get_weather_data_location_id()
         loop = asyncio.get_event_loop()
-        loop.run_until_complete(self.__send_to_eventhub(weather_station_id, weather_data))
+        loop.run_until_complete(self.__send_to_eventhub(weather_data_location_id, weather_data))
 
     
-    def __haversine_distance(self, origin, destination):
-        '''
-        Returns the haversine distance between two points on a sphere
-        '''
-        lat1, lon1 = origin
-        lat2, lon2 = destination
-        radius = 6371 # km
-
-        dlat = math.radians(lat2-lat1)
-        dlon = math.radians(lon2-lon1)
-        a = math.sin(dlat/2) * math.sin(dlat/2) + math.cos(math.radians(lat1)) \
-            * math.cos(math.radians(lat2)) * math.sin(dlon/2) * math.sin(dlon/2)
-        c = 2 * math.atan2(math.sqrt(a), math.sqrt(1-a))
-        d = radius * c
-
-        return d
-
-
-    def __get_weather_data_for_date_range(self, start_date, end_date):
-        '''
-        Returns all the weather data for a given date range.
-        '''
-        start_date = parser.parse(FLAGS.start_date)
-        end_date = parser.parse(FLAGS.end_date)
-        return NoaaIsdWeather(start_date, end_date)
-
-
-    def __find_nearest_lat_longs_in_data(self, weather_data_df, lat, lon):
-        '''
-        Returns all the nearest lat longs available in the data
-        '''
-        # for all the latitudes and longitudes in the dataset - find the closest to the lat,lon
-        min_dist = GetWeatherDataJob.INT_MAX
-        closest_lat = GetWeatherDataJob.INVALID_LAT_LON
-        closest_lon = GetWeatherDataJob.INVALID_LAT_LON
-        for _,row in weather_data_df.loc[:, ['latitude', 'longitude']].iterrows():
-            dist = self.__haversine_distance((lat, lon), (row['latitude'], row['longitude']))
-            if (dist < min_dist):
-                min_dist = dist
-                closest_lat = row['latitude']
-                closest_lon = row['longitude']
-        return (closest_lat, closest_lon)      
-
-
 def main(argv):
     job = GetWeatherDataJob()
     # get weather data
