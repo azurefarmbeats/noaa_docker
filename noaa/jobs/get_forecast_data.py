@@ -122,6 +122,7 @@ class GetWeatherForecastDataJob:
         Pushes weather data to farmbeats - ingests data
         '''
         weather_data_location_id = self.__get_weather_data_location_id()
+        LOG.info("Weather data location id: {}".format(weather_data_location_id))
         loop = asyncio.get_event_loop()
         loop.run_until_complete(self.__send_to_eventhub(weather_data_location_id, weather_data))
 
