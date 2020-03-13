@@ -19,7 +19,7 @@ class ExtendedPropertiesReader:
         '''
         with open(ExtendedPropertiesReader.ACTIVITY_JSON_FILE_PATH, 'r') as f:
             customProperties = json.load(f)
-            partnerCreds = customProperties.get("typeProperties", {}).get("extendedProperties", {}).get("partnerCredentials", {}).get("value", None)
+            partnerCreds = customProperties.get("typeProperties", {}).get("extendedProperties", {}).get("partnerCredentials", None)
             # partnerCreds = customProperties["typeProperties"]["extendedProperties"]["partnerCredentials"]["value"]
             if partnerCreds:
                 return json.loads(partnerCreds)
@@ -34,7 +34,7 @@ class ExtendedPropertiesReader:
         with open(ExtendedPropertiesReader.ACTIVITY_JSON_FILE_PATH, 'r') as f:
             customProperties = json.load(f)
             # function_url = customProperties["typeProperties"]["extendedProperties"]["partnerAccessTokenApiUrl"]["value"]
-            function_url = customProperties.get("typeProperties", {}).get("extendedProperties", {}).get("partnerAccessTokenApiUrl", {}).get("value", None)
+            function_url = customProperties.get("typeProperties", {}).get("extendedProperties", {}).get("partnerAccessTokenApiUrl", None)
             return function_url
 
 
@@ -45,5 +45,5 @@ class ExtendedPropertiesReader:
         with open(ExtendedPropertiesReader.ACTIVITY_JSON_FILE_PATH, 'r') as f:
             customProperties = json.load(f)
             # eventhub_connection_string = customProperties["typeProperties"]["extendedProperties"]["eventHubConnectionString"]["value"]
-            eventhub_connection_string = customProperties.get("typeProperties", {}).get("extendedProperties", {}).get("eventHubConnectionString", {}).get("value", None)
+            eventhub_connection_string = customProperties.get("typeProperties", {}).get("extendedProperties", {}).get("eventHubConnectionString", None)
             return eventhub_connection_string
