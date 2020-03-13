@@ -11,6 +11,7 @@ from azure.eventhub import EventData
 from azureml.opendatasets import NoaaGfsWeather
 from datetime import datetime
 from datahub_lib.framework.logger import Logger
+import time
 
 # Local imports
 from datahub_lib.framework.fb_api import FarmbeatsApi
@@ -72,12 +73,15 @@ class GetWeatherForecastDataJob:
         '''
         try:
             # get data for given date range.
+            start_time = time.time()
             LOG.info("Getting data for " + day.strftime("%m/%d/%Y, %H:%M:%S"))
             weather_data = NoaaGfsWeather(day, day)
             LOG.info("Successfully got data for " + day.strftime("%m/%d/%Y, %H:%M:%S"))
+            
 
             # get the data into a pandas data frame, so we can filter and process
             weather_data_df = weather_data.to_pandas_dataframe()
+            LOG.info("Took {} seconds to get the data.".format(time.time() - start_time))
 
             # out of the lat longs available get the nearest points
             LOG.info("Finding the nearest latitude and longitude from the available data")

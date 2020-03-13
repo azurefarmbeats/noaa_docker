@@ -3,7 +3,7 @@ from absl import app
 from absl import flags
 from datetime import datetime
 from dateutil import parser
-
+import time
 import asyncio
 import json
 from azure.eventhub.aio import EventHubProducerClient
@@ -76,12 +76,14 @@ class GetWeatherDataJob:
         '''
         try:
             # get data for given date range.
+            start_time = time.time()
             LOG.info("Getting data for " + day.strftime("%m/%d/%Y, %H:%M:%S"))
             weather_data = NoaaIsdWeather(day, day)
             LOG.info("Successfully got data for " + day.strftime("%m/%d/%Y, %H:%M:%S"))
 
             # get the data into a pandas data frame, so we can filter and process
             weather_data_df = weather_data.to_pandas_dataframe()
+            LOG.info("Took {} seconds to get the data.".format(time.time() - start_time))
 
             # out of the lat longs available get the nearest points
             LOG.info("Finding the nearest latitude and longitude from the available data")
