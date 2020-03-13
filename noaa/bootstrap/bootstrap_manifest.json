@@ -7,17 +7,25 @@
         "PastWeatherIndicator",
         "PrecipTime",
         "PrecipDepth",
-        "SnowDepth"
+        "SnowDepth",
+        "CloudCover",
+        "Precipitation",
+        "WindSpeed"
     ],
     "add_extended_measure_units":[
         "Hectopascals",
-        "Hours"
+        "Hours",
+        "kg.m-2",
+        "Pascal",
+        "Metre",
+        "Kelvin",
+        "m/s"
     ],
     "add_data_models":[
         {
             "name": "noaa_isd",
             "description": "NOAA integrated surface database - weather data",
-            "weatherStationMeasures": [
+            "weatherMeasures": [
               {
                 "name": "Elevation",
                 "dataType": "Double",
@@ -70,7 +78,57 @@
             ],
             "properties": {
             }
+          },
+          {
+          "name": "noaa_gfs",
+          "description": "NOAA Global Forecast System - forecasted weather data",
+          "weatherMeasures": [
+            {
+              "name": "precipitableWaterEntireAtmosphere",
+              "dataType": "Double",
+              "type": "Precipitation",
+              "unit": "kg.m-2",
+              "description": "Precipitable water at entire atmosphere layer."
+            },
+            {
+              "name": "seaLvlPressure",
+              "dataType": "Double",
+              "type": "SeaLvlPressure",
+              "unit": "Pascal",
+              "description": "Pressure at ground or water surface."
+            },
+            {
+              "name": "snowDepthSurface",
+              "dataType": "Double",
+              "type": "SnowDepth",
+              "unit": "Metre",
+              "description": "Snow depth at ground or water surface. Units: m"
+            },
+            {
+              "name": "temperature",
+              "dataType": "Double",
+              "type": "AmbientTemperature",
+              "unit": "Kelvin",
+              "description": "Temperature at ground or water surface. Units: K"
+            },
+            {
+              "name": "totalCloudCoverConvectiveCloud",
+              "dataType": "Double",
+              "type": "CloudCover",
+              "unit": "NoUnit",
+              "description": "Total cloud cover at convective cloud layer. Units: %"
+            },
+            {
+              "name": "windSpeedGustSurface",
+              "dataType": "Double",
+              "type": "WindSpeed",
+              "unit": "m/s",
+              "description": "Wind speed (gust) at ground or water surface. Units: m/s"
+            }
+          ],
+          "properties": {
           }
+        }
     ],
     "add_job_types":[
         {
@@ -82,13 +140,13 @@
                 {
                   "name": "latitude",
                   "type": "String",
-                  "isRequired": false,
+                  "isRequired": true,
                   "description": "Latitude for the point for which we want to fetch weather data"
                 },
                 {
                     "name": "longitude",
                     "type": "String",
-                    "isRequired": false,
+                    "isRequired": true,
                     "description": "Longitude for the point for which we want to fetch weather data"
                 },
                 {
@@ -113,6 +171,48 @@
             },
             "properties":{
               "programRunCommand": "python3 noaa/jobs/get_weather_data.py"
+            }
+        },
+        {
+        "name": "get_weather_forecast_data",
+            "description": "Get weather forecast data (NOAA GFS) - Azure open datasets",
+            "isPartnerJobType": true,
+            "pipelineDetails": {
+              "parameters": [
+                {
+                  "name": "latitude",
+                  "type": "String",
+                  "isRequired": true,
+                  "description": "Latitude for the point for which we want to fetch weather data"
+                },
+                {
+                    "name": "longitude",
+                    "type": "String",
+                    "isRequired": true,
+                    "description": "Longitude for the point for which we want to fetch weather data"
+                },
+                {
+                    "name": "start_date",
+                    "type": "String",
+                    "isRequired": true,
+                    "description": "Date from which (inclusive) weather data will be downloaded for the farm. Format is YYYY-MM-DD. Example: 2019-09-28"
+                },
+                {
+                    "name": "end_date",
+                    "type": "String",
+                    "isRequired": true,
+                    "description": "Date to which (inclusive) weather data will be downloaded for the farm. Format is YYYY-MM-DD. Example: 2019-09-28"
+                },
+                {
+                    "name": "farm_id",
+                    "type": "String",
+                    "isRequired": false,
+                    "description": "System generated unique Farm Id. Please refer to Farm APIs for more information."
+                }
+              ]
+            },
+            "properties":{
+              "programRunCommand": "python3 noaa/jobs/get_forecast_data.py"
             }
         }
     ]
