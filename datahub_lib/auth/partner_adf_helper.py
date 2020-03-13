@@ -19,8 +19,12 @@ class ExtendedPropertiesReader:
         '''
         with open(ExtendedPropertiesReader.ACTIVITY_JSON_FILE_PATH, 'r') as f:
             customProperties = json.load(f)
-            partnerCreds = customProperties["typeProperties"]["extendedProperties"]["partnerCredentials"]["value"]
-            return json.loads(partnerCreds)
+            partnerCreds = customProperties.get("typeProperties", {}).get("extendedProperties", {}).get("partnerCredentials", {}).get("value", None)
+            # partnerCreds = customProperties["typeProperties"]["extendedProperties"]["partnerCredentials"]["value"]
+            if partnerCreds:
+                return json.loads(partnerCreds)
+            else:
+                return {}
 
 
     def __get_function_url(self):
@@ -29,7 +33,8 @@ class ExtendedPropertiesReader:
         '''
         with open(ExtendedPropertiesReader.ACTIVITY_JSON_FILE_PATH, 'r') as f:
             customProperties = json.load(f)
-            function_url = customProperties["typeProperties"]["extendedProperties"]["partnerAccessTokenApiUrl"]["value"]
+            # function_url = customProperties["typeProperties"]["extendedProperties"]["partnerAccessTokenApiUrl"]["value"]
+            function_url = customProperties.get("typeProperties", {}).get("extendedProperties", {}).get("partnerAccessTokenApiUrl", {}).get("value", None)
             return function_url
 
 
@@ -39,5 +44,6 @@ class ExtendedPropertiesReader:
         '''
         with open(ExtendedPropertiesReader.ACTIVITY_JSON_FILE_PATH, 'r') as f:
             customProperties = json.load(f)
-            function_url = customProperties["typeProperties"]["extendedProperties"]["eventHubConnectionString"]["value"]
-            return function_url
+            # eventhub_connection_string = customProperties["typeProperties"]["extendedProperties"]["eventHubConnectionString"]["value"]
+            eventhub_connection_string = customProperties.get("typeProperties", {}).get("extendedProperties", {}).get("eventHubConnectionString", {}).get("value", None)
+            return eventhub_connection_string

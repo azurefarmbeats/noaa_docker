@@ -30,7 +30,7 @@ class Bootstrap:
         Initialize the bootstrap object - this has the required methods 
         to parse the manifest and onboard the partner on to farmbeats
         '''
-        self.fb_api = FarmbeatsApi(endpoint=end_point)
+        self.fb_api = FarmbeatsApi(endpoint=end_point, function_url=function_url)
         with open(config_file, "r") as conf:
             file_content = conf.read()
             self.bootstrap_manifest = json.loads(file_content)

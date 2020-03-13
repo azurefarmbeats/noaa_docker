@@ -3,7 +3,7 @@ from absl import app
 from absl import flags
 from datetime import datetime
 from dateutil import parser
-l̥
+
 import asyncio
 import json
 from azure.eventhub.aio import EventHubProducerClient
@@ -16,6 +16,7 @@ from datahub_lib.framework.logger import Logger
 from datahub_lib.framework.fb_api import FarmbeatsApi
 from datahub_lib.conf.baseconfig import BaseConfig
 from datahub_lib.framework.job_status_writer import JobStatusWriter
+from datahub_lib.auth.partner_adf_helper import ExtendedPropertiesReader
 from noaa.jobs.utils import UtilFunctions
 
 
@@ -41,6 +42,7 @@ FLAGS = flags.FLAGS
 
 LOG = Logger.get_logger()
 
+
 class GetWeatherDataJob:
     '''
     Class to fetch ISD weather data from Azure open datasets (NOAA ISD)
@@ -51,7 +53,21 @@ class GetWeatherDataJob:
 
     
     def __init__(self):
-        self.fb_api = FarmbeatsApi(endpoint=FLAGS.end_point)
+        '''
+        Constructor for GetWeatherDataJob
+        '''
+        self.adf_helper = ExtendedPropertiesReader()
+        if (FLAGS.get_access_token_url is None):
+            function_url = self.adf_helper.function_url
+        else:
+            function_url = FLAGS.get_access_token_url
+        self.fb_api = FarmbeatsApi(endpoint=FLAGS.end_point, function_url=function_url)
+
+        if (FLAGS.eventhub_connection_string is None):
+            self.eventhub_connection_string = self.adf_helper.eventhub_connection_string
+        else:
+            self.eventhub_connection_string = FLAGS.eventhub_connection_string
+
 
 
     def __get_weather_data_for_day(self, day, lat, lon):
@@ -60,9 +76,9 @@ class GetWeatherDataJob:
         '''
         try:
             # get data for given date range.
-            LOG.info("Getting data for " + day.strptime())
+            LOG.info("Getting data for " + day.strftime("%m/%d/%Y, %H:%M:%S"))
             weather_data = NoaaIsdWeather(day, day)
-            LOG.info("Successfully got data for " + day.strptrime())
+            LOG.info("Successfully got data for " + day.strftime("%m/%d/%Y, %H:%M:%S"))
 
             # get the data into a pandas data frame, so we can filter and process
             weather_data_df = weather_data.to_pandas_dataframe()
@@ -110,7 +126,6 @@ class GetWeatherDataJob:
         for day in UtilFunctions.daterange(start_date, end_date):
             self.__get_weather_data_for_day(day, lat, lon)
         
-                
     
     def __get_eventhub_format(self, row):
         '''
@@ -159,7 +174,7 @@ class GetWeatherDataJob:
         Sends weather data to eventhub
         '''
         # Create a producer client to send messages to the event hub.
-        producer = EventHubProducerClient.from_connection_string(conn_str=FLAGS.eventhub_connection_string, 
+        producer = EventHubProducerClient.from_connection_string(conn_str=self.eventhub_connection_string, 
                                                                  eventhub_name=FLAGS.eventhub_name)
         async with producer:
             event_data_batch = await producer.create_batch()
