@@ -93,16 +93,18 @@ class Bootstrap:
         # for every weather station model in the manifest
         for weather_data_model in partner_wsm_list:
             existing_wsms = existing_weather_data_models["items"]
+            found = False 
             if (len(existing_wsms) > 0):
                 # if a matching name is found for the partner - update
                 for wsm in existing_wsms:
                     if (wsm["name"] == weather_data_model["name"]):
                         wsm_id = wsm["id"]
                         # update
+                        found = True
                         self.fb_api.get_weather_data_model_api().weather_data_model_update(id=wsm_id, input=weather_data_model)
-                    else:
-                        # else insert 
-                        self.fb_api.get_weather_data_model_api().weather_data_model_create(input=weather_data_model)
+            if (not found):
+                # else insert 
+                self.fb_api.get_weather_data_model_api().weather_data_model_create(input=weather_data_model)
 
 
     def upsert_job_types(self):
@@ -118,16 +120,18 @@ class Bootstrap:
         # for every job type in the manifest
         for job_type in partner_job_types:
             existing_job_types = existing_partner_job_types["items"]
+            found = False
             if (len(existing_job_types) > 0):
                 # if a matching name is found for the job type - update
                 for existing_job_type in existing_job_types:
                     if (existing_job_type["name"] == job_type["name"]):
                         job_type_id = existing_job_type["id"]
                         # update
+                        found = True
                         self.fb_api.get_job_type_api().job_type_update(id=job_type_id, input=job_type)
-                    else:
-                        # else insert
-                        self.fb_api.get_job_type_api().job_type_create(input=job_type)
+            if (not found):
+                # else insert
+                self.fb_api.get_job_type_api().job_type_create(input=job_type)
 
 
 def run(config_file, end_point, function_url):
