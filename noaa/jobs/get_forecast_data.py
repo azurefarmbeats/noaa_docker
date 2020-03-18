@@ -1,7 +1,7 @@
 # System imports
 from absl import app
 from absl import flags
-from datetime import datetime
+from datetime import datetime, timedelta
 from dateutil import parser
 import math
 import asyncio
@@ -9,7 +9,6 @@ import json
 from azure.eventhub.aio import EventHubProducerClient
 from azure.eventhub import EventData
 from azureml.opendatasets import NoaaGfsWeather
-from datetime import datetime
 from datahub_lib.framework.logger import Logger
 import time
 
@@ -149,9 +148,11 @@ class GetWeatherForecastDataJob:
         '''
         Convert the data to a format that can be pushed to eventhub, which can be subsequently read by TSI
         '''
-        output = {}
+        output = {}  
         # get the timestamp
-        output["timestamp"] = row["datetime"].isoformat()
+        output["timestamp"] = row["currentDatetime"].isoformat()
+        forecastTimestamp = row["currentDatetime"] + timedelta(hours=row["forecastHour"])
+        output["forecastedtimestamp"] = forecastTimestamp.isoformat()
         output["Precipitation"] = row["precipitableWaterEntireAtmosphere"]
         output["SeaLvlPressure"] = row["seaLvlPressure"]
         output["AmbientTemperature"] = row["temperature"]
@@ -181,6 +182,7 @@ class GetWeatherForecastDataJob:
         for _,row in weather_data.iterrows():
             row_data.append(self.__get_eventhub_format(row))
         msg["weatherdatalocations"][0]["weatherdata"] = row_data
+        LOG.info("Pushing to eventhub:\n{}".format(json.dumps(msg)))
         msgs.append(json.dumps(msg))
         return msgs
 

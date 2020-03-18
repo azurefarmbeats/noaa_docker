@@ -20,7 +20,7 @@ class UtilFunctions:
         '''
         Generator to give one day at a time.
         '''
-        for n in range(int ((end_date - start_date).days)):
+        for n in range(int ((end_date - start_date).days) + 1):
             yield start_date + timedelta(n)
 
 
