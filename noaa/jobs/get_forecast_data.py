@@ -193,18 +193,19 @@ class GetWeatherForecastDataJob:
         if yes -> returns it's id.
         Else, creates and returns the id.
         '''
+        data_model_id = self.__get_weather_data_model_id(name=GetWeatherForecastDataJob.WEATHER_DATA_MODEL_NAME)
         weather_data_locations = self.fb_api.get_weather_data_location_api().weather_data_location_get_all().to_dict()
         for loc in weather_data_locations["items"]:
             lat = loc["location"]["latitude"]
             lon = loc["location"]["longitude"]
-            if (lat == float(FLAGS.latitude)and lon == float(FLAGS.longitude)):
+            if (lat == float(FLAGS.latitude) and lon == float(FLAGS.longitude) and data_model_id == loc["weather_data_model_id"]):
                 # Found! - weather data location for the given location already exists
                 return loc["id"]
         
         # doesn't exist - create weather data_location
         weather_data_location_payload = {}
         weather_data_location_payload["name"] = "NOAA_job_generated_location_[" + FLAGS.latitude + "," + FLAGS.longitude + "]" 
-        weather_data_location_payload["weatherDataModelId"] = self.__get_weather_data_model_id(name=GetWeatherForecastDataJob.WEATHER_DATA_MODEL_NAME)
+        weather_data_location_payload["weatherDataModelId"] = data_model_id
         weather_data_location_payload["location"] = { "latitude": FLAGS.latitude, "longitude": FLAGS.longitude}
         if (FLAGS.farm_id):
             weather_data_location_payload["farmid"] = FLAGS.farm_id
