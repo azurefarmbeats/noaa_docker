@@ -3,11 +3,10 @@
 """
     Azure FarmBeats API
 
-    <p>  <p>Azure FarmBeats helps you build digital agricultural solutions in Azure. By providing a standardized schema to query agricultural data from various sources, Azure FarmBeats provides you:  <ul >   <li style=\"margin: 7px;\">Ability to acquire, aggregate, process and store agricultural data.</li>   <li style=\"margin: 7px;\">Capability to fuse data between data sources and generate insights.</li>   <li style=\"margin: 7px;\">Schematized access and query capabilities on ingested data.</li>  </ul>  </p>  <h><b>REST Operation Groups</b></h>  <p><b>Farm:</b></p>  <p>Farm corresponds to a physical location of interest within the system. Each Farm has a Farm name and a unique farm id.</p>  <p><b>Device:</b></p>  <p>Device corresponds to a physical device present in the farm. Each device has a unique device id. Device is typically provisioned to a farm with a farm id.</p>  <p><b>DeviceModel:</b></p>  <p>DeviceModel corresponds to the meta-data of the device such as the Manufacturer, Type of the device either Gateway or Node.</p>  <p><b>Sensor:</b></p>  <p>Sensor corresponds to a physical sensor that records values. A sensor is typically connected to a device with a device id.</p>  </p>  <p><b>SensorModel:</b></p>  <p>SensorModel corresponds to the meta-data of the sensor such as the Manufacturer, Type of the sensor either Analog or Digital, Sensor Measure such as Ambient Temperature, Pressure etc.</p>  <p><b>Telemetry:</b></p>  <p>Telemetry provides the ability to read telemetry messages for a particular sensor & time range.</p>  <p><b>Job:</b></p>  <p>Job corresponds to any workflow of activities which are executed in the system to get a desired output. Each job is associated with a job id and job type.</p>  <p><b>JobType:</b></p>  <p>JobType corresponds to different job types supported by the system. This includes system defined & user-defined job types.</p>  <p><b>ExtendedType:</b></p>  <p>ExtendedType corresponds to the list of system & user-defined types in the system. This helps setup a new Sensor or Scene or Scenefile type in the system.</p>  <p><b>Partner:</b></p>  <p>Partner corresponds to the sensor/weather/imagery integration partner.</p>  <p><b>Scene:</b></p>  <p>Scene corresponds to any generated output in the context of a Farm. Each Scene has a scene id, scene source, scene type and farm id associated with it. Each scene id  can have multiple scene files associated with it.</p>  <p><b>SceneFile:</b></p>  <p>SceneFile corresponds to all files which are generated for single scene. A single scene id can have multiple SceneFile ids associated with it.</p>  <p><b>Rule:</b></p>  <p>Rule corresponds to a condition for farm-related data to trigger an alert. Each rule will be in the context of a farm's data.</p>  <p><b>Alert:</b></p>  <p>Alert corresponds to a notification which gets generated when a rule condition is met. Each alert will be in the context of a rule.</p>  <p><b>RoleDefinition:</b></p>  <p>RoleDefinition defines allowed and disallowed actions for a role.</p>  <p><b>RoleAssignment:</b></p>  <p>RoleAssignment corresponds to the assignment of a role to a user or a service principal.</p>  </p>    # noqa: E501
+    <p> <p>Azure FarmBeats helps you build digital agricultural solutions in Azure. By providing a standardized schema to query agricultural data from various sources, Azure FarmBeats provides you: <ul >  <li style=\"margin: 7px;\">Ability to acquire, aggregate, process and store agricultural data.</li>  <li style=\"margin: 7px;\">Capability to fuse data between data sources and generate insights.</li>  <li style=\"margin: 7px;\">Schematized access and query capabilities on ingested data.</li> </ul> </p> <h><b>REST Operation Groups</b></h> <p><b>Farm:</b></p> <p>Farm corresponds to a physical location of interest within the system. Each Farm has a Farm name and a unique farm id.</p> <p><b>Device:</b></p> <p>Device corresponds to a physical device present in the farm. Each device has a unique device id. Device is typically provisioned to a farm with a farm id.</p> <p><b>DeviceModel:</b></p> <p>DeviceModel corresponds to the meta-data of the device such as the Manufacturer, Type of the device either Gateway or Node.</p> <p><b>Sensor:</b></p> <p>Sensor corresponds to a physical sensor that records values. A sensor is typically connected to a device with a device id.</p> </p> <p><b>SensorModel:</b></p> <p>SensorModel corresponds to the meta-data of the sensor such as the Manufacturer, Type of the sensor either Analog or Digital, Sensor Measure such as Ambient Temperature, Pressure etc.</p> <p><b>Telemetry:</b></p> <p>Telemetry provides the ability to read telemetry messages for a particular sensor & time range.</p> <p><b>Job:</b></p> <p>Job corresponds to any workflow of activities which are executed in the system to get a desired output. Each job is associated with a job id and job type.</p> <p><b>JobType:</b></p> <p>JobType corresponds to different job types supported by the system. This includes system defined & user-defined job types.</p> <p><b>ExtendedType:</b></p> <p>ExtendedType corresponds to the list of system & user-defined types in the system. This helps setup a new Sensor or Scene or Scenefile type in the system.</p> <p><b>Partner:</b></p> <p>Partner corresponds to the sensor/weather/imagery integration partner.</p> <p><b>Scene:</b></p> <p>Scene corresponds to any generated output in the context of a Farm. Each Scene has a scene id, scene source, scene type and farm id associated with it. Each scene id  can have multiple scene files associated with it.</p> <p><b>SceneFile:</b></p> <p>SceneFile corresponds to all files which are generated for single scene. A single scene id can have multiple SceneFile ids associated with it.</p> <p><b>Rule:</b></p> <p>Rule corresponds to a condition for farm-related data to trigger an alert. Each rule will be in the context of a farm's data.</p> <p><b>Alert:</b></p> <p>Alert corresponds to a notification which gets generated when a rule condition is met. Each alert will be in the context of a rule.</p> <p><b>RoleDefinition:</b></p> <p>RoleDefinition defines allowed and disallowed actions for a role.</p> <p><b>RoleAssignment:</b></p> <p>RoleAssignment corresponds to the assignment of a role to a user or a service principal.</p> </p>   # noqa: E501
 
-    OpenAPI spec version: v1
-    
-    Generated by: https://github.com/swagger-api/swagger-codegen.git
+    The version of the OpenAPI document: v1
+    Generated by: https://openapi-generator.tech
 """
 
 
@@ -16,32 +15,32 @@ import re  # noqa: F401
 
 import six
 
+from datahub_lib.swagger_client.configuration import Configuration
+
 
 class PartnerResponse(object):
-    """NOTE: This class is auto generated by the swagger code generator program.
+    """NOTE: This class is auto generated by OpenAPI Generator.
+    Ref: https://openapi-generator.tech
 
     Do not edit the class manually.
     """
 
     """
     Attributes:
-      swagger_types (dict): The key is attribute name
+      openapi_types (dict): The key is attribute name
                             and the value is attribute type.
       attribute_map (dict): The key is attribute name
                             and the value is json key in definition.
     """
-    swagger_types = {
+    openapi_types = {
         'primary_event_hub_connection_string': 'str',
         'secondary_event_hub_connection_string': 'str',
         'id': 'str',
         'created_at': 'datetime',
         'last_modified_at': 'datetime',
-        'partner_status': 'PartnerStatus',
         'object_id': 'str',
         'tenant_id': 'str',
-        'docker_details': 'DockerDetails',
         'partner_type': 'str',
-        'partner_credentials': 'dict(str, str)',
         'name': 'str',
         'description': 'str',
         'properties': 'dict(str, object)'
@@ -53,31 +52,28 @@ class PartnerResponse(object):
         'id': 'id',
         'created_at': 'createdAt',
         'last_modified_at': 'lastModifiedAt',
-        'partner_status': 'partnerStatus',
         'object_id': 'objectId',
         'tenant_id': 'tenantId',
-        'docker_details': 'dockerDetails',
         'partner_type': 'partnerType',
-        'partner_credentials': 'partnerCredentials',
         'name': 'name',
         'description': 'description',
         'properties': 'properties'
     }
 
-    def __init__(self, primary_event_hub_connection_string=None, secondary_event_hub_connection_string=None, id=None, created_at=None, last_modified_at=None, partner_status=None, object_id=None, tenant_id=None, docker_details=None, partner_type=None, partner_credentials=None, name=None, description=None, properties=None):  # noqa: E501
-        """PartnerResponse - a model defined in Swagger"""  # noqa: E501
+    def __init__(self, primary_event_hub_connection_string=None, secondary_event_hub_connection_string=None, id=None, created_at=None, last_modified_at=None, object_id=None, tenant_id=None, partner_type=None, name=None, description=None, properties=None, local_vars_configuration=None):  # noqa: E501
+        """PartnerResponse - a model defined in OpenAPI"""  # noqa: E501
+        if local_vars_configuration is None:
+            local_vars_configuration = Configuration()
+        self.local_vars_configuration = local_vars_configuration
 
         self._primary_event_hub_connection_string = None
         self._secondary_event_hub_connection_string = None
         self._id = None
         self._created_at = None
         self._last_modified_at = None
-        self._partner_status = None
         self._object_id = None
         self._tenant_id = None
-        self._docker_details = None
         self._partner_type = None
-        self._partner_credentials = None
         self._name = None
         self._description = None
         self._properties = None
@@ -93,17 +89,10 @@ class PartnerResponse(object):
             self.created_at = created_at
         if last_modified_at is not None:
             self.last_modified_at = last_modified_at
-        if partner_status is not None:
-            self.partner_status = partner_status
-        if object_id is not None:
-            self.object_id = object_id
-        if tenant_id is not None:
-            self.tenant_id = tenant_id
-        if docker_details is not None:
-            self.docker_details = docker_details
-        self.partner_type = partner_type
-        if partner_credentials is not None:
-            self.partner_credentials = partner_credentials
+        self.object_id = object_id
+        self.tenant_id = tenant_id
+        if partner_type is not None:
+            self.partner_type = partner_type
         self.name = name
         if description is not None:
             self.description = description
@@ -226,29 +215,6 @@ class PartnerResponse(object):
         self._last_modified_at = last_modified_at
 
     @property
-    def partner_status(self):
-        """Gets the partner_status of this PartnerResponse.  # noqa: E501
-
-        Gets partner status.  Submit jobs only when partnerState is 'Active'.  # noqa: E501
-
-        :return: The partner_status of this PartnerResponse.  # noqa: E501
-        :rtype: PartnerStatus
-        """
-        return self._partner_status
-
-    @partner_status.setter
-    def partner_status(self, partner_status):
-        """Sets the partner_status of this PartnerResponse.
-
-        Gets partner status.  Submit jobs only when partnerState is 'Active'.  # noqa: E501
-
-        :param partner_status: The partner_status of this PartnerResponse.  # noqa: E501
-        :type: PartnerStatus
-        """
-
-        self._partner_status = partner_status
-
-    @property
     def object_id(self):
         """Gets the object_id of this PartnerResponse.  # noqa: E501
 
@@ -268,9 +234,13 @@ class PartnerResponse(object):
         :param object_id: The object_id of this PartnerResponse.  # noqa: E501
         :type: str
         """
-        if object_id is not None and len(object_id) > 200:
+        if self.local_vars_configuration.client_side_validation and object_id is None:  # noqa: E501
+            raise ValueError("Invalid value for `object_id`, must not be `None`")  # noqa: E501
+        if (self.local_vars_configuration.client_side_validation and
+                object_id is not None and len(object_id) > 200):
             raise ValueError("Invalid value for `object_id`, length must be less than or equal to `200`")  # noqa: E501
-        if object_id is not None and len(object_id) < 3:
+        if (self.local_vars_configuration.client_side_validation and
+                object_id is not None and len(object_id) < 3):
             raise ValueError("Invalid value for `object_id`, length must be greater than or equal to `3`")  # noqa: E501
 
         self._object_id = object_id
@@ -295,41 +265,22 @@ class PartnerResponse(object):
         :param tenant_id: The tenant_id of this PartnerResponse.  # noqa: E501
         :type: str
         """
-        if tenant_id is not None and len(tenant_id) > 200:
+        if self.local_vars_configuration.client_side_validation and tenant_id is None:  # noqa: E501
+            raise ValueError("Invalid value for `tenant_id`, must not be `None`")  # noqa: E501
+        if (self.local_vars_configuration.client_side_validation and
+                tenant_id is not None and len(tenant_id) > 200):
             raise ValueError("Invalid value for `tenant_id`, length must be less than or equal to `200`")  # noqa: E501
-        if tenant_id is not None and len(tenant_id) < 3:
+        if (self.local_vars_configuration.client_side_validation and
+                tenant_id is not None and len(tenant_id) < 3):
             raise ValueError("Invalid value for `tenant_id`, length must be greater than or equal to `3`")  # noqa: E501
 
         self._tenant_id = tenant_id
 
     @property
-    def docker_details(self):
-        """Gets the docker_details of this PartnerResponse.  # noqa: E501
-
-        Gets or sets partner docker details.  # noqa: E501
-
-        :return: The docker_details of this PartnerResponse.  # noqa: E501
-        :rtype: DockerDetails
-        """
-        return self._docker_details
-
-    @docker_details.setter
-    def docker_details(self, docker_details):
-        """Sets the docker_details of this PartnerResponse.
-
-        Gets or sets partner docker details.  # noqa: E501
-
-        :param docker_details: The docker_details of this PartnerResponse.  # noqa: E501
-        :type: DockerDetails
-        """
-
-        self._docker_details = docker_details
-
-    @property
     def partner_type(self):
         """Gets the partner_type of this PartnerResponse.  # noqa: E501
 
-        Gets or sets partner type.  # noqa: E501
+        Gets or sets partnerType.  # noqa: E501
 
         :return: The partner_type of this PartnerResponse.  # noqa: E501
         :rtype: str
@@ -340,44 +291,19 @@ class PartnerResponse(object):
     def partner_type(self, partner_type):
         """Sets the partner_type of this PartnerResponse.
 
-        Gets or sets partner type.  # noqa: E501
+        Gets or sets partnerType.  # noqa: E501
 
         :param partner_type: The partner_type of this PartnerResponse.  # noqa: E501
         :type: str
         """
-        if partner_type is None:
-            raise ValueError("Invalid value for `partner_type`, must not be `None`")  # noqa: E501
         allowed_values = ["Imagery", "Sensor", "Weather"]  # noqa: E501
-        if partner_type not in allowed_values:
+        if self.local_vars_configuration.client_side_validation and partner_type not in allowed_values:  # noqa: E501
             raise ValueError(
                 "Invalid value for `partner_type` ({0}), must be one of {1}"  # noqa: E501
                 .format(partner_type, allowed_values)
             )
 
         self._partner_type = partner_type
-
-    @property
-    def partner_credentials(self):
-        """Gets the partner_credentials of this PartnerResponse.  # noqa: E501
-
-        Gets or sets credentials for calling partner API referred in docker.  # noqa: E501
-
-        :return: The partner_credentials of this PartnerResponse.  # noqa: E501
-        :rtype: dict(str, str)
-        """
-        return self._partner_credentials
-
-    @partner_credentials.setter
-    def partner_credentials(self, partner_credentials):
-        """Sets the partner_credentials of this PartnerResponse.
-
-        Gets or sets credentials for calling partner API referred in docker.  # noqa: E501
-
-        :param partner_credentials: The partner_credentials of this PartnerResponse.  # noqa: E501
-        :type: dict(str, str)
-        """
-
-        self._partner_credentials = partner_credentials
 
     @property
     def name(self):
@@ -399,11 +325,13 @@ class PartnerResponse(object):
         :param name: The name of this PartnerResponse.  # noqa: E501
         :type: str
         """
-        if name is None:
+        if self.local_vars_configuration.client_side_validation and name is None:  # noqa: E501
             raise ValueError("Invalid value for `name`, must not be `None`")  # noqa: E501
-        if name is not None and len(name) > 100:
+        if (self.local_vars_configuration.client_side_validation and
+                name is not None and len(name) > 100):
             raise ValueError("Invalid value for `name`, length must be less than or equal to `100`")  # noqa: E501
-        if name is not None and len(name) < 3:
+        if (self.local_vars_configuration.client_side_validation and
+                name is not None and len(name) < 3):
             raise ValueError("Invalid value for `name`, length must be greater than or equal to `3`")  # noqa: E501
 
         self._name = name
@@ -428,9 +356,11 @@ class PartnerResponse(object):
         :param description: The description of this PartnerResponse.  # noqa: E501
         :type: str
         """
-        if description is not None and len(description) > 1000:
+        if (self.local_vars_configuration.client_side_validation and
+                description is not None and len(description) > 1000):
             raise ValueError("Invalid value for `description`, length must be less than or equal to `1000`")  # noqa: E501
-        if description is not None and len(description) < 3:
+        if (self.local_vars_configuration.client_side_validation and
+                description is not None and len(description) < 3):
             raise ValueError("Invalid value for `description`, length must be greater than or equal to `3`")  # noqa: E501
 
         self._description = description
@@ -462,7 +392,7 @@ class PartnerResponse(object):
         """Returns the model properties as a dict"""
         result = {}
 
-        for attr, _ in six.iteritems(self.swagger_types):
+        for attr, _ in six.iteritems(self.openapi_types):
             value = getattr(self, attr)
             if isinstance(value, list):
                 result[attr] = list(map(
@@ -479,9 +409,6 @@ class PartnerResponse(object):
                 ))
             else:
                 result[attr] = value
-        if issubclass(PartnerResponse, dict):
-            for key, value in self.items():
-                result[key] = value
 
         return result
 
@@ -498,8 +425,11 @@ class PartnerResponse(object):
         if not isinstance(other, PartnerResponse):
             return False
 
-        return self.__dict__ == other.__dict__
+        return self.to_dict() == other.to_dict()
 
     def __ne__(self, other):
         """Returns true if both objects are not equal"""
-        return not self == other
+        if not isinstance(other, PartnerResponse):
+            return True
+
+        return self.to_dict() != other.to_dict()

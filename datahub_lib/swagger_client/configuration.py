@@ -3,17 +3,15 @@
 """
     Azure FarmBeats API
 
-    <p>  <p>Azure FarmBeats helps you build digital agricultural solutions in Azure. By providing a standardized schema to query agricultural data from various sources, Azure FarmBeats provides you:  <ul >   <li style=\"margin: 7px;\">Ability to acquire, aggregate, process and store agricultural data.</li>   <li style=\"margin: 7px;\">Capability to fuse data between data sources and generate insights.</li>   <li style=\"margin: 7px;\">Schematized access and query capabilities on ingested data.</li>  </ul>  </p>  <h><b>REST Operation Groups</b></h>  <p><b>Farm:</b></p>  <p>Farm corresponds to a physical location of interest within the system. Each Farm has a Farm name and a unique farm id.</p>  <p><b>Device:</b></p>  <p>Device corresponds to a physical device present in the farm. Each device has a unique device id. Device is typically provisioned to a farm with a farm id.</p>  <p><b>DeviceModel:</b></p>  <p>DeviceModel corresponds to the meta-data of the device such as the Manufacturer, Type of the device either Gateway or Node.</p>  <p><b>Sensor:</b></p>  <p>Sensor corresponds to a physical sensor that records values. A sensor is typically connected to a device with a device id.</p>  </p>  <p><b>SensorModel:</b></p>  <p>SensorModel corresponds to the meta-data of the sensor such as the Manufacturer, Type of the sensor either Analog or Digital, Sensor Measure such as Ambient Temperature, Pressure etc.</p>  <p><b>Telemetry:</b></p>  <p>Telemetry provides the ability to read telemetry messages for a particular sensor & time range.</p>  <p><b>Job:</b></p>  <p>Job corresponds to any workflow of activities which are executed in the system to get a desired output. Each job is associated with a job id and job type.</p>  <p><b>JobType:</b></p>  <p>JobType corresponds to different job types supported by the system. This includes system defined & user-defined job types.</p>  <p><b>ExtendedType:</b></p>  <p>ExtendedType corresponds to the list of system & user-defined types in the system. This helps setup a new Sensor or Scene or Scenefile type in the system.</p>  <p><b>Partner:</b></p>  <p>Partner corresponds to the sensor/weather/imagery integration partner.</p>  <p><b>Scene:</b></p>  <p>Scene corresponds to any generated output in the context of a Farm. Each Scene has a scene id, scene source, scene type and farm id associated with it. Each scene id  can have multiple scene files associated with it.</p>  <p><b>SceneFile:</b></p>  <p>SceneFile corresponds to all files which are generated for single scene. A single scene id can have multiple SceneFile ids associated with it.</p>  <p><b>Rule:</b></p>  <p>Rule corresponds to a condition for farm-related data to trigger an alert. Each rule will be in the context of a farm's data.</p>  <p><b>Alert:</b></p>  <p>Alert corresponds to a notification which gets generated when a rule condition is met. Each alert will be in the context of a rule.</p>  <p><b>RoleDefinition:</b></p>  <p>RoleDefinition defines allowed and disallowed actions for a role.</p>  <p><b>RoleAssignment:</b></p>  <p>RoleAssignment corresponds to the assignment of a role to a user or a service principal.</p>  </p>    # noqa: E501
+    <p> <p>Azure FarmBeats helps you build digital agricultural solutions in Azure. By providing a standardized schema to query agricultural data from various sources, Azure FarmBeats provides you: <ul >  <li style=\"margin: 7px;\">Ability to acquire, aggregate, process and store agricultural data.</li>  <li style=\"margin: 7px;\">Capability to fuse data between data sources and generate insights.</li>  <li style=\"margin: 7px;\">Schematized access and query capabilities on ingested data.</li> </ul> </p> <h><b>REST Operation Groups</b></h> <p><b>Farm:</b></p> <p>Farm corresponds to a physical location of interest within the system. Each Farm has a Farm name and a unique farm id.</p> <p><b>Device:</b></p> <p>Device corresponds to a physical device present in the farm. Each device has a unique device id. Device is typically provisioned to a farm with a farm id.</p> <p><b>DeviceModel:</b></p> <p>DeviceModel corresponds to the meta-data of the device such as the Manufacturer, Type of the device either Gateway or Node.</p> <p><b>Sensor:</b></p> <p>Sensor corresponds to a physical sensor that records values. A sensor is typically connected to a device with a device id.</p> </p> <p><b>SensorModel:</b></p> <p>SensorModel corresponds to the meta-data of the sensor such as the Manufacturer, Type of the sensor either Analog or Digital, Sensor Measure such as Ambient Temperature, Pressure etc.</p> <p><b>Telemetry:</b></p> <p>Telemetry provides the ability to read telemetry messages for a particular sensor & time range.</p> <p><b>Job:</b></p> <p>Job corresponds to any workflow of activities which are executed in the system to get a desired output. Each job is associated with a job id and job type.</p> <p><b>JobType:</b></p> <p>JobType corresponds to different job types supported by the system. This includes system defined & user-defined job types.</p> <p><b>ExtendedType:</b></p> <p>ExtendedType corresponds to the list of system & user-defined types in the system. This helps setup a new Sensor or Scene or Scenefile type in the system.</p> <p><b>Partner:</b></p> <p>Partner corresponds to the sensor/weather/imagery integration partner.</p> <p><b>Scene:</b></p> <p>Scene corresponds to any generated output in the context of a Farm. Each Scene has a scene id, scene source, scene type and farm id associated with it. Each scene id  can have multiple scene files associated with it.</p> <p><b>SceneFile:</b></p> <p>SceneFile corresponds to all files which are generated for single scene. A single scene id can have multiple SceneFile ids associated with it.</p> <p><b>Rule:</b></p> <p>Rule corresponds to a condition for farm-related data to trigger an alert. Each rule will be in the context of a farm's data.</p> <p><b>Alert:</b></p> <p>Alert corresponds to a notification which gets generated when a rule condition is met. Each alert will be in the context of a rule.</p> <p><b>RoleDefinition:</b></p> <p>RoleDefinition defines allowed and disallowed actions for a role.</p> <p><b>RoleAssignment:</b></p> <p>RoleAssignment corresponds to the assignment of a role to a user or a service principal.</p> </p>   # noqa: E501
 
-    OpenAPI spec version: v1
-    
-    Generated by: https://github.com/swagger-api/swagger-codegen.git
+    The version of the OpenAPI document: v1
+    Generated by: https://openapi-generator.tech
 """
 
 
 from __future__ import absolute_import
 
-import copy
 import logging
 import multiprocessing
 import sys
@@ -24,81 +22,179 @@ from six.moves import http_client as httplib
 
 
 class Configuration(object):
-    """NOTE: This class is auto generated by the swagger code generator program.
+    """NOTE: This class is auto generated by OpenAPI Generator
 
-    Ref: https://github.com/swagger-api/swagger-codegen
+    Ref: https://openapi-generator.tech
     Do not edit the class manually.
+
+    :param host: Base url
+    :param api_key: Dict to store API key(s).
+      Each entry in the dict specifies an API key.
+      The dict key is the name of the security scheme in the OAS specification.
+      The dict value is the API key secret.
+    :param api_key_prefix: Dict to store API prefix (e.g. Bearer)
+      The dict key is the name of the security scheme in the OAS specification.
+      The dict value is an API key prefix when generating the auth data.
+    :param username: Username for HTTP basic authentication
+    :param password: Password for HTTP basic authentication
+    :param signing_info: Configuration parameters for HTTP signature.
+        Must be an instance of datahub_lib.swagger_client.signing.HttpSigningConfiguration
+
+    :Example:
+
+    Given the following security scheme in the OpenAPI specification:
+      components:
+        securitySchemes:
+          cookieAuth:         # name for the security scheme
+            type: apiKey
+            in: cookie
+            name: JSESSIONID  # cookie name
+
+    You can programmatically set the cookie:
+      conf = datahub_lib.swagger_client.Configuration(
+        api_key={'cookieAuth': 'abc123'}
+        api_key_prefix={'cookieAuth': 'JSESSIONID'}
+      )
+    The following cookie will be added to the HTTP request:
+       Cookie: JSESSIONID abc123
+
+    Configure API client with HTTP basic authentication:
+      conf = datahub_lib.swagger_client.Configuration(
+          username='the-user',
+          password='the-password',
+      )
+
+    Configure API client with HTTP signature authentication. Use the 'hs2019' signature scheme,
+    sign the HTTP requests with the RSA-SSA-PSS signature algorithm, and set the expiration time
+    of the signature to 5 minutes after the signature has been created.
+    Note you can use the constants defined in the datahub_lib.swagger_client.signing module, and you can
+    also specify arbitrary HTTP headers to be included in the HTTP signature, except for the
+    'Authorization' header, which is used to carry the signature.
+
+    One may be tempted to sign all headers by default, but in practice it rarely works.
+    This is beccause explicit proxies, transparent proxies, TLS termination endpoints or
+    load balancers may add/modify/remove headers. Include the HTTP headers that you know
+    are not going to be modified in transit.
+
+      conf = datahub_lib.swagger_client.Configuration(
+        signing_info = datahub_lib.swagger_client.signing.HttpSigningConfiguration(
+            key_id =                 'my-key-id',
+            private_key_path =       'rsa.pem',
+            signing_scheme =         signing.SCHEME_HS2019,
+            signing_algorithm =      signing.ALGORITHM_RSASSA_PSS,
+            signed_headers =         [signing.HEADER_REQUEST_TARGET,
+                                      signing.HEADER_CREATED,
+                                      signing.HEADER_EXPIRES,
+                                      signing.HEADER_HOST,
+                                      signing.HEADER_DATE,
+                                      signing.HEADER_DIGEST,
+                                      'Content-Type',
+                                      'Content-Length',
+                                      'User-Agent'
+                                     ],
+            signature_max_validity = datetime.timedelta(minutes=5)
+        )
+      )
     """
 
-    _default = None
-
-    def __init__(self):
-        """Constructor"""
-        if self._default:
-            for key in self._default.__dict__.keys():
-                self.__dict__[key] = copy.copy(self._default.__dict__[key])
-            return
-
-        # Default Base url
-        self.host = "https://localhost"
-        # Temp file folder for downloading files
+    def __init__(self, host="http://localhost",
+                 api_key=None, api_key_prefix=None,
+                 username=None, password=None,
+                 signing_info=None):
+        """Constructor
+        """
+        self.host = host
+        """Default Base url
+        """
         self.temp_folder_path = None
-
+        """Temp file folder for downloading files
+        """
         # Authentication Settings
-        # dict to store API key(s)
         self.api_key = {}
-        # dict to store API prefix (e.g. Bearer)
+        if api_key:
+            self.api_key = api_key
+        """dict to store API key(s)
+        """
         self.api_key_prefix = {}
-        # function to refresh API key if expired
+        if api_key_prefix:
+            self.api_key_prefix = api_key_prefix
+        """dict to store API prefix (e.g. Bearer)
+        """
         self.refresh_api_key_hook = None
-        # Username for HTTP basic authentication
-        self.username = ""
-        # Password for HTTP basic authentication
-        self.password = ""
-
-        # Logging Settings
+        """function hook to refresh API key if expired
+        """
+        self.username = username
+        """Username for HTTP basic authentication
+        """
+        self.password = password
+        """Password for HTTP basic authentication
+        """
+        if signing_info is not None:
+            signing_info.host = host
+        self.signing_info = signing_info
+        """The HTTP signing configuration
+        """
         self.logger = {}
-        self.logger["package_logger"] = logging.getLogger("swagger_client")
+        """Logging Settings
+        """
+        self.logger["package_logger"] = logging.getLogger("datahub_lib.swagger_client")
         self.logger["urllib3_logger"] = logging.getLogger("urllib3")
-        # Log format
         self.logger_format = '%(asctime)s %(levelname)s %(message)s'
-        # Log stream handler
+        """Log format
+        """
         self.logger_stream_handler = None
-        # Log file handler
+        """Log stream handler
+        """
         self.logger_file_handler = None
-        # Debug file location
+        """Log file handler
+        """
         self.logger_file = None
-        # Debug switch
+        """Debug file location
+        """
         self.debug = False
+        """Debug switch
+        """
 
-        # SSL/TLS verification
-        # Set this to false to skip verifying SSL certificate when calling API
-        # from https server.
         self.verify_ssl = True
-        # Set this to customize the certificate file to verify the peer.
+        """SSL/TLS verification
+           Set this to false to skip verifying SSL certificate when calling API
+           from https server.
+        """
         self.ssl_ca_cert = None
-        # client certificate file
+        """Set this to customize the certificate file to verify the peer.
+        """
         self.cert_file = None
-        # client key file
+        """client certificate file
+        """
         self.key_file = None
-        # Set this to True/False to enable/disable SSL hostname verification.
+        """client key file
+        """
         self.assert_hostname = None
+        """Set this to True/False to enable/disable SSL hostname verification.
+        """
 
-        # urllib3 connection pool's maximum number of connections saved
-        # per pool. urllib3 uses 1 connection as default value, but this is
-        # not the best value when you are making a lot of possibly parallel
-        # requests to the same host, which is often the case here.
-        # cpu_count * 5 is used as default value to increase performance.
         self.connection_pool_maxsize = multiprocessing.cpu_count() * 5
+        """urllib3 connection pool's maximum number of connections saved
+           per pool. urllib3 uses 1 connection as default value, but this is
+           not the best value when you are making a lot of possibly parallel
+           requests to the same host, which is often the case here.
+           cpu_count * 5 is used as default value to increase performance.
+        """
 
-        # Proxy URL
         self.proxy = None
-        # Safe chars for path_param
+        """Proxy URL
+        """
+        self.proxy_headers = None
+        """Proxy headers
+        """
         self.safe_chars_for_path_param = ''
-
-    @classmethod
-    def set_default(cls, default):
-        cls._default = default
+        """Safe chars for path_param
+        """
+        self.retries = None
+        """Adding retries to override urllib3 default value 3
+        """
+        # Disable client side validation
+        self.client_side_validation = True
 
     @property
     def logger_file(self):
@@ -130,17 +226,6 @@ class Configuration(object):
             self.logger_file_handler.setFormatter(self.logger_formatter)
             for _, logger in six.iteritems(self.logger):
                 logger.addHandler(self.logger_file_handler)
-                if self.logger_stream_handler:
-                    logger.removeHandler(self.logger_stream_handler)
-        else:
-            # If not set logging file,
-            # then add stream handler and remove file handler.
-            self.logger_stream_handler = logging.StreamHandler()
-            self.logger_stream_handler.setFormatter(self.logger_formatter)
-            for _, logger in six.iteritems(self.logger):
-                logger.addHandler(self.logger_stream_handler)
-                if self.logger_file_handler:
-                    logger.removeHandler(self.logger_file_handler)
 
     @property
     def debug(self):
@@ -202,10 +287,8 @@ class Configuration(object):
         :param identifier: The identifier of apiKey.
         :return: The token for api key authentication.
         """
-
-        if self.refresh_api_key_hook:
+        if self.refresh_api_key_hook is not None:
             self.refresh_api_key_hook(self)
-        
         key = self.api_key.get(identifier)
         if key:
             prefix = self.api_key_prefix.get(identifier)
@@ -219,8 +302,14 @@ class Configuration(object):
 
         :return: The token for basic HTTP authentication.
         """
+        username = ""
+        if self.username is not None:
+            username = self.username
+        password = ""
+        if self.password is not None:
+            password = self.password
         return urllib3.util.make_headers(
-            basic_auth=self.username + ':' + self.password
+            basic_auth=username + ':' + password
         ).get('authorization')
 
     def auth_settings(self):
@@ -228,16 +317,15 @@ class Configuration(object):
 
         :return: The Auth Settings information dict.
         """
-        return {
-            'Bearer':
-                {
-                    'type': 'api_key',
-                    'in': 'header',
-                    'key': 'Authorization',
-                    'value': self.get_api_key_with_prefix('Authorization')
-                },
-
-        }
+        auth = {}
+        if 'Authorization' in self.api_key:
+            auth['Bearer'] = {
+                'type': 'api_key',
+                'in': 'header',
+                'key': 'Authorization',
+                'value': self.get_api_key_with_prefix('Authorization')
+            }
+        return auth
 
     def to_debug_report(self):
         """Gets the essential information for debugging.
@@ -250,3 +338,50 @@ class Configuration(object):
                "Version of the API: v1\n"\
                "SDK Package Version: 1.0.0".\
                format(env=sys.platform, pyversion=sys.version)
+
+    def get_host_settings(self):
+        """Gets an array of host settings
+
+        :return: An array of host settings
+        """
+        return [
+            {
+                'url': "/",
+                'description': "No description provided",
+            }
+        ]
+
+    def get_host_from_settings(self, index, variables=None):
+        """Gets host URL based on the index and variables
+        :param index: array index of the host settings
+        :param variables: hash of variable and the corresponding value
+        :return: URL based on host settings
+        """
+        variables = {} if variables is None else variables
+        servers = self.get_host_settings()
+
+        try:
+            server = servers[index]
+        except IndexError:
+            raise ValueError(
+                "Invalid index {0} when selecting the host settings. "
+                "Must be less than {1}".format(index, len(servers)))
+
+        url = server['url']
+
+        # go through variables and replace placeholders
+        for variable_name, variable in server['variables'].items():
+            used_value = variables.get(
+                variable_name, variable['default_value'])
+
+            if 'enum_values' in variable \
+                    and used_value not in variable['enum_values']:
+                raise ValueError(
+                    "The variable `{0}` in the host URL has invalid value "
+                    "{1}. Must be {2}.".format(
+                        variable_name, variables[variable_name],
+                        variable['enum_values']))
+
+            url = url.replace("{" + variable_name + "}", used_value)
+
+        return url

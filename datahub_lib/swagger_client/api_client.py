@@ -2,16 +2,17 @@
 """
     Azure FarmBeats API
 
-    <p>  <p>Azure FarmBeats helps you build digital agricultural solutions in Azure. By providing a standardized schema to query agricultural data from various sources, Azure FarmBeats provides you:  <ul >   <li style=\"margin: 7px;\">Ability to acquire, aggregate, process and store agricultural data.</li>   <li style=\"margin: 7px;\">Capability to fuse data between data sources and generate insights.</li>   <li style=\"margin: 7px;\">Schematized access and query capabilities on ingested data.</li>  </ul>  </p>  <h><b>REST Operation Groups</b></h>  <p><b>Farm:</b></p>  <p>Farm corresponds to a physical location of interest within the system. Each Farm has a Farm name and a unique farm id.</p>  <p><b>Device:</b></p>  <p>Device corresponds to a physical device present in the farm. Each device has a unique device id. Device is typically provisioned to a farm with a farm id.</p>  <p><b>DeviceModel:</b></p>  <p>DeviceModel corresponds to the meta-data of the device such as the Manufacturer, Type of the device either Gateway or Node.</p>  <p><b>Sensor:</b></p>  <p>Sensor corresponds to a physical sensor that records values. A sensor is typically connected to a device with a device id.</p>  </p>  <p><b>SensorModel:</b></p>  <p>SensorModel corresponds to the meta-data of the sensor such as the Manufacturer, Type of the sensor either Analog or Digital, Sensor Measure such as Ambient Temperature, Pressure etc.</p>  <p><b>Telemetry:</b></p>  <p>Telemetry provides the ability to read telemetry messages for a particular sensor & time range.</p>  <p><b>Job:</b></p>  <p>Job corresponds to any workflow of activities which are executed in the system to get a desired output. Each job is associated with a job id and job type.</p>  <p><b>JobType:</b></p>  <p>JobType corresponds to different job types supported by the system. This includes system defined & user-defined job types.</p>  <p><b>ExtendedType:</b></p>  <p>ExtendedType corresponds to the list of system & user-defined types in the system. This helps setup a new Sensor or Scene or Scenefile type in the system.</p>  <p><b>Partner:</b></p>  <p>Partner corresponds to the sensor/weather/imagery integration partner.</p>  <p><b>Scene:</b></p>  <p>Scene corresponds to any generated output in the context of a Farm. Each Scene has a scene id, scene source, scene type and farm id associated with it. Each scene id  can have multiple scene files associated with it.</p>  <p><b>SceneFile:</b></p>  <p>SceneFile corresponds to all files which are generated for single scene. A single scene id can have multiple SceneFile ids associated with it.</p>  <p><b>Rule:</b></p>  <p>Rule corresponds to a condition for farm-related data to trigger an alert. Each rule will be in the context of a farm's data.</p>  <p><b>Alert:</b></p>  <p>Alert corresponds to a notification which gets generated when a rule condition is met. Each alert will be in the context of a rule.</p>  <p><b>RoleDefinition:</b></p>  <p>RoleDefinition defines allowed and disallowed actions for a role.</p>  <p><b>RoleAssignment:</b></p>  <p>RoleAssignment corresponds to the assignment of a role to a user or a service principal.</p>  </p>    # noqa: E501
+    <p> <p>Azure FarmBeats helps you build digital agricultural solutions in Azure. By providing a standardized schema to query agricultural data from various sources, Azure FarmBeats provides you: <ul >  <li style=\"margin: 7px;\">Ability to acquire, aggregate, process and store agricultural data.</li>  <li style=\"margin: 7px;\">Capability to fuse data between data sources and generate insights.</li>  <li style=\"margin: 7px;\">Schematized access and query capabilities on ingested data.</li> </ul> </p> <h><b>REST Operation Groups</b></h> <p><b>Farm:</b></p> <p>Farm corresponds to a physical location of interest within the system. Each Farm has a Farm name and a unique farm id.</p> <p><b>Device:</b></p> <p>Device corresponds to a physical device present in the farm. Each device has a unique device id. Device is typically provisioned to a farm with a farm id.</p> <p><b>DeviceModel:</b></p> <p>DeviceModel corresponds to the meta-data of the device such as the Manufacturer, Type of the device either Gateway or Node.</p> <p><b>Sensor:</b></p> <p>Sensor corresponds to a physical sensor that records values. A sensor is typically connected to a device with a device id.</p> </p> <p><b>SensorModel:</b></p> <p>SensorModel corresponds to the meta-data of the sensor such as the Manufacturer, Type of the sensor either Analog or Digital, Sensor Measure such as Ambient Temperature, Pressure etc.</p> <p><b>Telemetry:</b></p> <p>Telemetry provides the ability to read telemetry messages for a particular sensor & time range.</p> <p><b>Job:</b></p> <p>Job corresponds to any workflow of activities which are executed in the system to get a desired output. Each job is associated with a job id and job type.</p> <p><b>JobType:</b></p> <p>JobType corresponds to different job types supported by the system. This includes system defined & user-defined job types.</p> <p><b>ExtendedType:</b></p> <p>ExtendedType corresponds to the list of system & user-defined types in the system. This helps setup a new Sensor or Scene or Scenefile type in the system.</p> <p><b>Partner:</b></p> <p>Partner corresponds to the sensor/weather/imagery integration partner.</p> <p><b>Scene:</b></p> <p>Scene corresponds to any generated output in the context of a Farm. Each Scene has a scene id, scene source, scene type and farm id associated with it. Each scene id  can have multiple scene files associated with it.</p> <p><b>SceneFile:</b></p> <p>SceneFile corresponds to all files which are generated for single scene. A single scene id can have multiple SceneFile ids associated with it.</p> <p><b>Rule:</b></p> <p>Rule corresponds to a condition for farm-related data to trigger an alert. Each rule will be in the context of a farm's data.</p> <p><b>Alert:</b></p> <p>Alert corresponds to a notification which gets generated when a rule condition is met. Each alert will be in the context of a rule.</p> <p><b>RoleDefinition:</b></p> <p>RoleDefinition defines allowed and disallowed actions for a role.</p> <p><b>RoleAssignment:</b></p> <p>RoleAssignment corresponds to the assignment of a role to a user or a service principal.</p> </p>   # noqa: E501
 
-    OpenAPI spec version: v1
-    
-    Generated by: https://github.com/swagger-api/swagger-codegen.git
+    The version of the OpenAPI document: v1
+    Generated by: https://openapi-generator.tech
 """
 
 from __future__ import absolute_import
 
+import atexit
 import datetime
+from dateutil.parser import parse
 import json
 import mimetypes
 from multiprocessing.pool import ThreadPool
@@ -26,18 +27,19 @@ from six.moves.urllib.parse import quote
 from datahub_lib.swagger_client.configuration import Configuration
 import datahub_lib.swagger_client.models
 from datahub_lib.swagger_client import rest
+from datahub_lib.swagger_client.exceptions import ApiValueError
 
 
 class ApiClient(object):
-    """Generic API client for Swagger client library builds.
+    """Generic API client for OpenAPI client library builds.
 
-    Swagger generic API client. This client handles the client-
+    OpenAPI generic API client. This client handles the client-
     server communication, and is invariant across implementations. Specifics of
-    the methods and models for each application are generated from the Swagger
+    the methods and models for each application are generated from the OpenAPI
     templates.
 
-    NOTE: This class is auto generated by the swagger code generator program.
-    Ref: https://github.com/swagger-api/swagger-codegen
+    NOTE: This class is auto generated by OpenAPI Generator.
+    Ref: https://openapi-generator.tech
     Do not edit the class manually.
 
     :param configuration: .Configuration object for this client
@@ -46,6 +48,8 @@ class ApiClient(object):
         the API.
     :param cookie: a cookie to include in the header when making calls
         to the API
+    :param pool_threads: The number of threads to use for async requests
+        to the API. More threads means more concurrent API requests.
     """
 
     PRIMITIVE_TYPES = (float, bool, bytes, six.text_type) + six.integer_types
@@ -59,32 +63,46 @@ class ApiClient(object):
         'datetime': datetime.datetime,
         'object': object,
     }
+    _pool = None
 
     def __init__(self, configuration=None, header_name=None, header_value=None,
-                 cookie=None):
+                 cookie=None, pool_threads=1):
         if configuration is None:
             configuration = Configuration()
         self.configuration = configuration
+        self.pool_threads = pool_threads
 
-        # Use the pool property to lazily initialize the ThreadPool.
-        self._pool = None
         self.rest_client = rest.RESTClientObject(configuration)
         self.default_headers = {}
         if header_name is not None:
             self.default_headers[header_name] = header_value
         self.cookie = cookie
         # Set default User-Agent.
-        self.user_agent = 'Swagger-Codegen/1.0.0/python'
+        self.user_agent = 'OpenAPI-Generator/1.0.0/python'
+        self.client_side_validation = configuration.client_side_validation
 
-    def __del__(self):
-        if self._pool is not None:
+    def __enter__(self):
+        return self
+
+    def __exit__(self, exc_type, exc_value, traceback):
+        self.close()
+
+    def close(self):
+        if self._pool:
             self._pool.close()
             self._pool.join()
+            self._pool = None
+            if hasattr(atexit, 'unregister'):
+                atexit.unregister(self.close)
 
     @property
     def pool(self):
+        """Create thread pool on first request
+         avoids instantiating unused threadpool for blocking clients.
+        """
         if self._pool is None:
-            self._pool = ThreadPool()
+            atexit.register(self.close)
+            self._pool = ThreadPool(self.pool_threads)
         return self._pool
 
     @property
@@ -104,7 +122,7 @@ class ApiClient(object):
             query_params=None, header_params=None, body=None, post_params=None,
             files=None, response_type=None, auth_settings=None,
             _return_http_data_only=None, collection_formats=None,
-            _preload_content=True, _request_timeout=None):
+            _preload_content=True, _request_timeout=None, _host=None):
 
         config = self.configuration
 
@@ -138,10 +156,11 @@ class ApiClient(object):
 
         # post parameters
         if post_params or files:
-            post_params = self.prepare_post_parameters(post_params, files)
+            post_params = post_params if post_params else []
             post_params = self.sanitize_for_serialization(post_params)
             post_params = self.parameters_to_tuples(post_params,
                                                     collection_formats)
+            post_params.extend(self.files_parameters(files))
 
         # auth setting
         self.update_params_for_auth(header_params, query_params, auth_settings)
@@ -151,7 +170,11 @@ class ApiClient(object):
             body = self.sanitize_for_serialization(body)
 
         # request url
-        url = self.configuration.host + resource_path
+        if _host is None:
+            url = self.configuration.host + resource_path
+        else:
+            # use server/host defined in path or operation instead
+            url = _host + resource_path
 
         # perform request and return response
         response_data = self.request(
@@ -185,7 +208,7 @@ class ApiClient(object):
             convert to string in iso8601 format.
         If obj is list, sanitize each element in the list.
         If obj is dict, return the dict.
-        If obj is swagger model, return the properties dict.
+        If obj is OpenAPI model, return the properties dict.
 
         :param obj: The data to serialize.
         :return: The serialized form of data.
@@ -207,12 +230,12 @@ class ApiClient(object):
             obj_dict = obj
         else:
             # Convert model obj to dict except
-            # attributes `swagger_types`, `attribute_map`
+            # attributes `openapi_types`, `attribute_map`
             # and attributes which value is not None.
             # Convert attribute name to json key in
             # model definition for request.
             obj_dict = {obj.attribute_map[attr]: getattr(obj, attr)
-                        for attr, _ in six.iteritems(obj.swagger_types)
+                        for attr, _ in six.iteritems(obj.openapi_types)
                         if getattr(obj, attr) is not None}
 
         return {key: self.sanitize_for_serialization(val)
@@ -275,7 +298,7 @@ class ApiClient(object):
         elif klass == datetime.date:
             return self.__deserialize_date(data)
         elif klass == datetime.datetime:
-            return self.__deserialize_datatime(data)
+            return self.__deserialize_datetime(data)
         else:
             return self.__deserialize_model(data, klass)
 
@@ -284,10 +307,10 @@ class ApiClient(object):
                  body=None, post_params=None, files=None,
                  response_type=None, auth_settings=None, async_req=None,
                  _return_http_data_only=None, collection_formats=None,
-                 _preload_content=True, _request_timeout=None):
+                 _preload_content=True, _request_timeout=None, _host=None):
         """Makes the HTTP request (synchronous) and returns deserialized data.
 
-        To make an async request, set the async_req parameter.
+        To make an async_req request, set the async_req parameter.
 
         :param resource_path: Path to method endpoint.
         :param method: Method to call.
@@ -327,17 +350,20 @@ class ApiClient(object):
                                    body, post_params, files,
                                    response_type, auth_settings,
                                    _return_http_data_only, collection_formats,
-                                   _preload_content, _request_timeout)
-        else:
-            thread = self.pool.apply_async(self.__call_api, (resource_path,
-                                           method, path_params, query_params,
-                                           header_params, body,
-                                           post_params, files,
-                                           response_type, auth_settings,
-                                           _return_http_data_only,
-                                           collection_formats,
-                                           _preload_content, _request_timeout))
-        return thread
+                                   _preload_content, _request_timeout, _host)
+
+        return self.pool.apply_async(self.__call_api, (resource_path,
+                                                       method, path_params,
+                                                       query_params,
+                                                       header_params, body,
+                                                       post_params, files,
+                                                       response_type,
+                                                       auth_settings,
+                                                       _return_http_data_only,
+                                                       collection_formats,
+                                                       _preload_content,
+                                                       _request_timeout,
+                                                       _host))
 
     def request(self, method, url, query_params=None, headers=None,
                 post_params=None, body=None, _preload_content=True,
@@ -359,10 +385,8 @@ class ApiClient(object):
             return self.rest_client.OPTIONS(url,
                                             query_params=query_params,
                                             headers=headers,
-                                            post_params=post_params,
                                             _preload_content=_preload_content,
-                                            _request_timeout=_request_timeout,
-                                            body=body)
+                                            _request_timeout=_request_timeout)
         elif method == "POST":
             return self.rest_client.POST(url,
                                          query_params=query_params,
@@ -395,7 +419,7 @@ class ApiClient(object):
                                            _request_timeout=_request_timeout,
                                            body=body)
         else:
-            raise ValueError(
+            raise ApiValueError(
                 "http method must be `GET`, `HEAD`, `OPTIONS`,"
                 " `POST`, `PATCH`, `PUT` or `DELETE`."
             )
@@ -430,17 +454,13 @@ class ApiClient(object):
                 new_params.append((k, v))
         return new_params
 
-    def prepare_post_parameters(self, post_params=None, files=None):
+    def files_parameters(self, files=None):
         """Builds form parameters.
 
-        :param post_params: Normal form parameters.
         :param files: File parameters.
         :return: Form parameters with files.
         """
         params = []
-
-        if post_params:
-            params = post_params
 
         if files:
             for k, v in six.iteritems(files):
@@ -503,14 +523,14 @@ class ApiClient(object):
         for auth in auth_settings:
             auth_setting = self.configuration.auth_settings().get(auth)
             if auth_setting:
-                if not auth_setting['value']:
-                    continue
+                if auth_setting['in'] == 'cookie':
+                    headers['Cookie'] = auth_setting['value']
                 elif auth_setting['in'] == 'header':
                     headers[auth_setting['key']] = auth_setting['value']
                 elif auth_setting['in'] == 'query':
                     querys.append((auth_setting['key'], auth_setting['value']))
                 else:
-                    raise ValueError(
+                    raise ApiValueError(
                         'Authentication token must be in `query` or `header`'
                     )
 
@@ -554,7 +574,7 @@ class ApiClient(object):
             return data
 
     def __deserialize_object(self, value):
-        """Return a original value.
+        """Return an original value.
 
         :return: object.
         """
@@ -567,7 +587,6 @@ class ApiClient(object):
         :return: date.
         """
         try:
-            from dateutil.parser import parse
             return parse(string).date()
         except ImportError:
             return string
@@ -577,7 +596,7 @@ class ApiClient(object):
                 reason="Failed to parse `{0}` as date object".format(string)
             )
 
-    def __deserialize_datatime(self, string):
+    def __deserialize_datetime(self, string):
         """Deserializes string to datetime.
 
         The string should be in iso8601 datetime format.
@@ -586,7 +605,6 @@ class ApiClient(object):
         :return: datetime.
         """
         try:
-            from dateutil.parser import parse
             return parse(string)
         except ImportError:
             return string
@@ -599,9 +617,6 @@ class ApiClient(object):
                 )
             )
 
-    def __hasattr(self, object, name):
-        return name in object.__class__.__dict__
-
     def __deserialize_model(self, data, klass):
         """Deserializes list or dict to model.
 
@@ -610,28 +625,22 @@ class ApiClient(object):
         :return: model object.
         """
 
-        if (not klass.swagger_types and
-                not self.__hasattr(klass, 'get_real_child_model')):
+        if not klass.openapi_types and not hasattr(klass,
+                                                   'get_real_child_model'):
             return data
 
         kwargs = {}
-        if klass.swagger_types is not None:
-            for attr, attr_type in six.iteritems(klass.swagger_types):
-                if (data is not None and
-                        klass.attribute_map[attr] in data and
-                        isinstance(data, (list, dict))):
+        if (data is not None and
+                klass.openapi_types is not None and
+                isinstance(data, (list, dict))):
+            for attr, attr_type in six.iteritems(klass.openapi_types):
+                if klass.attribute_map[attr] in data:
                     value = data[klass.attribute_map[attr]]
                     kwargs[attr] = self.__deserialize(value, attr_type)
 
         instance = klass(**kwargs)
 
-        if (isinstance(instance, dict) and
-                klass.swagger_types is not None and
-                isinstance(data, dict)):
-            for key, value in data.items():
-                if key not in klass.swagger_types:
-                    instance[key] = value
-        if self.__hasattr(instance, 'get_real_child_model'):
+        if hasattr(instance, 'get_real_child_model'):
             klass_name = instance.get_real_child_model(data)
             if klass_name:
                 instance = self.__deserialize(data, klass_name)

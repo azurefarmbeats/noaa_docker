@@ -3,11 +3,10 @@
 """
     Azure FarmBeats API
 
-    <p>  <p>Azure FarmBeats helps you build digital agricultural solutions in Azure. By providing a standardized schema to query agricultural data from various sources, Azure FarmBeats provides you:  <ul >   <li style=\"margin: 7px;\">Ability to acquire, aggregate, process and store agricultural data.</li>   <li style=\"margin: 7px;\">Capability to fuse data between data sources and generate insights.</li>   <li style=\"margin: 7px;\">Schematized access and query capabilities on ingested data.</li>  </ul>  </p>  <h><b>REST Operation Groups</b></h>  <p><b>Farm:</b></p>  <p>Farm corresponds to a physical location of interest within the system. Each Farm has a Farm name and a unique farm id.</p>  <p><b>Device:</b></p>  <p>Device corresponds to a physical device present in the farm. Each device has a unique device id. Device is typically provisioned to a farm with a farm id.</p>  <p><b>DeviceModel:</b></p>  <p>DeviceModel corresponds to the meta-data of the device such as the Manufacturer, Type of the device either Gateway or Node.</p>  <p><b>Sensor:</b></p>  <p>Sensor corresponds to a physical sensor that records values. A sensor is typically connected to a device with a device id.</p>  </p>  <p><b>SensorModel:</b></p>  <p>SensorModel corresponds to the meta-data of the sensor such as the Manufacturer, Type of the sensor either Analog or Digital, Sensor Measure such as Ambient Temperature, Pressure etc.</p>  <p><b>Telemetry:</b></p>  <p>Telemetry provides the ability to read telemetry messages for a particular sensor & time range.</p>  <p><b>Job:</b></p>  <p>Job corresponds to any workflow of activities which are executed in the system to get a desired output. Each job is associated with a job id and job type.</p>  <p><b>JobType:</b></p>  <p>JobType corresponds to different job types supported by the system. This includes system defined & user-defined job types.</p>  <p><b>ExtendedType:</b></p>  <p>ExtendedType corresponds to the list of system & user-defined types in the system. This helps setup a new Sensor or Scene or Scenefile type in the system.</p>  <p><b>Partner:</b></p>  <p>Partner corresponds to the sensor/weather/imagery integration partner.</p>  <p><b>Scene:</b></p>  <p>Scene corresponds to any generated output in the context of a Farm. Each Scene has a scene id, scene source, scene type and farm id associated with it. Each scene id  can have multiple scene files associated with it.</p>  <p><b>SceneFile:</b></p>  <p>SceneFile corresponds to all files which are generated for single scene. A single scene id can have multiple SceneFile ids associated with it.</p>  <p><b>Rule:</b></p>  <p>Rule corresponds to a condition for farm-related data to trigger an alert. Each rule will be in the context of a farm's data.</p>  <p><b>Alert:</b></p>  <p>Alert corresponds to a notification which gets generated when a rule condition is met. Each alert will be in the context of a rule.</p>  <p><b>RoleDefinition:</b></p>  <p>RoleDefinition defines allowed and disallowed actions for a role.</p>  <p><b>RoleAssignment:</b></p>  <p>RoleAssignment corresponds to the assignment of a role to a user or a service principal.</p>  </p>    # noqa: E501
+    <p> <p>Azure FarmBeats helps you build digital agricultural solutions in Azure. By providing a standardized schema to query agricultural data from various sources, Azure FarmBeats provides you: <ul >  <li style=\"margin: 7px;\">Ability to acquire, aggregate, process and store agricultural data.</li>  <li style=\"margin: 7px;\">Capability to fuse data between data sources and generate insights.</li>  <li style=\"margin: 7px;\">Schematized access and query capabilities on ingested data.</li> </ul> </p> <h><b>REST Operation Groups</b></h> <p><b>Farm:</b></p> <p>Farm corresponds to a physical location of interest within the system. Each Farm has a Farm name and a unique farm id.</p> <p><b>Device:</b></p> <p>Device corresponds to a physical device present in the farm. Each device has a unique device id. Device is typically provisioned to a farm with a farm id.</p> <p><b>DeviceModel:</b></p> <p>DeviceModel corresponds to the meta-data of the device such as the Manufacturer, Type of the device either Gateway or Node.</p> <p><b>Sensor:</b></p> <p>Sensor corresponds to a physical sensor that records values. A sensor is typically connected to a device with a device id.</p> </p> <p><b>SensorModel:</b></p> <p>SensorModel corresponds to the meta-data of the sensor such as the Manufacturer, Type of the sensor either Analog or Digital, Sensor Measure such as Ambient Temperature, Pressure etc.</p> <p><b>Telemetry:</b></p> <p>Telemetry provides the ability to read telemetry messages for a particular sensor & time range.</p> <p><b>Job:</b></p> <p>Job corresponds to any workflow of activities which are executed in the system to get a desired output. Each job is associated with a job id and job type.</p> <p><b>JobType:</b></p> <p>JobType corresponds to different job types supported by the system. This includes system defined & user-defined job types.</p> <p><b>ExtendedType:</b></p> <p>ExtendedType corresponds to the list of system & user-defined types in the system. This helps setup a new Sensor or Scene or Scenefile type in the system.</p> <p><b>Partner:</b></p> <p>Partner corresponds to the sensor/weather/imagery integration partner.</p> <p><b>Scene:</b></p> <p>Scene corresponds to any generated output in the context of a Farm. Each Scene has a scene id, scene source, scene type and farm id associated with it. Each scene id  can have multiple scene files associated with it.</p> <p><b>SceneFile:</b></p> <p>SceneFile corresponds to all files which are generated for single scene. A single scene id can have multiple SceneFile ids associated with it.</p> <p><b>Rule:</b></p> <p>Rule corresponds to a condition for farm-related data to trigger an alert. Each rule will be in the context of a farm's data.</p> <p><b>Alert:</b></p> <p>Alert corresponds to a notification which gets generated when a rule condition is met. Each alert will be in the context of a rule.</p> <p><b>RoleDefinition:</b></p> <p>RoleDefinition defines allowed and disallowed actions for a role.</p> <p><b>RoleAssignment:</b></p> <p>RoleAssignment corresponds to the assignment of a role to a user or a service principal.</p> </p>   # noqa: E501
 
-    OpenAPI spec version: v1
-    
-    Generated by: https://github.com/swagger-api/swagger-codegen.git
+    The version of the OpenAPI document: v1
+    Generated by: https://openapi-generator.tech
 """
 
 
@@ -16,21 +15,24 @@ import re  # noqa: F401
 
 import six
 
+from datahub_lib.swagger_client.configuration import Configuration
+
 
 class SensorRequest(object):
-    """NOTE: This class is auto generated by the swagger code generator program.
+    """NOTE: This class is auto generated by OpenAPI Generator.
+    Ref: https://openapi-generator.tech
 
     Do not edit the class manually.
     """
 
     """
     Attributes:
-      swagger_types (dict): The key is attribute name
+      openapi_types (dict): The key is attribute name
                             and the value is attribute type.
       attribute_map (dict): The key is attribute name
                             and the value is json key in definition.
     """
-    swagger_types = {
+    openapi_types = {
         'hardware_id': 'str',
         'sensor_model_id': 'str',
         'location': 'Location',
@@ -54,8 +56,11 @@ class SensorRequest(object):
         'properties': 'properties'
     }
 
-    def __init__(self, hardware_id=None, sensor_model_id=None, location=None, depth=None, port=None, device_id=None, name=None, description=None, properties=None):  # noqa: E501
-        """SensorRequest - a model defined in Swagger"""  # noqa: E501
+    def __init__(self, hardware_id=None, sensor_model_id=None, location=None, depth=None, port=None, device_id=None, name=None, description=None, properties=None, local_vars_configuration=None):  # noqa: E501
+        """SensorRequest - a model defined in OpenAPI"""  # noqa: E501
+        if local_vars_configuration is None:
+            local_vars_configuration = Configuration()
+        self.local_vars_configuration = local_vars_configuration
 
         self._hardware_id = None
         self._sensor_model_id = None
@@ -105,9 +110,11 @@ class SensorRequest(object):
         :param hardware_id: The hardware_id of this SensorRequest.  # noqa: E501
         :type: str
         """
-        if hardware_id is not None and len(hardware_id) > 200:
+        if (self.local_vars_configuration.client_side_validation and
+                hardware_id is not None and len(hardware_id) > 200):
             raise ValueError("Invalid value for `hardware_id`, length must be less than or equal to `200`")  # noqa: E501
-        if hardware_id is not None and len(hardware_id) < 1:
+        if (self.local_vars_configuration.client_side_validation and
+                hardware_id is not None and len(hardware_id) < 1):
             raise ValueError("Invalid value for `hardware_id`, length must be greater than or equal to `1`")  # noqa: E501
 
         self._hardware_id = hardware_id
@@ -132,7 +139,7 @@ class SensorRequest(object):
         :param sensor_model_id: The sensor_model_id of this SensorRequest.  # noqa: E501
         :type: str
         """
-        if sensor_model_id is None:
+        if self.local_vars_configuration.client_side_validation and sensor_model_id is None:  # noqa: E501
             raise ValueError("Invalid value for `sensor_model_id`, must not be `None`")  # noqa: E501
 
         self._sensor_model_id = sensor_model_id
@@ -141,7 +148,6 @@ class SensorRequest(object):
     def location(self):
         """Gets the location of this SensorRequest.  # noqa: E501
 
-        Gets or sets location of the sensor.  # noqa: E501
 
         :return: The location of this SensorRequest.  # noqa: E501
         :rtype: Location
@@ -152,7 +158,6 @@ class SensorRequest(object):
     def location(self, location):
         """Sets the location of this SensorRequest.
 
-        Gets or sets location of the sensor.  # noqa: E501
 
         :param location: The location of this SensorRequest.  # noqa: E501
         :type: Location
@@ -187,7 +192,6 @@ class SensorRequest(object):
     def port(self):
         """Gets the port of this SensorRequest.  # noqa: E501
 
-        Gets or sets port to which the sensor is connected.  # noqa: E501
 
         :return: The port of this SensorRequest.  # noqa: E501
         :rtype: DevicePort
@@ -198,7 +202,6 @@ class SensorRequest(object):
     def port(self, port):
         """Sets the port of this SensorRequest.
 
-        Gets or sets port to which the sensor is connected.  # noqa: E501
 
         :param port: The port of this SensorRequest.  # noqa: E501
         :type: DevicePort
@@ -249,11 +252,13 @@ class SensorRequest(object):
         :param name: The name of this SensorRequest.  # noqa: E501
         :type: str
         """
-        if name is None:
+        if self.local_vars_configuration.client_side_validation and name is None:  # noqa: E501
             raise ValueError("Invalid value for `name`, must not be `None`")  # noqa: E501
-        if name is not None and len(name) > 100:
+        if (self.local_vars_configuration.client_side_validation and
+                name is not None and len(name) > 100):
             raise ValueError("Invalid value for `name`, length must be less than or equal to `100`")  # noqa: E501
-        if name is not None and len(name) < 3:
+        if (self.local_vars_configuration.client_side_validation and
+                name is not None and len(name) < 3):
             raise ValueError("Invalid value for `name`, length must be greater than or equal to `3`")  # noqa: E501
 
         self._name = name
@@ -278,9 +283,11 @@ class SensorRequest(object):
         :param description: The description of this SensorRequest.  # noqa: E501
         :type: str
         """
-        if description is not None and len(description) > 1000:
+        if (self.local_vars_configuration.client_side_validation and
+                description is not None and len(description) > 1000):
             raise ValueError("Invalid value for `description`, length must be less than or equal to `1000`")  # noqa: E501
-        if description is not None and len(description) < 3:
+        if (self.local_vars_configuration.client_side_validation and
+                description is not None and len(description) < 3):
             raise ValueError("Invalid value for `description`, length must be greater than or equal to `3`")  # noqa: E501
 
         self._description = description
@@ -312,7 +319,7 @@ class SensorRequest(object):
         """Returns the model properties as a dict"""
         result = {}
 
-        for attr, _ in six.iteritems(self.swagger_types):
+        for attr, _ in six.iteritems(self.openapi_types):
             value = getattr(self, attr)
             if isinstance(value, list):
                 result[attr] = list(map(
@@ -329,9 +336,6 @@ class SensorRequest(object):
                 ))
             else:
                 result[attr] = value
-        if issubclass(SensorRequest, dict):
-            for key, value in self.items():
-                result[key] = value
 
         return result
 
@@ -348,8 +352,11 @@ class SensorRequest(object):
         if not isinstance(other, SensorRequest):
             return False
 
-        return self.__dict__ == other.__dict__
+        return self.to_dict() == other.to_dict()
 
     def __ne__(self, other):
         """Returns true if both objects are not equal"""
-        return not self == other
+        if not isinstance(other, SensorRequest):
+            return True
+
+        return self.to_dict() != other.to_dict()
