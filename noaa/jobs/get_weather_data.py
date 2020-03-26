@@ -35,7 +35,7 @@ flags.DEFINE_string("eventhub_connection_string", None, "The job outputs NOAA IS
 flags.DEFINE_string("end_point",  None, "farmbeats api endpoint")
 flags.DEFINE_string("get_access_token_url", None, "Azure function url to get the access token")
 flags.DEFINE_string("eventhub_name", None, "Name of the eventhub to push data to")
-flags.DEFINE_string("job_status_url", None, "Job status blob url with sas token")
+flags.DEFINE_string("job_status_blob_sas_url", None, "Job status blob url with sas token")
 
 # Shorthand for referring to flags
 FLAGS = flags.FLAGS
