@@ -102,7 +102,7 @@ class GetWeatherDataJob:
 
             # Update the status for the job
             if FLAGS.job_status_blob_sas_url:
-                msg = "Weather data pushed for start_date: {} to end_date: {}, for nearest_lat: {}, nearest_lon: {}; provided lat:{}, lon{}".format(
+                msg = "Weather data pushed for start_date: {} to end_date: {}, for nearest_lat: {}, nearest_lon: {}; provided lat:{}, lon:{}".format(
                     FLAGS.start_date, FLAGS.end_date, nearest_lat, nearest_lon, FLAGS.latitude, FLAGS.longitude)
                 writer = JobStatusWriter(FLAGS.job_status_blob_sas_url)
                 output_writer = writer.get_output_writer()
