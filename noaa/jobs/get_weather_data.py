@@ -27,8 +27,8 @@ from noaa.jobs.utils import UtilFunctions
 flags.DEFINE_string("farm_id", None, "This is optional and just for association")
 flags.DEFINE_string("start_date", None, "Start date")
 flags.DEFINE_string("end_date", None, "End date")
-flags.DEFINE_string("latitude", None, "Latitude")
-flags.DEFINE_string("longitude", None, "Longitude")
+flags.DEFINE_float("latitude", None, "Latitude")
+flags.DEFINE_float("longitude", None, "Longitude")
 
 # Parameters passed by the framework (farmbeats)
 flags.DEFINE_string("eventhub_connection_string", None, "The job outputs NOAA ISD data for the given date range to event hub")

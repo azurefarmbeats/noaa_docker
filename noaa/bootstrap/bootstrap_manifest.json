@@ -139,13 +139,13 @@
               "parameters": [
                 {
                   "name": "latitude",
-                  "type": "String",
+                  "type": "Float",
                   "isRequired": true,
                   "description": "Latitude for the point for which we want to fetch weather data"
                 },
                 {
                     "name": "longitude",
-                    "type": "String",
+                    "type": "Float",
                     "isRequired": true,
                     "description": "Longitude for the point for which we want to fetch weather data"
                 },
@@ -181,13 +181,13 @@
               "parameters": [
                 {
                   "name": "latitude",
-                  "type": "String",
+                  "type": "Float",
                   "isRequired": true,
                   "description": "Latitude for the point for which we want to fetch weather data"
                 },
                 {
                     "name": "longitude",
-                    "type": "String",
+                    "type": "Float",
                     "isRequired": true,
                     "description": "Longitude for the point for which we want to fetch weather data"
                 },
