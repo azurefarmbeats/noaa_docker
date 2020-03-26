@@ -217,7 +217,7 @@ class GetWeatherDataJob:
         
         # doesn't exist - create weather data_location
         weather_data_location_payload = {}
-        weather_data_location_payload["name"] = "NOAA_job_generated_location_[" + FLAGS.latitude + "," + FLAGS.longitude + "]" 
+        weather_data_location_payload["name"] = "NOAA_job_generated_location_[" + str(FLAGS.latitude) + "," + str(FLAGS.longitude) + "]" 
         weather_data_location_payload["weatherDataModelId"] = data_model_id
         weather_data_location_payload["location"] = { "latitude": FLAGS.latitude, "longitude": FLAGS.longitude}
         if (FLAGS.farm_id):
