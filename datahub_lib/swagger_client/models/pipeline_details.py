@@ -58,9 +58,12 @@ class PipelineDetails(object):
         self._parameters = None
         self.discriminator = None
 
-        self.resource_group_name = resource_group_name
-        self.data_factory_name = data_factory_name
-        self.pipeline_name = pipeline_name
+        if resource_group_name is not None:
+            self.resource_group_name = resource_group_name
+        if data_factory_name is not None:
+            self.data_factory_name = data_factory_name
+        if pipeline_name is not None:
+            self.pipeline_name = pipeline_name
         if parameters is not None:
             self.parameters = parameters
 
@@ -84,17 +87,12 @@ class PipelineDetails(object):
         :param resource_group_name: The resource_group_name of this PipelineDetails.  # noqa: E501
         :type: str
         """
-        if self.local_vars_configuration.client_side_validation and resource_group_name is None:  # noqa: E501
-            raise ValueError("Invalid value for `resource_group_name`, must not be `None`")  # noqa: E501
         if (self.local_vars_configuration.client_side_validation and
                 resource_group_name is not None and len(resource_group_name) > 90):
             raise ValueError("Invalid value for `resource_group_name`, length must be less than or equal to `90`")  # noqa: E501
         if (self.local_vars_configuration.client_side_validation and
                 resource_group_name is not None and len(resource_group_name) < 1):
             raise ValueError("Invalid value for `resource_group_name`, length must be greater than or equal to `1`")  # noqa: E501
-        if (self.local_vars_configuration.client_side_validation and
-                resource_group_name is not None and not re.search(r'^[-\w\._\(\)]+$', resource_group_name)):  # noqa: E501
-            raise ValueError(r"Invalid value for `resource_group_name`, must be a follow pattern or equal to `/^[-\w\._\(\)]+$/`")  # noqa: E501
 
         self._resource_group_name = resource_group_name
 
@@ -118,8 +116,6 @@ class PipelineDetails(object):
         :param data_factory_name: The data_factory_name of this PipelineDetails.  # noqa: E501
         :type: str
         """
-        if self.local_vars_configuration.client_side_validation and data_factory_name is None:  # noqa: E501
-            raise ValueError("Invalid value for `data_factory_name`, must not be `None`")  # noqa: E501
         if (self.local_vars_configuration.client_side_validation and
                 data_factory_name is not None and len(data_factory_name) > 63):
             raise ValueError("Invalid value for `data_factory_name`, length must be less than or equal to `63`")  # noqa: E501
@@ -149,8 +145,6 @@ class PipelineDetails(object):
         :param pipeline_name: The pipeline_name of this PipelineDetails.  # noqa: E501
         :type: str
         """
-        if self.local_vars_configuration.client_side_validation and pipeline_name is None:  # noqa: E501
-            raise ValueError("Invalid value for `pipeline_name`, must not be `None`")  # noqa: E501
         if (self.local_vars_configuration.client_side_validation and
                 pipeline_name is not None and len(pipeline_name) > 200):
             raise ValueError("Invalid value for `pipeline_name`, length must be less than or equal to `200`")  # noqa: E501

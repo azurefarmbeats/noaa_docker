@@ -36,8 +36,10 @@ class PartnerResponse(object):
         'primary_event_hub_connection_string': 'str',
         'secondary_event_hub_connection_string': 'str',
         'id': 'str',
+        'docker_details': 'DockerLimitedDetails',
         'created_at': 'datetime',
         'last_modified_at': 'datetime',
+        'partner_status': 'PartnerStatus',
         'object_id': 'str',
         'tenant_id': 'str',
         'partner_type': 'str',
@@ -50,8 +52,10 @@ class PartnerResponse(object):
         'primary_event_hub_connection_string': 'primaryEventHubConnectionString',
         'secondary_event_hub_connection_string': 'secondaryEventHubConnectionString',
         'id': 'id',
+        'docker_details': 'dockerDetails',
         'created_at': 'createdAt',
         'last_modified_at': 'lastModifiedAt',
+        'partner_status': 'partnerStatus',
         'object_id': 'objectId',
         'tenant_id': 'tenantId',
         'partner_type': 'partnerType',
@@ -60,7 +64,7 @@ class PartnerResponse(object):
         'properties': 'properties'
     }
 
-    def __init__(self, primary_event_hub_connection_string=None, secondary_event_hub_connection_string=None, id=None, created_at=None, last_modified_at=None, object_id=None, tenant_id=None, partner_type=None, name=None, description=None, properties=None, local_vars_configuration=None):  # noqa: E501
+    def __init__(self, primary_event_hub_connection_string=None, secondary_event_hub_connection_string=None, id=None, docker_details=None, created_at=None, last_modified_at=None, partner_status=None, object_id=None, tenant_id=None, partner_type=None, name=None, description=None, properties=None, local_vars_configuration=None):  # noqa: E501
         """PartnerResponse - a model defined in OpenAPI"""  # noqa: E501
         if local_vars_configuration is None:
             local_vars_configuration = Configuration()
@@ -69,8 +73,10 @@ class PartnerResponse(object):
         self._primary_event_hub_connection_string = None
         self._secondary_event_hub_connection_string = None
         self._id = None
+        self._docker_details = None
         self._created_at = None
         self._last_modified_at = None
+        self._partner_status = None
         self._object_id = None
         self._tenant_id = None
         self._partner_type = None
@@ -85,14 +91,19 @@ class PartnerResponse(object):
             self.secondary_event_hub_connection_string = secondary_event_hub_connection_string
         if id is not None:
             self.id = id
+        if docker_details is not None:
+            self.docker_details = docker_details
         if created_at is not None:
             self.created_at = created_at
         if last_modified_at is not None:
             self.last_modified_at = last_modified_at
-        self.object_id = object_id
-        self.tenant_id = tenant_id
-        if partner_type is not None:
-            self.partner_type = partner_type
+        if partner_status is not None:
+            self.partner_status = partner_status
+        if object_id is not None:
+            self.object_id = object_id
+        if tenant_id is not None:
+            self.tenant_id = tenant_id
+        self.partner_type = partner_type
         self.name = name
         if description is not None:
             self.description = description
@@ -169,6 +180,27 @@ class PartnerResponse(object):
         self._id = id
 
     @property
+    def docker_details(self):
+        """Gets the docker_details of this PartnerResponse.  # noqa: E501
+
+
+        :return: The docker_details of this PartnerResponse.  # noqa: E501
+        :rtype: DockerLimitedDetails
+        """
+        return self._docker_details
+
+    @docker_details.setter
+    def docker_details(self, docker_details):
+        """Sets the docker_details of this PartnerResponse.
+
+
+        :param docker_details: The docker_details of this PartnerResponse.  # noqa: E501
+        :type: DockerLimitedDetails
+        """
+
+        self._docker_details = docker_details
+
+    @property
     def created_at(self):
         """Gets the created_at of this PartnerResponse.  # noqa: E501
 
@@ -215,6 +247,27 @@ class PartnerResponse(object):
         self._last_modified_at = last_modified_at
 
     @property
+    def partner_status(self):
+        """Gets the partner_status of this PartnerResponse.  # noqa: E501
+
+
+        :return: The partner_status of this PartnerResponse.  # noqa: E501
+        :rtype: PartnerStatus
+        """
+        return self._partner_status
+
+    @partner_status.setter
+    def partner_status(self, partner_status):
+        """Sets the partner_status of this PartnerResponse.
+
+
+        :param partner_status: The partner_status of this PartnerResponse.  # noqa: E501
+        :type: PartnerStatus
+        """
+
+        self._partner_status = partner_status
+
+    @property
     def object_id(self):
         """Gets the object_id of this PartnerResponse.  # noqa: E501
 
@@ -234,8 +287,6 @@ class PartnerResponse(object):
         :param object_id: The object_id of this PartnerResponse.  # noqa: E501
         :type: str
         """
-        if self.local_vars_configuration.client_side_validation and object_id is None:  # noqa: E501
-            raise ValueError("Invalid value for `object_id`, must not be `None`")  # noqa: E501
         if (self.local_vars_configuration.client_side_validation and
                 object_id is not None and len(object_id) > 200):
             raise ValueError("Invalid value for `object_id`, length must be less than or equal to `200`")  # noqa: E501
@@ -265,8 +316,6 @@ class PartnerResponse(object):
         :param tenant_id: The tenant_id of this PartnerResponse.  # noqa: E501
         :type: str
         """
-        if self.local_vars_configuration.client_side_validation and tenant_id is None:  # noqa: E501
-            raise ValueError("Invalid value for `tenant_id`, must not be `None`")  # noqa: E501
         if (self.local_vars_configuration.client_side_validation and
                 tenant_id is not None and len(tenant_id) > 200):
             raise ValueError("Invalid value for `tenant_id`, length must be less than or equal to `200`")  # noqa: E501
@@ -280,7 +329,7 @@ class PartnerResponse(object):
     def partner_type(self):
         """Gets the partner_type of this PartnerResponse.  # noqa: E501
 
-        Gets or sets partnerType.  # noqa: E501
+        Gets or sets partner type.  # noqa: E501
 
         :return: The partner_type of this PartnerResponse.  # noqa: E501
         :rtype: str
@@ -291,11 +340,13 @@ class PartnerResponse(object):
     def partner_type(self, partner_type):
         """Sets the partner_type of this PartnerResponse.
 
-        Gets or sets partnerType.  # noqa: E501
+        Gets or sets partner type.  # noqa: E501
 
         :param partner_type: The partner_type of this PartnerResponse.  # noqa: E501
         :type: str
         """
+        if self.local_vars_configuration.client_side_validation and partner_type is None:  # noqa: E501
+            raise ValueError("Invalid value for `partner_type`, must not be `None`")  # noqa: E501
         allowed_values = ["Imagery", "Sensor", "Weather"]  # noqa: E501
         if self.local_vars_configuration.client_side_validation and partner_type not in allowed_values:  # noqa: E501
             raise ValueError(

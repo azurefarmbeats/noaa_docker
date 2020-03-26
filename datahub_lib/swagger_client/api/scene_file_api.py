@@ -371,6 +371,7 @@ class SceneFileApi(object):
         :param str scene_id: Gets or sets scene id of scene files.
         :param bool generate_download_sas_url: Gets or sets a value indicating whether download SAS URLs need to be generated.
         :param list[str] names: Gets or sets list of names of scene files which is specified while creating a scene file.
+        :param list[str] includes: Gets or sets list of properties to be included in SceneFileResponse. Default value is None.
         :param list[str] ids: Gets or sets ids of the resource.
         :param str partner_id: Gets or sets id of the partner.
         :param datetime min_created_at: Gets or sets minimum creation date of resource (inclusive).
@@ -409,6 +410,7 @@ class SceneFileApi(object):
         :param str scene_id: Gets or sets scene id of scene files.
         :param bool generate_download_sas_url: Gets or sets a value indicating whether download SAS URLs need to be generated.
         :param list[str] names: Gets or sets list of names of scene files which is specified while creating a scene file.
+        :param list[str] includes: Gets or sets list of properties to be included in SceneFileResponse. Default value is None.
         :param list[str] ids: Gets or sets ids of the resource.
         :param str partner_id: Gets or sets id of the partner.
         :param datetime min_created_at: Gets or sets minimum creation date of resource (inclusive).
@@ -434,7 +436,7 @@ class SceneFileApi(object):
 
         local_var_params = locals()
 
-        all_params = ['types', 'content_types', 'scene_id', 'generate_download_sas_url', 'names', 'ids', 'partner_id', 'min_created_at', 'max_created_at', 'min_last_modified_at', 'max_last_modified_at', 'property_filter', 'max_items', 'x_ms_continuation']  # noqa: E501
+        all_params = ['types', 'content_types', 'scene_id', 'generate_download_sas_url', 'names', 'includes', 'ids', 'partner_id', 'min_created_at', 'max_created_at', 'min_last_modified_at', 'max_last_modified_at', 'property_filter', 'max_items', 'x_ms_continuation']  # noqa: E501
         all_params.append('async_req')
         all_params.append('_return_http_data_only')
         all_params.append('_preload_content')
@@ -449,8 +451,8 @@ class SceneFileApi(object):
             local_var_params[key] = val
         del local_var_params['kwargs']
 
-        if self.api_client.client_side_validation and 'max_items' in local_var_params and local_var_params['max_items'] > 5000:  # noqa: E501
-            raise ApiValueError("Invalid value for parameter `max_items` when calling `scene_file_get_all`, must be a value less than or equal to `5000`")  # noqa: E501
+        if self.api_client.client_side_validation and 'max_items' in local_var_params and local_var_params['max_items'] > 1000:  # noqa: E501
+            raise ApiValueError("Invalid value for parameter `max_items` when calling `scene_file_get_all`, must be a value less than or equal to `1000`")  # noqa: E501
         if self.api_client.client_side_validation and 'max_items' in local_var_params and local_var_params['max_items'] < 1:  # noqa: E501
             raise ApiValueError("Invalid value for parameter `max_items` when calling `scene_file_get_all`, must be a value greater than or equal to `1`")  # noqa: E501
         collection_formats = {}
@@ -471,6 +473,9 @@ class SceneFileApi(object):
         if 'names' in local_var_params and local_var_params['names'] is not None:  # noqa: E501
             query_params.append(('names', local_var_params['names']))  # noqa: E501
             collection_formats['names'] = 'multi'  # noqa: E501
+        if 'includes' in local_var_params and local_var_params['includes'] is not None:  # noqa: E501
+            query_params.append(('includes', local_var_params['includes']))  # noqa: E501
+            collection_formats['includes'] = 'multi'  # noqa: E501
         if 'ids' in local_var_params and local_var_params['ids'] is not None:  # noqa: E501
             query_params.append(('ids', local_var_params['ids']))  # noqa: E501
             collection_formats['ids'] = 'multi'  # noqa: E501

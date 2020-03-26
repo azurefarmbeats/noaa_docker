@@ -140,7 +140,7 @@ class Permission(object):
         """
         if self.local_vars_configuration.client_side_validation and resource_types is None:  # noqa: E501
             raise ValueError("Invalid value for `resource_types`, must not be `None`")  # noqa: E501
-        allowed_values = ["All", "Device", "DeviceModel", "Rule", "Sensor", "SensorModel", "Job", "JobType", "Scene", "SceneFile", "Farm", "RoleAssignment", "RoleDefinition", "Alert", "ExtendedType", "Telemetry", "Partner"]  # noqa: E501
+        allowed_values = ["All", "Device", "DeviceModel", "Rule", "Sensor", "SensorModel", "WeatherDataLocation", "WeatherDataModel", "Job", "JobType", "Scene", "SceneFile", "Farm", "RoleAssignment", "RoleDefinition", "Alert", "ExtendedType", "Telemetry", "Partner"]  # noqa: E501
         if (self.local_vars_configuration.client_side_validation and
                 not set(resource_types).issubset(set(allowed_values))):  # noqa: E501
             raise ValueError(

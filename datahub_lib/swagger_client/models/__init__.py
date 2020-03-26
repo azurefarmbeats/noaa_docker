@@ -17,8 +17,10 @@ from __future__ import absolute_import
 from datahub_lib.swagger_client.models.alert_request import AlertRequest
 from datahub_lib.swagger_client.models.alert_response import AlertResponse
 from datahub_lib.swagger_client.models.alert_response_list_response import AlertResponseListResponse
+from datahub_lib.swagger_client.models.azure_batch_details import AzureBatchDetails
 from datahub_lib.swagger_client.models.condition import Condition
 from datahub_lib.swagger_client.models.create_scene_file_response import CreateSceneFileResponse
+from datahub_lib.swagger_client.models.credentials import Credentials
 from datahub_lib.swagger_client.models.date_time_range import DateTimeRange
 from datahub_lib.swagger_client.models.debug_information import DebugInformation
 from datahub_lib.swagger_client.models.device_model_request import DeviceModelRequest
@@ -28,6 +30,8 @@ from datahub_lib.swagger_client.models.device_port import DevicePort
 from datahub_lib.swagger_client.models.device_request import DeviceRequest
 from datahub_lib.swagger_client.models.device_response import DeviceResponse
 from datahub_lib.swagger_client.models.device_response_list_response import DeviceResponseListResponse
+from datahub_lib.swagger_client.models.docker_details import DockerDetails
+from datahub_lib.swagger_client.models.docker_limited_details import DockerLimitedDetails
 from datahub_lib.swagger_client.models.extended_type_request import ExtendedTypeRequest
 from datahub_lib.swagger_client.models.extended_type_response import ExtendedTypeResponse
 from datahub_lib.swagger_client.models.extended_type_response_list_response import ExtendedTypeResponseListResponse
@@ -51,10 +55,13 @@ from datahub_lib.swagger_client.models.location import Location
 from datahub_lib.swagger_client.models.multi_polygon import MultiPolygon
 from datahub_lib.swagger_client.models.multi_polygon_all_of import MultiPolygonAllOf
 from datahub_lib.swagger_client.models.parameter import Parameter
+from datahub_lib.swagger_client.models.partner_driver_timeline import PartnerDriverTimeline
+from datahub_lib.swagger_client.models.partner_error import PartnerError
 from datahub_lib.swagger_client.models.partner_limited_response import PartnerLimitedResponse
 from datahub_lib.swagger_client.models.partner_limited_response_list_response import PartnerLimitedResponseListResponse
 from datahub_lib.swagger_client.models.partner_request import PartnerRequest
 from datahub_lib.swagger_client.models.partner_response import PartnerResponse
+from datahub_lib.swagger_client.models.partner_status import PartnerStatus
 from datahub_lib.swagger_client.models.permission import Permission
 from datahub_lib.swagger_client.models.pipeline_details import PipelineDetails
 from datahub_lib.swagger_client.models.pipeline_run import PipelineRun
@@ -83,3 +90,10 @@ from datahub_lib.swagger_client.models.sensor_response import SensorResponse
 from datahub_lib.swagger_client.models.sensor_response_list_response import SensorResponseListResponse
 from datahub_lib.swagger_client.models.telemetry_query_filter import TelemetryQueryFilter
 from datahub_lib.swagger_client.models.tsx import Tsx
+from datahub_lib.swagger_client.models.weather_data_location_request import WeatherDataLocationRequest
+from datahub_lib.swagger_client.models.weather_data_location_response import WeatherDataLocationResponse
+from datahub_lib.swagger_client.models.weather_data_location_response_list_response import WeatherDataLocationResponseListResponse
+from datahub_lib.swagger_client.models.weather_data_model_request import WeatherDataModelRequest
+from datahub_lib.swagger_client.models.weather_data_model_response import WeatherDataModelResponse
+from datahub_lib.swagger_client.models.weather_data_model_response_list_response import WeatherDataModelResponseListResponse
+from datahub_lib.swagger_client.models.weather_measure import WeatherMeasure

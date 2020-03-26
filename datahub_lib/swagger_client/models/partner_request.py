@@ -33,6 +33,8 @@ class PartnerRequest(object):
                             and the value is json key in definition.
     """
     openapi_types = {
+        'docker_details': 'DockerDetails',
+        'partner_credentials': 'dict(str, str)',
         'object_id': 'str',
         'tenant_id': 'str',
         'partner_type': 'str',
@@ -42,6 +44,8 @@ class PartnerRequest(object):
     }
 
     attribute_map = {
+        'docker_details': 'dockerDetails',
+        'partner_credentials': 'partnerCredentials',
         'object_id': 'objectId',
         'tenant_id': 'tenantId',
         'partner_type': 'partnerType',
@@ -50,12 +54,14 @@ class PartnerRequest(object):
         'properties': 'properties'
     }
 
-    def __init__(self, object_id=None, tenant_id=None, partner_type=None, name=None, description=None, properties=None, local_vars_configuration=None):  # noqa: E501
+    def __init__(self, docker_details=None, partner_credentials=None, object_id=None, tenant_id=None, partner_type=None, name=None, description=None, properties=None, local_vars_configuration=None):  # noqa: E501
         """PartnerRequest - a model defined in OpenAPI"""  # noqa: E501
         if local_vars_configuration is None:
             local_vars_configuration = Configuration()
         self.local_vars_configuration = local_vars_configuration
 
+        self._docker_details = None
+        self._partner_credentials = None
         self._object_id = None
         self._tenant_id = None
         self._partner_type = None
@@ -64,15 +70,64 @@ class PartnerRequest(object):
         self._properties = None
         self.discriminator = None
 
-        self.object_id = object_id
-        self.tenant_id = tenant_id
-        if partner_type is not None:
-            self.partner_type = partner_type
+        if docker_details is not None:
+            self.docker_details = docker_details
+        if partner_credentials is not None:
+            self.partner_credentials = partner_credentials
+        if object_id is not None:
+            self.object_id = object_id
+        if tenant_id is not None:
+            self.tenant_id = tenant_id
+        self.partner_type = partner_type
         self.name = name
         if description is not None:
             self.description = description
         if properties is not None:
             self.properties = properties
+
+    @property
+    def docker_details(self):
+        """Gets the docker_details of this PartnerRequest.  # noqa: E501
+
+
+        :return: The docker_details of this PartnerRequest.  # noqa: E501
+        :rtype: DockerDetails
+        """
+        return self._docker_details
+
+    @docker_details.setter
+    def docker_details(self, docker_details):
+        """Sets the docker_details of this PartnerRequest.
+
+
+        :param docker_details: The docker_details of this PartnerRequest.  # noqa: E501
+        :type: DockerDetails
+        """
+
+        self._docker_details = docker_details
+
+    @property
+    def partner_credentials(self):
+        """Gets the partner_credentials of this PartnerRequest.  # noqa: E501
+
+        Gets or sets credentials for calling partner API referred in docker.  # noqa: E501
+
+        :return: The partner_credentials of this PartnerRequest.  # noqa: E501
+        :rtype: dict(str, str)
+        """
+        return self._partner_credentials
+
+    @partner_credentials.setter
+    def partner_credentials(self, partner_credentials):
+        """Sets the partner_credentials of this PartnerRequest.
+
+        Gets or sets credentials for calling partner API referred in docker.  # noqa: E501
+
+        :param partner_credentials: The partner_credentials of this PartnerRequest.  # noqa: E501
+        :type: dict(str, str)
+        """
+
+        self._partner_credentials = partner_credentials
 
     @property
     def object_id(self):
@@ -94,8 +149,6 @@ class PartnerRequest(object):
         :param object_id: The object_id of this PartnerRequest.  # noqa: E501
         :type: str
         """
-        if self.local_vars_configuration.client_side_validation and object_id is None:  # noqa: E501
-            raise ValueError("Invalid value for `object_id`, must not be `None`")  # noqa: E501
         if (self.local_vars_configuration.client_side_validation and
                 object_id is not None and len(object_id) > 200):
             raise ValueError("Invalid value for `object_id`, length must be less than or equal to `200`")  # noqa: E501
@@ -125,8 +178,6 @@ class PartnerRequest(object):
         :param tenant_id: The tenant_id of this PartnerRequest.  # noqa: E501
         :type: str
         """
-        if self.local_vars_configuration.client_side_validation and tenant_id is None:  # noqa: E501
-            raise ValueError("Invalid value for `tenant_id`, must not be `None`")  # noqa: E501
         if (self.local_vars_configuration.client_side_validation and
                 tenant_id is not None and len(tenant_id) > 200):
             raise ValueError("Invalid value for `tenant_id`, length must be less than or equal to `200`")  # noqa: E501
@@ -140,7 +191,7 @@ class PartnerRequest(object):
     def partner_type(self):
         """Gets the partner_type of this PartnerRequest.  # noqa: E501
 
-        Gets or sets partnerType.  # noqa: E501
+        Gets or sets partner type.  # noqa: E501
 
         :return: The partner_type of this PartnerRequest.  # noqa: E501
         :rtype: str
@@ -151,11 +202,13 @@ class PartnerRequest(object):
     def partner_type(self, partner_type):
         """Sets the partner_type of this PartnerRequest.
 
-        Gets or sets partnerType.  # noqa: E501
+        Gets or sets partner type.  # noqa: E501
 
         :param partner_type: The partner_type of this PartnerRequest.  # noqa: E501
         :type: str
         """
+        if self.local_vars_configuration.client_side_validation and partner_type is None:  # noqa: E501
+            raise ValueError("Invalid value for `partner_type`, must not be `None`")  # noqa: E501
         allowed_values = ["Imagery", "Sensor", "Weather"]  # noqa: E501
         if self.local_vars_configuration.client_side_validation and partner_type not in allowed_values:  # noqa: E501
             raise ValueError(

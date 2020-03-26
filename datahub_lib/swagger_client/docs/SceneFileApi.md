@@ -201,7 +201,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **scene_file_get_all**
-> GetSceneFileResponseListResponse scene_file_get_all(types=types, content_types=content_types, scene_id=scene_id, generate_download_sas_url=generate_download_sas_url, names=names, ids=ids, partner_id=partner_id, min_created_at=min_created_at, max_created_at=max_created_at, min_last_modified_at=min_last_modified_at, max_last_modified_at=max_last_modified_at, property_filter=property_filter, max_items=max_items, x_ms_continuation=x_ms_continuation)
+> GetSceneFileResponseListResponse scene_file_get_all(types=types, content_types=content_types, scene_id=scene_id, generate_download_sas_url=generate_download_sas_url, names=names, includes=includes, ids=ids, partner_id=partner_id, min_created_at=min_created_at, max_created_at=max_created_at, min_last_modified_at=min_last_modified_at, max_last_modified_at=max_last_modified_at, property_filter=property_filter, max_items=max_items, x_ms_continuation=x_ms_continuation)
 
 Returns list of scene file.
 
@@ -233,6 +233,7 @@ content_types = ['content_types_example'] # list[str] | Gets or sets list of con
 scene_id = 'scene_id_example' # str | Gets or sets scene id of scene files. (optional)
 generate_download_sas_url = False # bool | Gets or sets a value indicating whether download SAS URLs need to be generated. (optional) (default to False)
 names = ['names_example'] # list[str] | Gets or sets list of names of scene files which is specified while creating a scene file. (optional)
+includes = ['includes_example'] # list[str] | Gets or sets list of properties to be included in SceneFileResponse. Default value is None. (optional)
 ids = ['ids_example'] # list[str] | Gets or sets ids of the resource. (optional)
 partner_id = 'partner_id_example' # str | Gets or sets id of the partner. (optional)
 min_created_at = '2013-10-20T19:20:30+01:00' # datetime | Gets or sets minimum creation date of resource (inclusive). (optional)
@@ -240,12 +241,12 @@ max_created_at = '2013-10-20T19:20:30+01:00' # datetime | Gets or sets maximum c
 min_last_modified_at = '2013-10-20T19:20:30+01:00' # datetime | Gets or sets minimum last modified date of resource (inclusive). (optional)
 max_last_modified_at = '2013-10-20T19:20:30+01:00' # datetime | Gets or sets maximum last modified date of resource (inclusive). (optional)
 property_filter = 'property_filter_example' # str | Gets or sets property filter query.eg. \"x.y.z eq 'somestringvalue' and p.q gt 5 and a eq false\".  Only AND operation is supported.  Supported Operators: EQ,NE,LE,LT,GT,GE,CONTAINS,NCONTAINS. (optional)
-max_items = 1500 # int | Gets or sets maximum number of items needed (inclusive).  Maximum items = 5000. (optional) (default to 1500)
+max_items = 50 # int | Gets or sets maximum number of items needed (inclusive).  Maximum items = 5000. (optional) (default to 50)
 x_ms_continuation = 'x_ms_continuation_example' # str | Gets or sets continuation token. (optional)
 
     try:
         # Returns list of scene file.
-        api_response = api_instance.scene_file_get_all(types=types, content_types=content_types, scene_id=scene_id, generate_download_sas_url=generate_download_sas_url, names=names, ids=ids, partner_id=partner_id, min_created_at=min_created_at, max_created_at=max_created_at, min_last_modified_at=min_last_modified_at, max_last_modified_at=max_last_modified_at, property_filter=property_filter, max_items=max_items, x_ms_continuation=x_ms_continuation)
+        api_response = api_instance.scene_file_get_all(types=types, content_types=content_types, scene_id=scene_id, generate_download_sas_url=generate_download_sas_url, names=names, includes=includes, ids=ids, partner_id=partner_id, min_created_at=min_created_at, max_created_at=max_created_at, min_last_modified_at=min_last_modified_at, max_last_modified_at=max_last_modified_at, property_filter=property_filter, max_items=max_items, x_ms_continuation=x_ms_continuation)
         pprint(api_response)
     except ApiException as e:
         print("Exception when calling SceneFileApi->scene_file_get_all: %s\n" % e)
@@ -260,6 +261,7 @@ Name | Type | Description  | Notes
  **scene_id** | **str**| Gets or sets scene id of scene files. | [optional] 
  **generate_download_sas_url** | **bool**| Gets or sets a value indicating whether download SAS URLs need to be generated. | [optional] [default to False]
  **names** | [**list[str]**](str.md)| Gets or sets list of names of scene files which is specified while creating a scene file. | [optional] 
+ **includes** | [**list[str]**](str.md)| Gets or sets list of properties to be included in SceneFileResponse. Default value is None. | [optional] 
  **ids** | [**list[str]**](str.md)| Gets or sets ids of the resource. | [optional] 
  **partner_id** | **str**| Gets or sets id of the partner. | [optional] 
  **min_created_at** | **datetime**| Gets or sets minimum creation date of resource (inclusive). | [optional] 
@@ -267,7 +269,7 @@ Name | Type | Description  | Notes
  **min_last_modified_at** | **datetime**| Gets or sets minimum last modified date of resource (inclusive). | [optional] 
  **max_last_modified_at** | **datetime**| Gets or sets maximum last modified date of resource (inclusive). | [optional] 
  **property_filter** | **str**| Gets or sets property filter query.eg. \&quot;x.y.z eq &#39;somestringvalue&#39; and p.q gt 5 and a eq false\&quot;.  Only AND operation is supported.  Supported Operators: EQ,NE,LE,LT,GT,GE,CONTAINS,NCONTAINS. | [optional] 
- **max_items** | **int**| Gets or sets maximum number of items needed (inclusive).  Maximum items &#x3D; 5000. | [optional] [default to 1500]
+ **max_items** | **int**| Gets or sets maximum number of items needed (inclusive).  Maximum items &#x3D; 5000. | [optional] [default to 50]
  **x_ms_continuation** | **str**| Gets or sets continuation token. | [optional] 
 
 ### Return type

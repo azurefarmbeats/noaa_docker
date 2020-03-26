@@ -34,6 +34,8 @@ class JobTypeResponse(object):
     """
     openapi_types = {
         'id': 'str',
+        'status': 'str',
+        'error_message': 'str',
         'created_at': 'datetime',
         'last_modified_at': 'datetime',
         'pipeline_details': 'PipelineDetails',
@@ -44,6 +46,8 @@ class JobTypeResponse(object):
 
     attribute_map = {
         'id': 'id',
+        'status': 'status',
+        'error_message': 'errorMessage',
         'created_at': 'createdAt',
         'last_modified_at': 'lastModifiedAt',
         'pipeline_details': 'pipelineDetails',
@@ -52,13 +56,15 @@ class JobTypeResponse(object):
         'properties': 'properties'
     }
 
-    def __init__(self, id=None, created_at=None, last_modified_at=None, pipeline_details=None, name=None, description=None, properties=None, local_vars_configuration=None):  # noqa: E501
+    def __init__(self, id=None, status=None, error_message=None, created_at=None, last_modified_at=None, pipeline_details=None, name=None, description=None, properties=None, local_vars_configuration=None):  # noqa: E501
         """JobTypeResponse - a model defined in OpenAPI"""  # noqa: E501
         if local_vars_configuration is None:
             local_vars_configuration = Configuration()
         self.local_vars_configuration = local_vars_configuration
 
         self._id = None
+        self._status = None
+        self._error_message = None
         self._created_at = None
         self._last_modified_at = None
         self._pipeline_details = None
@@ -69,11 +75,16 @@ class JobTypeResponse(object):
 
         if id is not None:
             self.id = id
+        if status is not None:
+            self.status = status
+        if error_message is not None:
+            self.error_message = error_message
         if created_at is not None:
             self.created_at = created_at
         if last_modified_at is not None:
             self.last_modified_at = last_modified_at
-        self.pipeline_details = pipeline_details
+        if pipeline_details is not None:
+            self.pipeline_details = pipeline_details
         self.name = name
         if description is not None:
             self.description = description
@@ -102,6 +113,58 @@ class JobTypeResponse(object):
         """
 
         self._id = id
+
+    @property
+    def status(self):
+        """Gets the status of this JobTypeResponse.  # noqa: E501
+
+        Gets or sets status of JobType.  This status represents whether or not corresponding ADF pipeline has been successfully created.  # noqa: E501
+
+        :return: The status of this JobTypeResponse.  # noqa: E501
+        :rtype: str
+        """
+        return self._status
+
+    @status.setter
+    def status(self, status):
+        """Sets the status of this JobTypeResponse.
+
+        Gets or sets status of JobType.  This status represents whether or not corresponding ADF pipeline has been successfully created.  # noqa: E501
+
+        :param status: The status of this JobTypeResponse.  # noqa: E501
+        :type: str
+        """
+        allowed_values = ["Waiting", "Provisioning", "Failed", "PendingRetry", "Ready", "Obsolete"]  # noqa: E501
+        if self.local_vars_configuration.client_side_validation and status not in allowed_values:  # noqa: E501
+            raise ValueError(
+                "Invalid value for `status` ({0}), must be one of {1}"  # noqa: E501
+                .format(status, allowed_values)
+            )
+
+        self._status = status
+
+    @property
+    def error_message(self):
+        """Gets the error_message of this JobTypeResponse.  # noqa: E501
+
+        Gets or sets error message.  Helps in debugging for the Partner JobTypes.  # noqa: E501
+
+        :return: The error_message of this JobTypeResponse.  # noqa: E501
+        :rtype: str
+        """
+        return self._error_message
+
+    @error_message.setter
+    def error_message(self, error_message):
+        """Sets the error_message of this JobTypeResponse.
+
+        Gets or sets error message.  Helps in debugging for the Partner JobTypes.  # noqa: E501
+
+        :param error_message: The error_message of this JobTypeResponse.  # noqa: E501
+        :type: str
+        """
+
+        self._error_message = error_message
 
     @property
     def created_at(self):
@@ -167,8 +230,6 @@ class JobTypeResponse(object):
         :param pipeline_details: The pipeline_details of this JobTypeResponse.  # noqa: E501
         :type: PipelineDetails
         """
-        if self.local_vars_configuration.client_side_validation and pipeline_details is None:  # noqa: E501
-            raise ValueError("Invalid value for `pipeline_details`, must not be `None`")  # noqa: E501
 
         self._pipeline_details = pipeline_details
 

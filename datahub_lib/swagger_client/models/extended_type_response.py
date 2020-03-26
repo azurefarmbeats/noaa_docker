@@ -166,7 +166,7 @@ class ExtendedTypeResponse(object):
         """
         if self.local_vars_configuration.client_side_validation and key is None:  # noqa: E501
             raise ValueError("Invalid value for `key`, must not be `None`")  # noqa: E501
-        allowed_values = ["SceneType", "SceneSource", "SceneFileContentType", "SceneFileType", "SensorMeasureType", "SensorMeasureUnit"]  # noqa: E501
+        allowed_values = ["SceneType", "SceneSource", "SceneFileContentType", "SceneFileType", "SensorMeasureType", "SensorMeasureUnit", "WeatherMeasureType", "WeatherMeasureUnit"]  # noqa: E501
         if self.local_vars_configuration.client_side_validation and key not in allowed_values:  # noqa: E501
             raise ValueError(
                 "Invalid value for `key` ({0}), must be one of {1}"  # noqa: E501

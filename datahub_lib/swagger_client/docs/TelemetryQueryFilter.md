@@ -3,7 +3,8 @@
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**sensor_id** | **str** |  | 
+**sensor_id** | **str** |  | [optional] 
+**weather_data_location_id** | **str** |  | [optional] 
 **search_span** | [**DateTimeRange**](DateTimeRange.md) |  | 
 **filter** | [**Tsx**](Tsx.md) |  | [optional] 
 **projected_properties** | **list[dict(str, str)]** |  | [optional] 

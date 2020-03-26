@@ -58,7 +58,8 @@ class JobTypeRequest(object):
         self._properties = None
         self.discriminator = None
 
-        self.pipeline_details = pipeline_details
+        if pipeline_details is not None:
+            self.pipeline_details = pipeline_details
         self.name = name
         if description is not None:
             self.description = description
@@ -83,8 +84,6 @@ class JobTypeRequest(object):
         :param pipeline_details: The pipeline_details of this JobTypeRequest.  # noqa: E501
         :type: PipelineDetails
         """
-        if self.local_vars_configuration.client_side_validation and pipeline_details is None:  # noqa: E501
-            raise ValueError("Invalid value for `pipeline_details`, must not be `None`")  # noqa: E501
 
         self._pipeline_details = pipeline_details
 

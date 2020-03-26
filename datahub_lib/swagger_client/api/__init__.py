@@ -19,3 +19,5 @@ from datahub_lib.swagger_client.api.scene_file_api import SceneFileApi
 from datahub_lib.swagger_client.api.sensor_api import SensorApi
 from datahub_lib.swagger_client.api.sensor_model_api import SensorModelApi
 from datahub_lib.swagger_client.api.telemetry_api import TelemetryApi
+from datahub_lib.swagger_client.api.weather_data_location_api import WeatherDataLocationApi
+from datahub_lib.swagger_client.api.weather_data_model_api import WeatherDataModelApi
