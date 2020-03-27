@@ -217,7 +217,7 @@ class GetWeatherForecastDataJob:
         '''
         returns the weather data model id, given the name
         '''
-        wsms = self.fb_api.get_weather_data_model_api().weather_data_model_get_all(names=[name]).to_dict()
+        wsms = self.fb_api.get_weather_data_model_api().weather_data_model_get_all(names=[name], includes=["WeatherMeasures", "Properties"]).to_dict()
         if (wsms):
             return wsms["items"][0]["id"]
         else:

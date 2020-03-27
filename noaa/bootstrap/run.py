@@ -85,7 +85,7 @@ class Bootstrap:
         Upserts the weather data models mentioned in the bootstrap_manifest
         '''
         # get the existing weather data models
-        existing_weather_data_models = self.fb_api.get_weather_data_model_api().weather_data_model_get_all().to_dict()
+        existing_weather_data_models = self.fb_api.get_weather_data_model_api().weather_data_model_get_all(includes=["WeatherMeasures", "Properties"]).to_dict()
         
         # get the weather data models to upsert
         partner_wsm_list = self.bootstrap_manifest[Bootstrap.ADD_WEATHER_DATA_MODELS]
@@ -112,7 +112,7 @@ class Bootstrap:
         Upserts the partner job types mentioned in the bootstrap_manifest
         '''
         # get the existing job types for this partner.
-        existing_partner_job_types = self.fb_api.get_job_type_api().job_type_get_all().to_dict()
+        existing_partner_job_types = self.fb_api.get_job_type_api().job_type_get_all(includes=["PipelineDetails", "Properties"]).to_dict()
 
         # get the job types to upsert
         partner_job_types = self.bootstrap_manifest[Bootstrap.ADD_JOB_TYPES]
