@@ -17,6 +17,7 @@ from datahub_lib.framework.fb_api import FarmbeatsApi
 from datahub_lib.conf.baseconfig import BaseConfig
 from datahub_lib.framework.job_status_writer import JobStatusWriter
 from datahub_lib.auth.partner_adf_helper import ExtendedPropertiesReader
+from datahub_lib.framework.job_error import JobError
 from noaa.jobs.utils import UtilFunctions
 
 
@@ -115,9 +116,10 @@ class GetWeatherDataJob:
             # Update the status in failure
             if FLAGS.job_status_blob_sas_url:
                 writer = JobStatusWriter(FLAGS.job_status_blob_sas_url)
-                writer.set_error('001', str(err), False)
                 writer.set_success(False)
                 writer.flush()
+                JobError.write_to_status_file(err, FLAGS.job_status_blob_sas_url)
+                raise JobError(str(err), '500', False)
 
 
     def get_weather_data(self, start_date, end_date, lat, lon):
