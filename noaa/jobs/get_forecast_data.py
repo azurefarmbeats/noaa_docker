@@ -94,18 +94,20 @@ class GetWeatherForecastDataJob:
 
             # push the data to eventhub
             LOG.info("Pushing data to eventhub")
-            self.__push_weather_data_to_farmbeats(filtered_weather_data)
+            wdl_id = self.__push_weather_data_to_farmbeats(filtered_weather_data)
             LOG.info("Successfully pushed data")
 
             # Update the status for the job
             if FLAGS.job_status_blob_sas_url:
-                msg = "Weather data pushed for start_date: {} to end_date: {}, for nearest_lat: {}, nearest_lon: {}; provided lat:{}, lon:{}".format(
+                msg = "Weather data pushed for start_date: {} to end_date: {}\n for nearest_lat: {}, nearest_lon: {}\n provided lat:{}, lon:{}".format(
                     FLAGS.start_date, FLAGS.end_date, nearest_lat, nearest_lon, FLAGS.latitude, FLAGS.longitude)
                 writer = JobStatusWriter(FLAGS.job_status_blob_sas_url)
                 output_writer = writer.get_output_writer()
-                output_writer.set_prop("msg", msg)
+                output_writer.set_prop("WeatherDataLocationId: ", wdl_id)
+                output_writer.set_prop("Message: ", msg)
                 writer.set_success(True)
                 writer.flush()
+
 
         except Exception as err:
             # Update the status in failure
@@ -124,6 +126,7 @@ class GetWeatherForecastDataJob:
         LOG.info("Weather data location id: {}".format(weather_data_location_id))
         loop = asyncio.get_event_loop()
         loop.run_until_complete(self.__send_to_eventhub(weather_data_location_id, weather_data))
+        return weather_data_location_id
 
 
     async def __send_to_eventhub(self, weather_data_location_id, weather_data):
@@ -204,7 +207,7 @@ class GetWeatherForecastDataJob:
         
         # doesn't exist - create weather data_location
         weather_data_location_payload = {}
-        weather_data_location_payload["name"] = "NOAA_job_generated_location_[" + str(FLAGS.latitude) + "," + str(FLAGS.longitude) + "]" 
+        weather_data_location_payload["name"] = "NOAA_GFS_job_generated_location_[" + str(FLAGS.latitude) + "," + str(FLAGS.longitude) + "]" 
         weather_data_location_payload["weatherDataModelId"] = data_model_id
         weather_data_location_payload["location"] = { "latitude": FLAGS.latitude, "longitude": FLAGS.longitude}
         if (FLAGS.farm_id):
