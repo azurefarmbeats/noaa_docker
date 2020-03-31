@@ -117,7 +117,7 @@ class GetWeatherForecastDataJob:
                 writer.set_success(False)
                 writer.flush()
                 JobError.write_to_status_file(err, FLAGS.job_status_blob_sas_url)
-                raise JobError(str(err), '500', False)
+            raise JobError(str(err), '500', False)
                 
 
 
