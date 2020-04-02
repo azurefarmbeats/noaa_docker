@@ -118,7 +118,6 @@ class GetWeatherDataJob:
                 writer = JobStatusWriter(FLAGS.job_status_blob_sas_url)
                 writer.set_success(False)
                 writer.flush()
-                JobError.write_to_status_file(err, FLAGS.job_status_blob_sas_url)
             raise JobError(str(err), '500', False)
 
 
@@ -241,9 +240,13 @@ class GetWeatherDataJob:
 
     
 def main(argv):
-    job = GetWeatherDataJob()
-    # get weather data
-    job.get_weather_data(start_date=FLAGS.start_date, end_date=FLAGS.end_date, lat=float(FLAGS.latitude), lon=float(FLAGS.longitude))
+    try:
+        job = GetWeatherDataJob()
+        # get weather data
+        job.get_weather_data(start_date=FLAGS.start_date, end_date=FLAGS.end_date, lat=float(FLAGS.latitude), lon=float(FLAGS.longitude))
+    except Exception as err:
+        if FLAGS.job_status_blob_sas_url:
+            JobError.write_to_status_file(err, FLAGS.job_status_blob_sas_url)
 
 
 if __name__ == '__main__':
