@@ -38,6 +38,6 @@ class JobError(RuntimeError):
         else:
             # Assume all unknown errors to be transient; err on the side of hope
             writer.set_error(JobError.INTERNAL_ERROR_SHORT,
-                             JobError.INTERNAL_ERROR,
+                             str(err),
                              is_transient=True)
         return writer.flush()
