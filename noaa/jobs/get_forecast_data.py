@@ -27,8 +27,8 @@ from noaa.jobs.utils import UtilFunctions
 
 # Parameters passed by user
 flags.DEFINE_string("farm_id", None, "This is optional and just for association")
-flags.DEFINE_string("start_date", None, "Start date")
-flags.DEFINE_string("end_date", None, "End date")
+flags.DEFINE_string("from", None, "Start date")
+flags.DEFINE_string("to", None, "End date")
 flags.DEFINE_float("latitude", None, "Latitude")
 flags.DEFINE_float("longitude", None, "Longitude")
 
@@ -101,7 +101,7 @@ class GetWeatherForecastDataJob:
             # Update the status for the job
             if FLAGS.job_status_blob_sas_url:
                 msg = "Weather data pushed for start_date: {} to end_date: {}\n for nearest_lat: {}, nearest_lon: {}\n provided lat:{}, lon:{}".format(
-                    FLAGS.start_date, FLAGS.end_date, nearest_lat, nearest_lon, FLAGS.latitude, FLAGS.longitude)
+                    FLAGS.from, FLAGS.to, nearest_lat, nearest_lon, FLAGS.latitude, FLAGS.longitude)
                 writer = JobStatusWriter(FLAGS.job_status_blob_sas_url)
                 output_writer = writer.get_output_writer()
                 output_writer.set_prop("WeatherDataLocationId: ", wdl_id)
@@ -234,8 +234,8 @@ class GetWeatherForecastDataJob:
         '''
         Gets the closest proximity weather data available for the given date range, 
         '''
-        start_date = parser.parse(FLAGS.start_date)
-        end_date = parser.parse(FLAGS.end_date)
+        start_date = parser.parse(FLAGS.from)
+        end_date = parser.parse(FLAGS.to)
         for day in UtilFunctions.daterange(start_date, end_date):
             self.__get_weather_forecast_data_for_day(day, lat, lon)
 
@@ -245,7 +245,7 @@ def main(argv):
     try:
         job = GetWeatherForecastDataJob()
         # get weather data
-        job.get_weather_forecast_data(start_date=FLAGS.start_date, end_date=FLAGS.end_date, lat=FLAGS.latitude, lon=FLAGS.longitude)
+        job.get_weather_forecast_data(start_date=FLAGS.from, end_date=FLAGS.end_date, lat=FLAGS.latitude, lon=FLAGS.longitude)
     except Exception as err:
         if FLAGS.job_status_blob_sas_url:
             JobError.write_to_status_file(err, FLAGS.job_status_blob_sas_url)
