@@ -1,4 +1,5 @@
 # System imports
+import sys
 from absl import app
 from absl import flags
 from datetime import datetime, timedelta
@@ -248,7 +249,11 @@ def main(argv):
         job.get_weather_forecast_data(start_date=FLAGS.start_date, end_date=FLAGS.end_date, lat=float(FLAGS.latitude), lon=float(FLAGS.longitude))
     except Exception as err:
         if FLAGS.job_status_blob_sas_url:
+            writer = JobStatusWriter(FLAGS.job_status_blob_sas_url)
+            writer.set_success(False)
+            writer.flush()
             JobError.write_to_status_file(err, FLAGS.job_status_blob_sas_url)
+            sys.exit(1)
 
 
 if __name__ == '__main__':
