@@ -245,7 +245,7 @@ def main(argv):
     try:
         job = GetWeatherForecastDataJob()
         # get weather data
-        job.get_weather_forecast_data(start_date=FLAGS.start_date, end_date=FLAGS.end_date, lat=FLAGS.latitude, lon=FLAGS.longitude)
+        job.get_weather_forecast_data(start_date=FLAGS.start_date, end_date=FLAGS.end_date, lat=float(FLAGS.latitude), lon=float(FLAGS.longitude))
     except Exception as err:
         if FLAGS.job_status_blob_sas_url:
             JobError.write_to_status_file(err, FLAGS.job_status_blob_sas_url)
