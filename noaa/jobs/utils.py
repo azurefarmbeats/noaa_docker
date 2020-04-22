@@ -15,7 +15,14 @@ class UtilFunctions:
     def __init__(self):
         pass
 
-    
+    @staticmethod
+    def validate_lat_lon(lat, lon):
+        '''
+        validates, if provided latitude and longitude are in range.
+        '''
+        if (lat > 180.0 or lat < -180.0 or lon > 180.0 or lon < -180.0):
+            raise JobError("Bad request: Please ensure that latitude/longitude are valid [-180, 180]", '400', False)
+
     @staticmethod
     def daterange(start_date, end_date):
         '''

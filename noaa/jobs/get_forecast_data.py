@@ -245,8 +245,11 @@ class GetWeatherForecastDataJob:
 def main(argv):
     try:
         job = GetWeatherForecastDataJob()
-        # get weather data
-        job.get_weather_forecast_data(start_date=FLAGS.start_date, end_date=FLAGS.end_date, lat=float(FLAGS.latitude), lon=float(FLAGS.longitude))
+        lat = float(FLAGS.latitude)
+        lon = float(FLAGS.longitude)
+        UtilFunctions.validate_lat_lon(lat, lon)
+        # get weather forecast data
+        job.get_weather_forecast_data(start_date=FLAGS.start_date, end_date=FLAGS.end_date, lat=lat, lon=lon)
     except Exception as err:
         if FLAGS.job_status_blob_sas_url:
             writer = JobStatusWriter(FLAGS.job_status_blob_sas_url)

@@ -243,6 +243,9 @@ class GetWeatherDataJob:
 def main(argv):
     try:
         job = GetWeatherDataJob()
+        lat = float(FLAGS.latitude)
+        lon = float(FLAGS.longitude)
+        UtilFunctions.validate_lat_lon(lat, lon)
         # get weather data
         job.get_weather_data(start_date=FLAGS.start_date, end_date=FLAGS.end_date, lat=float(FLAGS.latitude), lon=float(FLAGS.longitude))
     except Exception as err:
