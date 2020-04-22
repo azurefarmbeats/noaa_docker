@@ -13,6 +13,7 @@ RUN python3.5 -m pip install pip --upgrade
 RUN pip3 install absl-py==0.7.1
 RUN pip3 install azureml-opendatasets==1.0.81
 RUN pip3 install azure-eventhub==5.0.0
+RUN pip3 install azure-storage==0.36.0
 
 # Make some symlinksgit 
 RUN cd $(dirname $(which python)) \

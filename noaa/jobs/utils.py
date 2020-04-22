@@ -1,4 +1,5 @@
 from datetime import timedelta, date
+from datahub_lib.framework.job_error import JobError
 import math
 
 class UtilFunctions:
@@ -20,6 +21,9 @@ class UtilFunctions:
         '''
         Generator to give one day at a time.
         '''
+        if (start_date > end_date):
+            raise JobError("Bad request: Please ensure that start_date is prior to end_date", '400', False)
+    
         for n in range(int ((end_date - start_date).days) + 1):
             yield start_date + timedelta(n)
 
