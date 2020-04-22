@@ -56,7 +56,8 @@ class UtilFunctions:
         min_dist = UtilFunctions.INT_MAX
         closest_lat = UtilFunctions.INVALID_LAT_LON
         closest_lon = UtilFunctions.INVALID_LAT_LON
-        for _,row in weather_data_df.loc[:, ['latitude', 'longitude']].iterrows():
+        filtered_frame = weather_data_df.loc[:, ['latitude', 'longitude']].drop_duplicates() 
+        for _,row in filtered_frame.iterrows():
             dist = UtilFunctions.haversine_distance((lat, lon), (row['latitude'], row['longitude']))
             if (dist < min_dist):
                 min_dist = dist
