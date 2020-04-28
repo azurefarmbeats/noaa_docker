@@ -11,7 +11,6 @@ from azure.eventhub.aio import EventHubProducerClient
 from azure.eventhub import EventData
 from azureml.opendatasets import NoaaIsdWeather
 from datetime import datetime
-from datahub_lib.framework.logger import Logger
 
 # Local imports
 from datahub_lib.framework.fb_api import FarmbeatsApi
@@ -19,8 +18,9 @@ from datahub_lib.conf.baseconfig import BaseConfig
 from datahub_lib.framework.job_status_writer import JobStatusWriter
 from datahub_lib.auth.partner_adf_helper import ExtendedPropertiesReader
 from datahub_lib.framework.job_error import JobError
+from datahub_lib.framework.logger import Logger
 from noaa.jobs.utils import UtilFunctions
-
+from noaa.jobs.constants import JobConstants
 
 # Define flags used by this module.
 # NOTE: Add 'allow_override=True' if same flags are created in multiple modules with dependency
@@ -119,7 +119,7 @@ class GetWeatherDataJob:
                 writer = JobStatusWriter(FLAGS.job_status_blob_sas_url)
                 writer.set_success(False)
                 writer.flush()
-            raise JobError(str(err), '500', False)
+            raise JobError(str(err), JobConstants.INTERNAL_ERROR, False)
 
 
     def get_weather_data(self, start_date, end_date, lat, lon):
@@ -154,22 +154,14 @@ class GetWeatherDataJob:
         Converts the weather data from Pandas data frame to that expected by TSI
         '''
         msgs = []
-        msg = json.loads('''{
-                                    "weatherdatalocations": [
-                                        {
-                                        "id": "",
-                                        "weatherdata": []
-                                        }
-                                    ]
-                                }'''
-                        )
-        msg["weatherdatalocations"][0]["id"] = weather_data_location_id        
-        row_data = msg["weatherdatalocations"][0]["weatherdata"]
+        msg = json.loads(JobConstants.WEATHER_TELEMETRY_FORMAT)
+        msg[JobConstants.WEATHER_DATA_LOCATIONS][0][JobConstants.ID] = weather_data_location_id        
+        row_data = msg[JobConstants.WEATHER_DATA_LOCATIONS][0][JobConstants.WEATHER_DATA]
         # iterrows gives (index, row) tuples rather than just rows.
         # so, throwing away the index and just getting the row.
         for _,row in weather_data.iterrows():
             row_data.append(self.__get_eventhub_format(row))
-        msg["weatherdatalocations"][0]["weatherdata"] = row_data
+        msg[JobConstants.WEATHER_DATA_LOCATIONS][0][JobConstants.WEATHER_DATA] = row_data
         msgs.append(json.dumps(msg))
         return msgs
 
@@ -195,14 +187,13 @@ class GetWeatherDataJob:
         '''
         returns the weather data model id, given the name
         '''
-        wsms = self.fb_api.get_weather_data_model_api().weather_data_model_get_all(names=[name], includes=["WeatherMeasures", "Properties"]).to_dict()
+        wsms = self.fb_api.get_weather_data_model_api().weather_data_model_get_all(names=[name], includes=[JobConstants.WEATHER_MEASURES, JobConstants.PROPERTIES]).to_dict()
         if (wsms):
-            return wsms["items"][0]["id"]
+            return wsms[JobConstants.ITEMS][0][JobConstants.ID]
         else:
-            # RAISE ERROR
-            return "not_found"
+            raise JobError("weather data model {} not found!".format(wsms), JobConstants.INTERNAL_ERROR, False)
 
-
+            
     def __get_weather_data_location_id(self):
         '''
         checks if a weather data location already exists for the location, 
@@ -211,22 +202,22 @@ class GetWeatherDataJob:
         '''
         data_model_id = self.__get_weather_data_model_id(name=GetWeatherDataJob.WEATHER_DATA_MODEL_NAME)
         weather_data_locations = self.fb_api.get_weather_data_location_api().weather_data_location_get_all().to_dict()
-        for loc in weather_data_locations["items"]:
-            lat = loc["location"]["latitude"]
-            lon = loc["location"]["longitude"]
-            if (lat == float(FLAGS.latitude) and lon == float(FLAGS.longitude) and data_model_id == loc["weather_data_model_id"]):
+        for loc in weather_data_locations[JobConstants.ITEMS]:
+            lat = loc[JobConstants.LOCATION][JobConstants.LATITUDE]
+            lon = loc[JobConstants.LOCATION][JobConstants.LONGITUDE]
+            if (lat == float(FLAGS.latitude) and lon == float(FLAGS.longitude) and data_model_id == loc[JobConstants.WEATHER_DATA_MODEL_ID]):
                 # Found! - weather data location for the given location already exists
-                return loc["id"]
+                return loc[JobConstants.ID]
         
         # doesn't exist - create weather data_location
         weather_data_location_payload = {}
-        weather_data_location_payload["name"] = "NOAA_ISD_job_generated_location_[" + str(FLAGS.latitude) + "," + str(FLAGS.longitude) + "]" 
-        weather_data_location_payload["weatherDataModelId"] = data_model_id
-        weather_data_location_payload["location"] = { "latitude": FLAGS.latitude, "longitude": FLAGS.longitude}
+        weather_data_location_payload[JobConstants.NAME] = "NOAA_ISD_job_generated_location_[" + str(FLAGS.latitude) + "," + str(FLAGS.longitude) + "]" 
+        weather_data_location_payload[JobConstants.WEATHER_DATA_MODEL_ID_PAYLOAD] = data_model_id
+        weather_data_location_payload[JobConstants.LOCATION] = { JobConstants.LATITUDE: FLAGS.latitude, JobConstants.LONGITUDE: FLAGS.longitude}
         if (FLAGS.farm_id):
-            weather_data_location_payload["farmid"] = FLAGS.farm_id
+            weather_data_location_payload[JobConstants.FARM_ID] = FLAGS.farm_id
         res = self.fb_api.get_weather_data_location_api().weather_data_location_create(input=weather_data_location_payload).to_dict()
-        return res["id"]
+        return res[JobConstants.ID]
         
       
     def __push_weather_data_to_farmbeats(self, weather_data):
