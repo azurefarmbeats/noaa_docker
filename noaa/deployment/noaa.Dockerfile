@@ -33,5 +33,7 @@ ENV PYTHONPATH "${PYTHONPATH}:/usr/local/farmbeats"
 # Set the working directory
 WORKDIR /usr/local/farmbeats
 
-# Set bootstrap run as entrypoint
-ENTRYPOINT [ "python3", "/usr/local/farmbeats/noaa/bootstrap/run.py" ]
+# Default command, will be overwritten if something else is provided.
+ENV end_point "set_in_docker_run"
+ENV function_url "set_in_docker_run"
+CMD [ "/bin/bash", "-c", "python3 /usr/local/farmbeats/noaa/bootstrap/run.py ${end_point} ${function_url}" ]
