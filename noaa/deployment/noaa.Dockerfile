@@ -1,7 +1,7 @@
 # Run the docker build command at the farmbeats directory
 
 FROM ubuntu:16.04
-LABEL maintainer="abmallic@microsoft.com"
+
 # Install python
 RUN apt-get install -y python3.5
 # Get pip
@@ -33,3 +33,5 @@ ENV PYTHONPATH "${PYTHONPATH}:/usr/local/farmbeats"
 # Set the working directory
 WORKDIR /usr/local/farmbeats
 
+# Set bootstrap run as entrypoint
+ENTRYPOINT [ "python3", "/usr/local/farmbeats/noaa/bootstrap/run.py" ]
