@@ -36,4 +36,4 @@ WORKDIR /usr/local/farmbeats
 # Default command, will be overwritten if something else is provided.
 ENV datahub_endpoint "datahub_endpoint_to_be_passed_as_an_arg_to_bootstrap"
 ENV access_token_endpoint "get_access_token_az_function_url_to_be_passed_as_an_arg_to_bootstrap"
-CMD [ "/bin/bash", "-c", "python3 /usr/local/farmbeats/noaa/bootstrap/run.py ${datahub_endpoint} ${access_token_endpoint}" ]
+CMD [ "/bin/bash", "-c", "python3 /usr/local/farmbeats/noaa/bootstrap/run.py ${datahub_endpoint} ${access_token_url}" ]
