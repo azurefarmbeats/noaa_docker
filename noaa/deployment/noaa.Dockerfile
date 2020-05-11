@@ -34,6 +34,6 @@ ENV PYTHONPATH "${PYTHONPATH}:/usr/local/farmbeats"
 WORKDIR /usr/local/farmbeats
 
 # Default command, will be overwritten if something else is provided.
-ENV end_point "set_in_docker_run"
-ENV function_url "set_in_docker_run"
-CMD [ "/bin/bash", "-c", "python3 /usr/local/farmbeats/noaa/bootstrap/run.py ${end_point} ${function_url}" ]
+ENV datahub_endpoint "datahub_endpoint_to_be_passed_as_an_arg_to_bootstrap"
+ENV access_token_endpoint "get_access_token_az_function_url_to_be_passed_as_an_arg_to_bootstrap"
+CMD [ "/bin/bash", "-c", "python3 /usr/local/farmbeats/noaa/bootstrap/run.py ${datahub_endpoint} ${access_token_endpoint}" ]
