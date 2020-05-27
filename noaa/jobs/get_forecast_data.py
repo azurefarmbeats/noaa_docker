@@ -155,9 +155,9 @@ class GetWeatherForecastDataJob:
         '''
         output = {}  
         # get the timestamp
-        output["timestamp"] = row["currentDatetime"].isoformat()
         forecastTimestamp = row["currentDatetime"] + timedelta(hours=row["forecastHour"])
-        output["forecastedtimestamp"] = forecastTimestamp.isoformat()
+        output["timestamp"] = forecastTimestamp.isoformat()
+        output["forecastedtimestamp"] = row["currentDatetime"].isoformat()
         output["Precipitation"] = row["precipitableWaterEntireAtmosphere"]
         output["SeaLvlPressure"] = row["seaLvlPressure"]
         output["AmbientTemperature"] = row["temperature"]
@@ -181,6 +181,7 @@ class GetWeatherForecastDataJob:
         msg[JobConstants.WEATHER_DATA_LOCATIONS][0][JobConstants.WEATHER_DATA] = row_data
         LOG.info("Pushing to eventhub:\n{}".format(json.dumps(msg)))
         msgs.append(json.dumps(msg))
+        LOG.info("Event hub msg: {}".format(json.dumps(msg)))
         return msgs
 
 

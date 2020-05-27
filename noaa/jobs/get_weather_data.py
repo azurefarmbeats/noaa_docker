@@ -163,6 +163,7 @@ class GetWeatherDataJob:
             row_data.append(self.__get_eventhub_format(row))
         msg[JobConstants.WEATHER_DATA_LOCATIONS][0][JobConstants.WEATHER_DATA] = row_data
         msgs.append(json.dumps(msg))
+        LOG.info("Event hub msg: {}".format(json.dumps(msg)))
         return msgs
 
 
@@ -237,7 +238,7 @@ def main(argv):
         lat = float(FLAGS.latitude)
         lon = float(FLAGS.longitude)
         UtilFunctions.validate_lat_lon(lat, lon)
-        # get weather data
+        # get weather data 
         job.get_weather_data(start_date=FLAGS.start_date, end_date=FLAGS.end_date, lat=float(FLAGS.latitude), lon=float(FLAGS.longitude))
     except Exception as err:
         if FLAGS.job_status_blob_sas_url:
