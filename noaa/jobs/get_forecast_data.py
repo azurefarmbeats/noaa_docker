@@ -157,7 +157,7 @@ class GetWeatherForecastDataJob:
         # get the timestamp
         forecastTimestamp = row["currentDatetime"] + timedelta(hours=row["forecastHour"])
         output["timestamp"] = forecastTimestamp.isoformat()
-        output["forecastedtimestamp"] = row["currentDatetime"].isoformat()
+        output["predictiontimestamp"] = row["currentDatetime"].isoformat()
         output["Precipitation"] = row["precipitableWaterEntireAtmosphere"]
         output["SeaLvlPressure"] = row["seaLvlPressure"]
         output["AmbientTemperature"] = row["temperature"]
