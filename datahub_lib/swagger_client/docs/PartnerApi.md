@@ -140,7 +140,7 @@ void (empty response body)
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **partner_get**
-> PartnerResponse partner_get(id)
+> PartnerResponse partner_get(id, debug=debug)
 
 Returns partner for the given id.
 
@@ -166,10 +166,11 @@ with datahub_lib.swagger_client.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = datahub_lib.swagger_client.PartnerApi(api_client)
     id = 'id_example' # str | Id of the partner object.
+debug = True # bool | Flag indicating if debug info is required or not (Default: false). (optional)
 
     try:
         # Returns partner for the given id.
-        api_response = api_instance.partner_get(id)
+        api_response = api_instance.partner_get(id, debug=debug)
         pprint(api_response)
     except ApiException as e:
         print("Exception when calling PartnerApi->partner_get: %s\n" % e)
@@ -180,6 +181,7 @@ with datahub_lib.swagger_client.ApiClient(configuration) as api_client:
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **id** | **str**| Id of the partner object. | 
+ **debug** | **bool**| Flag indicating if debug info is required or not (Default: false). | [optional] 
 
 ### Return type
 
@@ -241,7 +243,7 @@ max_created_at = '2013-10-20T19:20:30+01:00' # datetime | Gets or sets maximum c
 min_last_modified_at = '2013-10-20T19:20:30+01:00' # datetime | Gets or sets minimum last modified date of resource (inclusive). (optional)
 max_last_modified_at = '2013-10-20T19:20:30+01:00' # datetime | Gets or sets maximum last modified date of resource (inclusive). (optional)
 property_filter = 'property_filter_example' # str | Gets or sets property filter query.eg. \"x.y.z eq 'somestringvalue' and p.q gt 5 and a eq false\".  Only AND operation is supported.  Supported Operators: EQ,NE,LE,LT,GT,GE,CONTAINS,NCONTAINS. (optional)
-max_items = 50 # int | Gets or sets maximum number of items needed (inclusive).  Maximum items = 5000. (optional) (default to 50)
+max_items = 50 # int | Gets or sets maximum number of items needed (inclusive).  Maximum items = 1000. (optional) (default to 50)
 x_ms_continuation = 'x_ms_continuation_example' # str | Gets or sets continuation token. (optional)
 
     try:
@@ -268,7 +270,7 @@ Name | Type | Description  | Notes
  **min_last_modified_at** | **datetime**| Gets or sets minimum last modified date of resource (inclusive). | [optional] 
  **max_last_modified_at** | **datetime**| Gets or sets maximum last modified date of resource (inclusive). | [optional] 
  **property_filter** | **str**| Gets or sets property filter query.eg. \&quot;x.y.z eq &#39;somestringvalue&#39; and p.q gt 5 and a eq false\&quot;.  Only AND operation is supported.  Supported Operators: EQ,NE,LE,LT,GT,GE,CONTAINS,NCONTAINS. | [optional] 
- **max_items** | **int**| Gets or sets maximum number of items needed (inclusive).  Maximum items &#x3D; 5000. | [optional] [default to 50]
+ **max_items** | **int**| Gets or sets maximum number of items needed (inclusive).  Maximum items &#x3D; 1000. | [optional] [default to 50]
  **x_ms_continuation** | **str**| Gets or sets continuation token. | [optional] 
 
 ### Return type

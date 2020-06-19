@@ -8,7 +8,9 @@ Name | Type | Description | Notes
 **docker_details** | [**DockerLimitedDetails**](DockerLimitedDetails.md) |  | [optional] 
 **created_at** | **datetime** | Gets or sets role assignment creation date. | [optional] 
 **last_modified_at** | **datetime** | Gets or sets role assignment last updated date. | [optional] 
-**partner_status** | [**PartnerStatus**](PartnerStatus.md) |  | [optional] 
+**debug_info** | [**list[PartnerDebugInfo]**](PartnerDebugInfo.md) | Gets or sets debug information if any. | [optional] 
+**status** | **str** | Gets or sets current Status of the Partner. | [optional] 
+**error** | **str** | Gets or sets details of errors while doing Partner operations. | [optional] 
 **object_id** | **str** | Gets or sets objectId of the partner. | [optional] 
 **tenant_id** | **str** | Gets or sets tenantId of the partner. | [optional] 
 **partner_type** | **str** | Gets or sets partner type. | 

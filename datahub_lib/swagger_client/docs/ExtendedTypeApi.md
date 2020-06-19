@@ -6,7 +6,7 @@ Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**extended_type_get**](ExtendedTypeApi.md#extended_type_get) | **GET** /ExtendedType/{id} | Returns extended type for the given id.
 [**extended_type_get_all**](ExtendedTypeApi.md#extended_type_get_all) | **GET** /ExtendedType | Returns a list of extended types.
-[**extended_type_update**](ExtendedTypeApi.md#extended_type_update) | **PUT** /ExtendedType/{id} | Updates existing extended type with given id. User should pass existing values plus required new values otherwise it will throw a BadRequest with HTTP status code 400.
+[**extended_type_update**](ExtendedTypeApi.md#extended_type_update) | **PUT** /ExtendedType/{id} | Updates existing extended type with given id. User should pass existing values plus required new values otherwise it will throw a BadRequest with HTTP status code 400.
 
 
 # **extended_type_get**
@@ -105,7 +105,7 @@ max_created_at = '2013-10-20T19:20:30+01:00' # datetime | Gets or sets maximum c
 min_last_modified_at = '2013-10-20T19:20:30+01:00' # datetime | Gets or sets minimum last modified date of resource (inclusive). (optional)
 max_last_modified_at = '2013-10-20T19:20:30+01:00' # datetime | Gets or sets maximum last modified date of resource (inclusive). (optional)
 property_filter = 'property_filter_example' # str | Gets or sets property filter query.eg. \"x.y.z eq 'somestringvalue' and p.q gt 5 and a eq false\".  Only AND operation is supported.  Supported Operators: EQ,NE,LE,LT,GT,GE,CONTAINS,NCONTAINS. (optional)
-max_items = 50 # int | Gets or sets maximum number of items needed (inclusive).  Maximum items = 5000. (optional) (default to 50)
+max_items = 50 # int | Gets or sets maximum number of items needed (inclusive).  Maximum items = 1000. (optional) (default to 50)
 x_ms_continuation = 'x_ms_continuation_example' # str | Gets or sets continuation token. (optional)
 
     try:
@@ -128,7 +128,7 @@ Name | Type | Description  | Notes
  **min_last_modified_at** | **datetime**| Gets or sets minimum last modified date of resource (inclusive). | [optional] 
  **max_last_modified_at** | **datetime**| Gets or sets maximum last modified date of resource (inclusive). | [optional] 
  **property_filter** | **str**| Gets or sets property filter query.eg. \&quot;x.y.z eq &#39;somestringvalue&#39; and p.q gt 5 and a eq false\&quot;.  Only AND operation is supported.  Supported Operators: EQ,NE,LE,LT,GT,GE,CONTAINS,NCONTAINS. | [optional] 
- **max_items** | **int**| Gets or sets maximum number of items needed (inclusive).  Maximum items &#x3D; 5000. | [optional] [default to 50]
+ **max_items** | **int**| Gets or sets maximum number of items needed (inclusive).  Maximum items &#x3D; 1000. | [optional] [default to 50]
  **x_ms_continuation** | **str**| Gets or sets continuation token. | [optional] 
 
 ### Return type
@@ -154,7 +154,7 @@ Name | Type | Description  | Notes
 # **extended_type_update**
 > extended_type_update(id, input=input)
 
-Updates existing extended type with given id. User should pass existing values plus required new values otherwise it will throw a BadRequest with HTTP status code 400.
+Updates existing extended type with given id. User should pass existing values plus required new values otherwise it will throw a BadRequest with HTTP status code 400.
 
 If user is trying to modified system define values, API will throw BadRequest with HTTP status code 400.
 
@@ -183,7 +183,7 @@ with datahub_lib.swagger_client.ApiClient(configuration) as api_client:
 input = datahub_lib.swagger_client.ExtendedTypeRequest() # ExtendedTypeRequest | extended type request object. (optional)
 
     try:
-        # Updates existing extended type with given id. User should pass existing values plus required new values otherwise it will throw a BadRequest with HTTP status code 400.
+        # Updates existing extended type with given id. User should pass existing values plus required new values otherwise it will throw a BadRequest with HTTP status code 400.
         api_instance.extended_type_update(id, input=input)
     except ApiException as e:
         print("Exception when calling ExtendedTypeApi->extended_type_update: %s\n" % e)

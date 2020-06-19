@@ -1,0 +1,25 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Python: Current File",
+            "type": "python",
+            "request": "launch",
+            "program": "${file}",
+            "console": "integratedTerminal",
+            "args": [
+                "--eventhub_connection_string=Endpoint=sb://sensor-partner-eh-namespace-di4b4.servicebus.windows.net/;SharedAccessKeyName=550713ec-fc5f-4081-bccb-03a020ad5652;SharedAccessKey=4fQJl7tQvnQnQnJ6ZmCz4HXeNLGhW0tkFDpNZM5fA0I=;EntityPath=sensor-partner-eh-04",
+                "--start_date=2020-01-01",
+                "--end_date=2020-01-02",
+                "--end_point=https://prabhavwed-api.azurewebsites.net",
+                "--eventhub_name=sensor-partner-eh-04",
+                "--latitude=23.1",
+                "--longitude=79",
+                "--get_access_token_url=https://prabtestwed-550713ec-partnermsiresource.azurewebsites.net/api/AccessToken?code=xfUfUaEOArqlWUcZCN/4byRtUHWwFxaPe1I2/1TuCCCA0BPuwQ2pLg==&datahubUrl=https://prabhavwed-api.azurewebsites.net"
+            ]
+        }
+    ]
+}

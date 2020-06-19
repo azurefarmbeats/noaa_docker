@@ -3,7 +3,7 @@
 """
     Azure FarmBeats API
 
-    <p> <p>Azure FarmBeats helps you build digital agricultural solutions in Azure. By providing a standardized schema to query agricultural data from various sources, Azure FarmBeats provides you: <ul >  <li style=\"margin: 7px;\">Ability to acquire, aggregate, process and store agricultural data.</li>  <li style=\"margin: 7px;\">Capability to fuse data between data sources and generate insights.</li>  <li style=\"margin: 7px;\">Schematized access and query capabilities on ingested data.</li> </ul> </p> <h><b>REST Operation Groups</b></h> <p><b>Farm:</b></p> <p>Farm corresponds to a physical location of interest within the system. Each Farm has a Farm name and a unique farm id.</p> <p><b>Device:</b></p> <p>Device corresponds to a physical device present in the farm. Each device has a unique device id. Device is typically provisioned to a farm with a farm id.</p> <p><b>DeviceModel:</b></p> <p>DeviceModel corresponds to the meta-data of the device such as the Manufacturer, Type of the device either Gateway or Node.</p> <p><b>Sensor:</b></p> <p>Sensor corresponds to a physical sensor that records values. A sensor is typically connected to a device with a device id.</p> </p> <p><b>SensorModel:</b></p> <p>SensorModel corresponds to the meta-data of the sensor such as the Manufacturer, Type of the sensor either Analog or Digital, Sensor Measure such as Ambient Temperature, Pressure etc.</p> <p><b>Telemetry:</b></p> <p>Telemetry provides the ability to read telemetry messages for a particular sensor & time range.</p> <p><b>Job:</b></p> <p>Job corresponds to any workflow of activities which are executed in the system to get a desired output. Each job is associated with a job id and job type.</p> <p><b>JobType:</b></p> <p>JobType corresponds to different job types supported by the system. This includes system defined & user-defined job types.</p> <p><b>ExtendedType:</b></p> <p>ExtendedType corresponds to the list of system & user-defined types in the system. This helps setup a new Sensor or Scene or Scenefile type in the system.</p> <p><b>Partner:</b></p> <p>Partner corresponds to the sensor/weather/imagery integration partner.</p> <p><b>Scene:</b></p> <p>Scene corresponds to any generated output in the context of a Farm. Each Scene has a scene id, scene source, scene type and farm id associated with it. Each scene id  can have multiple scene files associated with it.</p> <p><b>SceneFile:</b></p> <p>SceneFile corresponds to all files which are generated for single scene. A single scene id can have multiple SceneFile ids associated with it.</p> <p><b>Rule:</b></p> <p>Rule corresponds to a condition for farm-related data to trigger an alert. Each rule will be in the context of a farm's data.</p> <p><b>Alert:</b></p> <p>Alert corresponds to a notification which gets generated when a rule condition is met. Each alert will be in the context of a rule.</p> <p><b>RoleDefinition:</b></p> <p>RoleDefinition defines allowed and disallowed actions for a role.</p> <p><b>RoleAssignment:</b></p> <p>RoleAssignment corresponds to the assignment of a role to a user or a service principal.</p> </p>   # noqa: E501
+    <p>  <p>Azure FarmBeats helps you build digital agricultural solutions in Azure. By providing a standardized schema to query agricultural data from various sources, Azure FarmBeats provides you:  <ul >   <li style=\"margin: 7px;\">Ability to acquire, aggregate, process and store agricultural data.</li>   <li style=\"margin: 7px;\">Capability to fuse data between data sources and generate insights.</li>   <li style=\"margin: 7px;\">Schematized access and query capabilities on ingested data.</li>  </ul>  </p>  <h><b>REST Operation Groups</b></h>  <p><b>Farm:</b></p>  <p>Farm corresponds to a physical location of interest within the system. Each Farm has a Farm name and a unique farm id.</p>  <p><b>Device:</b></p>  <p>Device corresponds to a physical device present in the farm. Each device has a unique device id. Device is typically provisioned to a farm with a farm id.</p>  <p><b>DeviceModel:</b></p>  <p>DeviceModel corresponds to the meta-data of the device such as the Manufacturer, Type of the device either Gateway or Node.</p>  <p><b>Sensor:</b></p>  <p>Sensor corresponds to a physical sensor that records values. A sensor is typically connected to a device with a device id.</p>  </p>  <p><b>SensorModel:</b></p>  <p>SensorModel corresponds to the meta-data of the sensor such as the Manufacturer, Type of the sensor either Analog or Digital, Sensor Measure such as Ambient Temperature, Pressure etc.</p>  <p><b>Telemetry:</b></p>  <p>Telemetry provides the ability to read telemetry messages for a particular sensor & time range.</p>  <p><b>Job:</b></p>  <p>Job corresponds to any workflow of activities which are executed in the system to get a desired output. Each job is associated with a job id and job type.</p>  <p><b>JobType:</b></p>  <p>JobType corresponds to different job types supported by the system. This includes system defined & user-defined job types.</p>  <p><b>ExtendedType:</b></p>  <p>ExtendedType corresponds to the list of system & user-defined types in the system. This helps setup a new Sensor or Scene or Scenefile type in the system.</p>  <p><b>Partner:</b></p>  <p>Partner corresponds to the sensor/weather/imagery integration partner.</p>  <p><b>Scene:</b></p>  <p>Scene corresponds to any generated output in the context of a Farm. Each Scene has a scene id, scene source, scene type and farm id associated with it. Each scene id  can have multiple scene files associated with it.</p>  <p><b>SceneFile:</b></p>  <p>SceneFile corresponds to all files which are generated for single scene. A single scene id can have multiple SceneFile ids associated with it.</p>  <p><b>Rule:</b></p>  <p>Rule corresponds to a condition for farm-related data to trigger an alert. Each rule will be in the context of a farm's data.</p>  <p><b>Alert:</b></p>  <p>Alert corresponds to a notification which gets generated when a rule condition is met. Each alert will be in the context of a rule.</p>  <p><b>RoleDefinition:</b></p>  <p>RoleDefinition defines allowed and disallowed actions for a role.</p>  <p><b>RoleAssignment:</b></p>  <p>RoleAssignment corresponds to the assignment of a role to a user or a service principal.</p>  <p><b>WeatherDataModel:</b></p>  <p>WeatherDataModel corresponds to the metadata of the Weather Station such as name and weather measures such as Precipitation, Rainfall etc.</p>  <p><b>WeatherDataLocation:</b></p>  <p>WeatherDataLocation corresponds to the instance of Weather Station for a particular location (latitude/longitude).</p>  </p>    # noqa: E501
 
     The version of the OpenAPI document: v1
     Generated by: https://openapi-generator.tech
@@ -363,8 +363,6 @@ class WeatherDataLocationApi(object):
         :param list[str] names: Gets or sets list of names of weather data locations.
         :param list[str] farm_ids: Gets or sets list of Farm Ids.
         :param list[str] weather_data_model_ids: Gets or sets list of weather data models id's.
-        :param list[float] longitudes: Gets or sets list of longitude in location.
-        :param list[float] latitudes: Gets or sets list of latitude in location.
         :param list[str] includes: Gets or sets list of properties to be included in WeatherDataLocationResponse. Default value is None.
         :param list[str] ids: Gets or sets ids of the resource.
         :param str partner_id: Gets or sets id of the partner.
@@ -373,7 +371,7 @@ class WeatherDataLocationApi(object):
         :param datetime min_last_modified_at: Gets or sets minimum last modified date of resource (inclusive).
         :param datetime max_last_modified_at: Gets or sets maximum last modified date of resource (inclusive).
         :param str property_filter: Gets or sets property filter query.eg. \"x.y.z eq 'somestringvalue' and p.q gt 5 and a eq false\".  Only AND operation is supported.  Supported Operators: EQ,NE,LE,LT,GT,GE,CONTAINS,NCONTAINS.
-        :param int max_items: Gets or sets maximum number of items needed (inclusive).  Maximum items = 5000.
+        :param int max_items: Gets or sets maximum number of items needed (inclusive).  Maximum items = 1000.
         :param str x_ms_continuation: Gets or sets continuation token.
         :param _preload_content: if False, the urllib3.HTTPResponse object will
                                  be returned without reading/decoding response
@@ -402,8 +400,6 @@ class WeatherDataLocationApi(object):
         :param list[str] names: Gets or sets list of names of weather data locations.
         :param list[str] farm_ids: Gets or sets list of Farm Ids.
         :param list[str] weather_data_model_ids: Gets or sets list of weather data models id's.
-        :param list[float] longitudes: Gets or sets list of longitude in location.
-        :param list[float] latitudes: Gets or sets list of latitude in location.
         :param list[str] includes: Gets or sets list of properties to be included in WeatherDataLocationResponse. Default value is None.
         :param list[str] ids: Gets or sets ids of the resource.
         :param str partner_id: Gets or sets id of the partner.
@@ -412,7 +408,7 @@ class WeatherDataLocationApi(object):
         :param datetime min_last_modified_at: Gets or sets minimum last modified date of resource (inclusive).
         :param datetime max_last_modified_at: Gets or sets maximum last modified date of resource (inclusive).
         :param str property_filter: Gets or sets property filter query.eg. \"x.y.z eq 'somestringvalue' and p.q gt 5 and a eq false\".  Only AND operation is supported.  Supported Operators: EQ,NE,LE,LT,GT,GE,CONTAINS,NCONTAINS.
-        :param int max_items: Gets or sets maximum number of items needed (inclusive).  Maximum items = 5000.
+        :param int max_items: Gets or sets maximum number of items needed (inclusive).  Maximum items = 1000.
         :param str x_ms_continuation: Gets or sets continuation token.
         :param _return_http_data_only: response data without head status code
                                        and headers
@@ -430,7 +426,7 @@ class WeatherDataLocationApi(object):
 
         local_var_params = locals()
 
-        all_params = ['names', 'farm_ids', 'weather_data_model_ids', 'longitudes', 'latitudes', 'includes', 'ids', 'partner_id', 'min_created_at', 'max_created_at', 'min_last_modified_at', 'max_last_modified_at', 'property_filter', 'max_items', 'x_ms_continuation']  # noqa: E501
+        all_params = ['names', 'farm_ids', 'weather_data_model_ids', 'includes', 'ids', 'partner_id', 'min_created_at', 'max_created_at', 'min_last_modified_at', 'max_last_modified_at', 'property_filter', 'max_items', 'x_ms_continuation']  # noqa: E501
         all_params.append('async_req')
         all_params.append('_return_http_data_only')
         all_params.append('_preload_content')
@@ -463,12 +459,6 @@ class WeatherDataLocationApi(object):
         if 'weather_data_model_ids' in local_var_params and local_var_params['weather_data_model_ids'] is not None:  # noqa: E501
             query_params.append(('weatherDataModelIds', local_var_params['weather_data_model_ids']))  # noqa: E501
             collection_formats['weatherDataModelIds'] = 'multi'  # noqa: E501
-        if 'longitudes' in local_var_params and local_var_params['longitudes'] is not None:  # noqa: E501
-            query_params.append(('longitudes', local_var_params['longitudes']))  # noqa: E501
-            collection_formats['longitudes'] = 'multi'  # noqa: E501
-        if 'latitudes' in local_var_params and local_var_params['latitudes'] is not None:  # noqa: E501
-            query_params.append(('latitudes', local_var_params['latitudes']))  # noqa: E501
-            collection_formats['latitudes'] = 'multi'  # noqa: E501
         if 'includes' in local_var_params and local_var_params['includes'] is not None:  # noqa: E501
             query_params.append(('includes', local_var_params['includes']))  # noqa: E501
             collection_formats['includes'] = 'multi'  # noqa: E501

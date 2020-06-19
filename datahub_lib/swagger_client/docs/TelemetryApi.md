@@ -8,7 +8,7 @@ Method | HTTP request | Description
 
 
 # **telemetry_get_all**
-> QueryResultPage telemetry_get_all(query_filter=query_filter)
+> QueryResultPage telemetry_get_all(remove_duplicate_data=remove_duplicate_data, query_filter=query_filter)
 
 Returns list of telemetry messages.
 
@@ -35,11 +35,12 @@ configuration.host = "http://localhost"
 with datahub_lib.swagger_client.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = datahub_lib.swagger_client.TelemetryApi(api_client)
-    query_filter = datahub_lib.swagger_client.TelemetryQueryFilter() # TelemetryQueryFilter | Telemetry query filter object. (optional)
+    remove_duplicate_data = True # bool | Flag to remove duplicate Telemetry data. Applicable only for weather data. (optional)
+query_filter = datahub_lib.swagger_client.TelemetryQueryFilter() # TelemetryQueryFilter | Telemetry query filter object. (optional)
 
     try:
         # Returns list of telemetry messages.
-        api_response = api_instance.telemetry_get_all(query_filter=query_filter)
+        api_response = api_instance.telemetry_get_all(remove_duplicate_data=remove_duplicate_data, query_filter=query_filter)
         pprint(api_response)
     except ApiException as e:
         print("Exception when calling TelemetryApi->telemetry_get_all: %s\n" % e)
@@ -49,6 +50,7 @@ with datahub_lib.swagger_client.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
+ **remove_duplicate_data** | **bool**| Flag to remove duplicate Telemetry data. Applicable only for weather data. | [optional] 
  **query_filter** | [**TelemetryQueryFilter**](TelemetryQueryFilter.md)| Telemetry query filter object. | [optional] 
 
 ### Return type
