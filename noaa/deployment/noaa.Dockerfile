@@ -11,7 +11,7 @@ RUN apt-get install -y python3-pip
 RUN python3.5 -m pip install pip --upgrade
 # Install dependency packages
 RUN pip3 install absl-py==0.7.1
-RUN pip3 install azureml-opendatasets==1.0.81
+RUN pip3 install azureml-opendatasets==0.1.0.13590794 --extra-index-url https://azuremlsdktestpypi.azureedge.net/CLI-SDK-Runners-Validation/13590794/
 RUN pip3 install azure-eventhub==5.0.0
 RUN pip3 install azure-storage==0.36.0
 

@@ -9,7 +9,7 @@ import asyncio
 import json
 from azure.eventhub.aio import EventHubProducerClient
 from azure.eventhub import EventData
-from azureml.opendatasets import NoaaGfsWeather
+from azureml.opendatasets import NoaaGfsWeatherV2
 from datahub_lib.framework.logger import Logger
 import time
 
@@ -76,7 +76,11 @@ class GetWeatherForecastDataJob:
             # get data for given date range.
             start_time = time.time()
             LOG.info("Getting data for " + day.strftime("%m/%d/%Y, %H:%M:%S"))
-            weather_data = NoaaGfsWeather(day, day)
+            min_lat = min(lat - 1, -90)
+            max_lat = max(lat + 1, 90)
+            min_lon = min(lon - 1, -180)
+            max_lon = max(lon + 1, 180)
+            weather_data = NoaaGfsWeatherV2(start_date=day, end_date=day, min_latitude=min_lat, max_latitude=max_lat, min_longitude=min_lon, max_longitude=max_lon)
             LOG.info("Successfully got data for " + day.strftime("%m/%d/%Y, %H:%M:%S"))
             
 
